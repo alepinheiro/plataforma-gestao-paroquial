@@ -1,0 +1,234 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../shared/types/generated/prisma"
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum CoupleRole {
+  COORDINATOR
+  VICE_COORDINATOR
+  SPIRITUAL_ASSISTANT
+  LITURGY
+  PUBLIC_RELATIONS
+  SECRETARY
+  SUPPORT
+  KITCHEN
+  MEMBER
+}
+
+enum DataAccessEntity {
+  PROFILE
+  USER
+  COUPLE
+  PARISH
+  ARCHDIOCESE
+  DATA_ACCESS_LOG
+}
+
+enum DataAccessAction {
+  CREATE
+  READ
+  UPDATE
+  DELETE
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ARCHDIOCESE_ADMIN
+  PARISH_ADMIN
+  COUPLE_COORDINATOR
+  MEMBER
+}
+
+/// Representa uma arquidiocese / área
+model Archdiocese {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  name        String           @unique
+  parishes    Parish[]
+  roles       RoleAssignment[]
+  permissions Permission[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("archdioceses")
+}
+
+type Address {
+  postalCode   String
+  street       String
+  number       String
+  complement   String?
+  neighborhood String
+  city         String
+  state        String
+  country      String
+}
+
+/// Representa uma paróquia
+model Parish {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  address       Address
+  archdiocese   Archdiocese @relation(fields: [archdioceseId], references: [id])
+  archdioceseId String      @db.ObjectId
+
+  couples     Couple[]
+  roles       RoleAssignment[]
+  permissions Permission[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, archdioceseId])
+  @@map("parishes")
+}
+
+/// Representa um casal do movimento
+model Couple {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  member1      Profile  @relation("CoupleMember1", fields: [member1Id], references: [id])
+  member1Id    String   @db.ObjectId
+  member2      Profile  @relation("CoupleMember2", fields: [member2Id], references: [id])
+  member2Id    String   @db.ObjectId
+  godparent1   Profile? @relation("CoupleGodparent1", fields: [godparent1Id], references: [id])
+  godparent1Id String?  @db.ObjectId
+  godparent2   Profile? @relation("CoupleGodparent2", fields: [godparent2Id], references: [id])
+  godparent2Id String?  @db.ObjectId
+  marriageDate DateTime
+  parish       Parish   @relation(fields: [parishId], references: [id])
+  parishId     String   @db.ObjectId
+
+  roles       RoleAssignment[]
+  permissions Permission[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([member1Id, member2Id])
+  @@map("couples")
+}
+
+/// Representa uma pessoa do casal
+model Profile {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  address   Address
+  gender    Gender
+  birthDate DateTime
+  phone     String
+  email     String   @unique
+  photo     String?
+  instagram String?
+  facebook  String?
+
+  user User?
+
+  coupleAsMember1    Couple[] @relation("CoupleMember1")
+  coupleAsMember2    Couple[] @relation("CoupleMember2")
+  coupleAsGodparent1 Couple[] @relation("CoupleGodparent1")
+  coupleAsGodparent2 Couple[] @relation("CoupleGodparent2")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("profiles")
+}
+
+/// Representa um usuário do sistema
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  role      UserRole @default(MEMBER)
+  isActive  Boolean  @default(true)
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  profileId String   @unique @db.ObjectId
+
+  permissions    Permission[]
+  dataAccessLogs DataAccessLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+/// Generic role assignment for Couples in Archdioceses or Parishes
+model RoleAssignment {
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  role     CoupleRole
+  couple   Couple     @relation(fields: [coupleId], references: [id])
+  coupleId String     @db.ObjectId
+
+  archdiocese   Archdiocese? @relation(fields: [archdioceseId], references: [id])
+  archdioceseId String?      @db.ObjectId
+  parish        Parish?      @relation(fields: [parishId], references: [id])
+  parishId      String?      @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([coupleId, archdioceseId, parishId, role])
+  @@map("role_assignments")
+}
+
+/// Represents permissions for users within specific contexts
+model Permission {
+  id     String           @id @default(auto()) @map("_id") @db.ObjectId
+  user   User             @relation(fields: [userId], references: [id])
+  userId String           @db.ObjectId
+  entity DataAccessEntity
+  action DataAccessAction
+
+  archdiocese   Archdiocese? @relation(fields: [archdioceseId], references: [id])
+  archdioceseId String?      @db.ObjectId
+  parish        Parish?      @relation(fields: [parishId], references: [id])
+  parishId      String?      @db.ObjectId
+  couple        Couple?      @relation(fields: [coupleId], references: [id])
+  coupleId      String?      @db.ObjectId
+
+  resourceId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, entity, action, archdioceseId, parishId, coupleId, resourceId])
+  @@map("permissions")
+}
+
+/// Enhanced audit log for tracking all data access operations
+model DataAccessLog {
+  id       String           @id @default(auto()) @map("_id") @db.ObjectId
+  entity   DataAccessEntity
+  entityId String
+  action   DataAccessAction
+  user     User?            @relation(fields: [userId], references: [id])
+  userId   String?          @db.ObjectId
+
+  ipAddress    String?
+  userAgent    String?
+  success      Boolean @default(true)
+  errorMessage String?
+
+  requestData  Json?
+  responseData Json?
+
+  timestamp DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([entity, entityId])
+  @@index([userId, timestamp])
+  @@index([timestamp])
+  @@map("data_access_logs")
+}
