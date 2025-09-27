@@ -49,6 +49,19 @@ enum UserRole {
     MEMBER
 }
 
+enum InvitationStatus {
+    PENDING
+    ACCEPTED
+    DECLINED
+    EXPIRED
+}
+
+enum ApprovalStatus {
+    PENDING
+    APPROVED
+    REJECTED
+}
+
 /// Representa uma arquidiocese / área
 model Archdiocese {
     id          String           @id @default(auto()) @map("_id") @db.ObjectId
@@ -59,8 +72,6 @@ model Archdiocese {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    @@map("archdioceses")
 }
 
 type Address {
@@ -90,7 +101,6 @@ model Parish {
     updatedAt DateTime @updatedAt
 
     @@unique([name, archdioceseId])
-    @@map("parishes")
 }
 
 /// Representa um casal do movimento
@@ -108,14 +118,15 @@ model Couple {
     parish       Parish   @relation(fields: [parishId], references: [id])
     parishId     String   @db.ObjectId
 
-    roles       RoleAssignment[]
-    permissions Permission[]
+    roles          RoleAssignment[]
+    permissions    Permission[]
+    approvalStatus ApprovalStatus   @default(PENDING)
+    invitations    Invitation[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
     @@unique([member1Id, member2Id])
-    @@map("couples")
 }
 
 /// Representa uma pessoa do casal
@@ -133,15 +144,15 @@ model Profile {
 
     user User?
 
-    coupleAsMember1    Couple[] @relation("CoupleMember1")
-    coupleAsMember2    Couple[] @relation("CoupleMember2")
-    coupleAsGodparent1 Couple[] @relation("CoupleGodparent1")
-    coupleAsGodparent2 Couple[] @relation("CoupleGodparent2")
+    coupleAsMember1     Couple[]     @relation("CoupleMember1")
+    coupleAsMember2     Couple[]     @relation("CoupleMember2")
+    coupleAsGodparent1  Couple[]     @relation("CoupleGodparent1")
+    coupleAsGodparent2  Couple[]     @relation("CoupleGodparent2")
+    sentInvitations     Invitation[] @relation("InviterRelation")
+    receivedInvitations Invitation[] @relation("InviteeRelation")
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    @@map("profiles")
 }
 
 /// Representa um usuário do sistema
@@ -155,12 +166,10 @@ model User {
     profileId String   @unique @db.ObjectId
 
     permissions    Permission[]
-    dataAccessLogs DataAccessLog[]
+    approvalStatus ApprovalStatus @default(PENDING)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    @@map("users")
 }
 
 /// Generic role assignment for Couples in Archdioceses or Parishes
@@ -179,7 +188,6 @@ model RoleAssignment {
     updatedAt DateTime @updatedAt
 
     @@unique([coupleId, archdioceseId, parishId, role])
-    @@map("role_assignments")
 }
 
 /// Represents permissions for users within specific contexts
@@ -203,32 +211,21 @@ model Permission {
     updatedAt DateTime @updatedAt
 
     @@unique([userId, entity, action, archdioceseId, parishId, coupleId, resourceId])
-    @@map("permissions")
 }
 
-/// Enhanced audit log for tracking all data access operations
-model DataAccessLog {
-    id       String           @id @default(auto()) @map("_id") @db.ObjectId
-    entity   DataAccessEntity
-    entityId String
-    action   DataAccessAction
-    user     User?            @relation(fields: [userId], references: [id])
-    userId   String?          @db.ObjectId
+/// Representa um convite feito por padrinhos
+model Invitation {
+    id        String           @id @default(auto()) @map("_id") @db.ObjectId
+    inviter   Profile          @relation("InviterRelation", fields: [inviterId], references: [id])
+    inviterId String           @db.ObjectId
+    invitee   Profile          @relation("InviteeRelation", fields: [inviteeId], references: [id])
+    inviteeId String           @db.ObjectId
+    couple    Couple?          @relation(fields: [coupleId], references: [id])
+    coupleId  String?          @db.ObjectId
+    status    InvitationStatus @default(PENDING)
 
-    ipAddress    String?
-    userAgent    String?
-    success      Boolean @default(true)
-    errorMessage String?
-
-    requestData  Json?
-    responseData Json?
-
-    timestamp DateTime @default(now())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    @@index([entity, entityId])
-    @@index([userId, timestamp])
-    @@index([timestamp])
-    @@map("data_access_logs")
+    @@unique([inviterId, inviteeId, coupleId])
 }

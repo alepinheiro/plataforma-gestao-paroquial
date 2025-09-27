@@ -60,25 +60,25 @@ import {
 const items = reactive([
   {
     title: 'Casais',
-    url: '/',
+    url: '/couple',
     icon: Home,
     component: 'NuxtLink',
   },
   {
     title: 'Irmãos',
-    url: '/',
+    url: '/profile',
     icon: Inbox,
     component: 'NuxtLink',
   },
   {
     title: 'Paróquias',
-    url: '/',
+    url: '/parish',
     icon: Calendar,
     component: 'NuxtLink',
   },
   {
     title: 'Área',
-    url: '#',
+    url: '/area',
     icon: Search,
     component: 'NuxtLink',
   },
@@ -87,7 +87,7 @@ const items = reactive([
 
 items.push({
   title: 'Sair',
-  url: '/login',
+  url: '/',
   icon: DoorOpen,
   component: 'NuxtLink',
 });

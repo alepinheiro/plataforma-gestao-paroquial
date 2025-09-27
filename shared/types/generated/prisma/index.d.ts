@@ -54,10 +54,10 @@ export type RoleAssignment = $Result.DefaultSelection<Prisma.$RoleAssignmentPayl
  */
 export type Permission = $Result.DefaultSelection<Prisma.$PermissionPayload>
 /**
- * Model DataAccessLog
- * Enhanced audit log for tracking all data access operations
+ * Model Invitation
+ * Representa um convite feito por padrinhos
  */
-export type DataAccessLog = $Result.DefaultSelection<Prisma.$DataAccessLogPayload>
+export type Invitation = $Result.DefaultSelection<Prisma.$InvitationPayload>
 
 /**
  * Enums
@@ -118,6 +118,25 @@ export const UserRole: {
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
+
+export const InvitationStatus: {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  DECLINED: 'DECLINED',
+  EXPIRED: 'EXPIRED'
+};
+
+export type InvitationStatus = (typeof InvitationStatus)[keyof typeof InvitationStatus]
+
+
+export const ApprovalStatus: {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
+export type ApprovalStatus = (typeof ApprovalStatus)[keyof typeof ApprovalStatus]
+
 }
 
 export type Gender = $Enums.Gender
@@ -139,6 +158,14 @@ export const DataAccessAction: typeof $Enums.DataAccessAction
 export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
+
+export type InvitationStatus = $Enums.InvitationStatus
+
+export const InvitationStatus: typeof $Enums.InvitationStatus
+
+export type ApprovalStatus = $Enums.ApprovalStatus
+
+export const ApprovalStatus: typeof $Enums.ApprovalStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -296,14 +323,14 @@ export class PrismaClient<
   get permission(): Prisma.PermissionDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.dataAccessLog`: Exposes CRUD operations for the **DataAccessLog** model.
+   * `prisma.invitation`: Exposes CRUD operations for the **Invitation** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more DataAccessLogs
-    * const dataAccessLogs = await prisma.dataAccessLog.findMany()
+    * // Fetch zero or more Invitations
+    * const invitations = await prisma.invitation.findMany()
     * ```
     */
-  get dataAccessLog(): Prisma.DataAccessLogDelegate<ExtArgs, ClientOptions>;
+  get invitation(): Prisma.InvitationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -751,7 +778,7 @@ export namespace Prisma {
     User: 'User',
     RoleAssignment: 'RoleAssignment',
     Permission: 'Permission',
-    DataAccessLog: 'DataAccessLog'
+    Invitation: 'Invitation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -770,7 +797,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "archdiocese" | "parish" | "couple" | "profile" | "user" | "roleAssignment" | "permission" | "dataAccessLog"
+      modelProps: "archdiocese" | "parish" | "couple" | "profile" | "user" | "roleAssignment" | "permission" | "invitation"
       txIsolationLevel: never
     }
     model: {
@@ -1292,77 +1319,77 @@ export namespace Prisma {
           }
         }
       }
-      DataAccessLog: {
-        payload: Prisma.$DataAccessLogPayload<ExtArgs>
-        fields: Prisma.DataAccessLogFieldRefs
+      Invitation: {
+        payload: Prisma.$InvitationPayload<ExtArgs>
+        fields: Prisma.InvitationFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.DataAccessLogFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DataAccessLogPayload> | null
+            args: Prisma.InvitationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.DataAccessLogFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DataAccessLogPayload>
+            args: Prisma.InvitationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>
           }
           findFirst: {
-            args: Prisma.DataAccessLogFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DataAccessLogPayload> | null
+            args: Prisma.InvitationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.DataAccessLogFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DataAccessLogPayload>
+            args: Prisma.InvitationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>
           }
           findMany: {
-            args: Prisma.DataAccessLogFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DataAccessLogPayload>[]
+            args: Prisma.InvitationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>[]
           }
           create: {
-            args: Prisma.DataAccessLogCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DataAccessLogPayload>
+            args: Prisma.InvitationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>
           }
           createMany: {
-            args: Prisma.DataAccessLogCreateManyArgs<ExtArgs>
+            args: Prisma.InvitationCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           delete: {
-            args: Prisma.DataAccessLogDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DataAccessLogPayload>
+            args: Prisma.InvitationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>
           }
           update: {
-            args: Prisma.DataAccessLogUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DataAccessLogPayload>
+            args: Prisma.InvitationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>
           }
           deleteMany: {
-            args: Prisma.DataAccessLogDeleteManyArgs<ExtArgs>
+            args: Prisma.InvitationDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.DataAccessLogUpdateManyArgs<ExtArgs>
+            args: Prisma.InvitationUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           upsert: {
-            args: Prisma.DataAccessLogUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DataAccessLogPayload>
+            args: Prisma.InvitationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>
           }
           aggregate: {
-            args: Prisma.DataAccessLogAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateDataAccessLog>
+            args: Prisma.InvitationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInvitation>
           }
           groupBy: {
-            args: Prisma.DataAccessLogGroupByArgs<ExtArgs>
-            result: $Utils.Optional<DataAccessLogGroupByOutputType>[]
+            args: Prisma.InvitationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InvitationGroupByOutputType>[]
           }
           findRaw: {
-            args: Prisma.DataAccessLogFindRawArgs<ExtArgs>
+            args: Prisma.InvitationFindRawArgs<ExtArgs>
             result: JsonObject
           }
           aggregateRaw: {
-            args: Prisma.DataAccessLogAggregateRawArgs<ExtArgs>
+            args: Prisma.InvitationAggregateRawArgs<ExtArgs>
             result: JsonObject
           }
           count: {
-            args: Prisma.DataAccessLogCountArgs<ExtArgs>
-            result: $Utils.Optional<DataAccessLogCountAggregateOutputType> | number
+            args: Prisma.InvitationCountArgs<ExtArgs>
+            result: $Utils.Optional<InvitationCountAggregateOutputType> | number
           }
         }
       }
@@ -1452,7 +1479,7 @@ export namespace Prisma {
     user?: UserOmit
     roleAssignment?: RoleAssignmentOmit
     permission?: PermissionOmit
-    dataAccessLog?: DataAccessLogOmit
+    invitation?: InvitationOmit
   }
 
   /* Types for Logging */
@@ -1633,11 +1660,13 @@ export namespace Prisma {
   export type CoupleCountOutputType = {
     roles: number
     permissions: number
+    invitations: number
   }
 
   export type CoupleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     roles?: boolean | CoupleCountOutputTypeCountRolesArgs
     permissions?: boolean | CoupleCountOutputTypeCountPermissionsArgs
+    invitations?: boolean | CoupleCountOutputTypeCountInvitationsArgs
   }
 
   // Custom InputTypes
@@ -1665,6 +1694,13 @@ export namespace Prisma {
     where?: PermissionWhereInput
   }
 
+  /**
+   * CoupleCountOutputType without action
+   */
+  export type CoupleCountOutputTypeCountInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvitationWhereInput
+  }
+
 
   /**
    * Count Type ProfileCountOutputType
@@ -1675,6 +1711,8 @@ export namespace Prisma {
     coupleAsMember2: number
     coupleAsGodparent1: number
     coupleAsGodparent2: number
+    sentInvitations: number
+    receivedInvitations: number
   }
 
   export type ProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1682,6 +1720,8 @@ export namespace Prisma {
     coupleAsMember2?: boolean | ProfileCountOutputTypeCountCoupleAsMember2Args
     coupleAsGodparent1?: boolean | ProfileCountOutputTypeCountCoupleAsGodparent1Args
     coupleAsGodparent2?: boolean | ProfileCountOutputTypeCountCoupleAsGodparent2Args
+    sentInvitations?: boolean | ProfileCountOutputTypeCountSentInvitationsArgs
+    receivedInvitations?: boolean | ProfileCountOutputTypeCountReceivedInvitationsArgs
   }
 
   // Custom InputTypes
@@ -1723,6 +1763,20 @@ export namespace Prisma {
     where?: CoupleWhereInput
   }
 
+  /**
+   * ProfileCountOutputType without action
+   */
+  export type ProfileCountOutputTypeCountSentInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvitationWhereInput
+  }
+
+  /**
+   * ProfileCountOutputType without action
+   */
+  export type ProfileCountOutputTypeCountReceivedInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvitationWhereInput
+  }
+
 
   /**
    * Count Type UserCountOutputType
@@ -1730,12 +1784,10 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     permissions: number
-    dataAccessLogs: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     permissions?: boolean | UserCountOutputTypeCountPermissionsArgs
-    dataAccessLogs?: boolean | UserCountOutputTypeCountDataAccessLogsArgs
   }
 
   // Custom InputTypes
@@ -1754,13 +1806,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PermissionWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountDataAccessLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DataAccessLogWhereInput
   }
 
 
@@ -3991,6 +4036,7 @@ export namespace Prisma {
     godparent2Id: string | null
     marriageDate: Date | null
     parishId: string | null
+    approvalStatus: $Enums.ApprovalStatus | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4003,6 +4049,7 @@ export namespace Prisma {
     godparent2Id: string | null
     marriageDate: Date | null
     parishId: string | null
+    approvalStatus: $Enums.ApprovalStatus | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4015,6 +4062,7 @@ export namespace Prisma {
     godparent2Id: number
     marriageDate: number
     parishId: number
+    approvalStatus: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4029,6 +4077,7 @@ export namespace Prisma {
     godparent2Id?: true
     marriageDate?: true
     parishId?: true
+    approvalStatus?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4041,6 +4090,7 @@ export namespace Prisma {
     godparent2Id?: true
     marriageDate?: true
     parishId?: true
+    approvalStatus?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4053,6 +4103,7 @@ export namespace Prisma {
     godparent2Id?: true
     marriageDate?: true
     parishId?: true
+    approvalStatus?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4138,6 +4189,7 @@ export namespace Prisma {
     godparent2Id: string | null
     marriageDate: Date
     parishId: string
+    approvalStatus: $Enums.ApprovalStatus
     createdAt: Date
     updatedAt: Date
     _count: CoupleCountAggregateOutputType | null
@@ -4167,6 +4219,7 @@ export namespace Prisma {
     godparent2Id?: boolean
     marriageDate?: boolean
     parishId?: boolean
+    approvalStatus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     member1?: boolean | ProfileDefaultArgs<ExtArgs>
@@ -4176,6 +4229,7 @@ export namespace Prisma {
     parish?: boolean | ParishDefaultArgs<ExtArgs>
     roles?: boolean | Couple$rolesArgs<ExtArgs>
     permissions?: boolean | Couple$permissionsArgs<ExtArgs>
+    invitations?: boolean | Couple$invitationsArgs<ExtArgs>
     _count?: boolean | CoupleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["couple"]>
 
@@ -4189,11 +4243,12 @@ export namespace Prisma {
     godparent2Id?: boolean
     marriageDate?: boolean
     parishId?: boolean
+    approvalStatus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CoupleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "member1Id" | "member2Id" | "godparent1Id" | "godparent2Id" | "marriageDate" | "parishId" | "createdAt" | "updatedAt", ExtArgs["result"]["couple"]>
+  export type CoupleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "member1Id" | "member2Id" | "godparent1Id" | "godparent2Id" | "marriageDate" | "parishId" | "approvalStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["couple"]>
   export type CoupleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     member1?: boolean | ProfileDefaultArgs<ExtArgs>
     member2?: boolean | ProfileDefaultArgs<ExtArgs>
@@ -4202,6 +4257,7 @@ export namespace Prisma {
     parish?: boolean | ParishDefaultArgs<ExtArgs>
     roles?: boolean | Couple$rolesArgs<ExtArgs>
     permissions?: boolean | Couple$permissionsArgs<ExtArgs>
+    invitations?: boolean | Couple$invitationsArgs<ExtArgs>
     _count?: boolean | CoupleCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -4215,6 +4271,7 @@ export namespace Prisma {
       parish: Prisma.$ParishPayload<ExtArgs>
       roles: Prisma.$RoleAssignmentPayload<ExtArgs>[]
       permissions: Prisma.$PermissionPayload<ExtArgs>[]
+      invitations: Prisma.$InvitationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4224,6 +4281,7 @@ export namespace Prisma {
       godparent2Id: string | null
       marriageDate: Date
       parishId: string
+      approvalStatus: $Enums.ApprovalStatus
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["couple"]>
@@ -4596,6 +4654,7 @@ export namespace Prisma {
     parish<T extends ParishDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ParishDefaultArgs<ExtArgs>>): Prisma__ParishClient<$Result.GetResult<Prisma.$ParishPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     roles<T extends Couple$rolesArgs<ExtArgs> = {}>(args?: Subset<T, Couple$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     permissions<T extends Couple$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, Couple$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    invitations<T extends Couple$invitationsArgs<ExtArgs> = {}>(args?: Subset<T, Couple$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4632,6 +4691,7 @@ export namespace Prisma {
     readonly godparent2Id: FieldRef<"Couple", 'String'>
     readonly marriageDate: FieldRef<"Couple", 'DateTime'>
     readonly parishId: FieldRef<"Couple", 'String'>
+    readonly approvalStatus: FieldRef<"Couple", 'ApprovalStatus'>
     readonly createdAt: FieldRef<"Couple", 'DateTime'>
     readonly updatedAt: FieldRef<"Couple", 'DateTime'>
   }
@@ -5090,6 +5150,30 @@ export namespace Prisma {
   }
 
   /**
+   * Couple.invitations
+   */
+  export type Couple$invitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invitation
+     */
+    omit?: InvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    where?: InvitationWhereInput
+    orderBy?: InvitationOrderByWithRelationInput | InvitationOrderByWithRelationInput[]
+    cursor?: InvitationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvitationScalarFieldEnum | InvitationScalarFieldEnum[]
+  }
+
+  /**
    * Couple without action
    */
   export type CoupleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5326,6 +5410,8 @@ export namespace Prisma {
     coupleAsMember2?: boolean | Profile$coupleAsMember2Args<ExtArgs>
     coupleAsGodparent1?: boolean | Profile$coupleAsGodparent1Args<ExtArgs>
     coupleAsGodparent2?: boolean | Profile$coupleAsGodparent2Args<ExtArgs>
+    sentInvitations?: boolean | Profile$sentInvitationsArgs<ExtArgs>
+    receivedInvitations?: boolean | Profile$receivedInvitationsArgs<ExtArgs>
     _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -5352,6 +5438,8 @@ export namespace Prisma {
     coupleAsMember2?: boolean | Profile$coupleAsMember2Args<ExtArgs>
     coupleAsGodparent1?: boolean | Profile$coupleAsGodparent1Args<ExtArgs>
     coupleAsGodparent2?: boolean | Profile$coupleAsGodparent2Args<ExtArgs>
+    sentInvitations?: boolean | Profile$sentInvitationsArgs<ExtArgs>
+    receivedInvitations?: boolean | Profile$receivedInvitationsArgs<ExtArgs>
     _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -5363,6 +5451,8 @@ export namespace Prisma {
       coupleAsMember2: Prisma.$CouplePayload<ExtArgs>[]
       coupleAsGodparent1: Prisma.$CouplePayload<ExtArgs>[]
       coupleAsGodparent2: Prisma.$CouplePayload<ExtArgs>[]
+      sentInvitations: Prisma.$InvitationPayload<ExtArgs>[]
+      receivedInvitations: Prisma.$InvitationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5746,6 +5836,8 @@ export namespace Prisma {
     coupleAsMember2<T extends Profile$coupleAsMember2Args<ExtArgs> = {}>(args?: Subset<T, Profile$coupleAsMember2Args<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CouplePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     coupleAsGodparent1<T extends Profile$coupleAsGodparent1Args<ExtArgs> = {}>(args?: Subset<T, Profile$coupleAsGodparent1Args<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CouplePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     coupleAsGodparent2<T extends Profile$coupleAsGodparent2Args<ExtArgs> = {}>(args?: Subset<T, Profile$coupleAsGodparent2Args<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CouplePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sentInvitations<T extends Profile$sentInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, Profile$sentInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    receivedInvitations<T extends Profile$receivedInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, Profile$receivedInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6271,6 +6363,54 @@ export namespace Prisma {
   }
 
   /**
+   * Profile.sentInvitations
+   */
+  export type Profile$sentInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invitation
+     */
+    omit?: InvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    where?: InvitationWhereInput
+    orderBy?: InvitationOrderByWithRelationInput | InvitationOrderByWithRelationInput[]
+    cursor?: InvitationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvitationScalarFieldEnum | InvitationScalarFieldEnum[]
+  }
+
+  /**
+   * Profile.receivedInvitations
+   */
+  export type Profile$receivedInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invitation
+     */
+    omit?: InvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    where?: InvitationWhereInput
+    orderBy?: InvitationOrderByWithRelationInput | InvitationOrderByWithRelationInput[]
+    cursor?: InvitationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvitationScalarFieldEnum | InvitationScalarFieldEnum[]
+  }
+
+  /**
    * Profile without action
    */
   export type ProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6306,6 +6446,7 @@ export namespace Prisma {
     role: $Enums.UserRole | null
     isActive: boolean | null
     profileId: string | null
+    approvalStatus: $Enums.ApprovalStatus | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6317,6 +6458,7 @@ export namespace Prisma {
     role: $Enums.UserRole | null
     isActive: boolean | null
     profileId: string | null
+    approvalStatus: $Enums.ApprovalStatus | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6328,6 +6470,7 @@ export namespace Prisma {
     role: number
     isActive: number
     profileId: number
+    approvalStatus: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -6341,6 +6484,7 @@ export namespace Prisma {
     role?: true
     isActive?: true
     profileId?: true
+    approvalStatus?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6352,6 +6496,7 @@ export namespace Prisma {
     role?: true
     isActive?: true
     profileId?: true
+    approvalStatus?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6363,6 +6508,7 @@ export namespace Prisma {
     role?: true
     isActive?: true
     profileId?: true
+    approvalStatus?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -6447,6 +6593,7 @@ export namespace Prisma {
     role: $Enums.UserRole
     isActive: boolean
     profileId: string
+    approvalStatus: $Enums.ApprovalStatus
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -6475,11 +6622,11 @@ export namespace Prisma {
     role?: boolean
     isActive?: boolean
     profileId?: boolean
+    approvalStatus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     profile?: boolean | ProfileDefaultArgs<ExtArgs>
     permissions?: boolean | User$permissionsArgs<ExtArgs>
-    dataAccessLogs?: boolean | User$dataAccessLogsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -6492,15 +6639,15 @@ export namespace Prisma {
     role?: boolean
     isActive?: boolean
     profileId?: boolean
+    approvalStatus?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role" | "isActive" | "profileId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role" | "isActive" | "profileId" | "approvalStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     profile?: boolean | ProfileDefaultArgs<ExtArgs>
     permissions?: boolean | User$permissionsArgs<ExtArgs>
-    dataAccessLogs?: boolean | User$dataAccessLogsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -6509,7 +6656,6 @@ export namespace Prisma {
     objects: {
       profile: Prisma.$ProfilePayload<ExtArgs>
       permissions: Prisma.$PermissionPayload<ExtArgs>[]
-      dataAccessLogs: Prisma.$DataAccessLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6518,6 +6664,7 @@ export namespace Prisma {
       role: $Enums.UserRole
       isActive: boolean
       profileId: string
+      approvalStatus: $Enums.ApprovalStatus
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -6885,7 +7032,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     profile<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     permissions<T extends User$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    dataAccessLogs<T extends User$dataAccessLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$dataAccessLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataAccessLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6921,6 +7067,7 @@ export namespace Prisma {
     readonly role: FieldRef<"User", 'UserRole'>
     readonly isActive: FieldRef<"User", 'Boolean'>
     readonly profileId: FieldRef<"User", 'String'>
+    readonly approvalStatus: FieldRef<"User", 'ApprovalStatus'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -7314,30 +7461,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
-  }
-
-  /**
-   * User.dataAccessLogs
-   */
-  export type User$dataAccessLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DataAccessLog
-     */
-    select?: DataAccessLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the DataAccessLog
-     */
-    omit?: DataAccessLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DataAccessLogInclude<ExtArgs> | null
-    where?: DataAccessLogWhereInput
-    orderBy?: DataAccessLogOrderByWithRelationInput | DataAccessLogOrderByWithRelationInput[]
-    cursor?: DataAccessLogWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: DataAccessLogScalarFieldEnum | DataAccessLogScalarFieldEnum[]
   }
 
   /**
@@ -9510,417 +9633,361 @@ export namespace Prisma {
 
 
   /**
-   * Model DataAccessLog
+   * Model Invitation
    */
 
-  export type AggregateDataAccessLog = {
-    _count: DataAccessLogCountAggregateOutputType | null
-    _min: DataAccessLogMinAggregateOutputType | null
-    _max: DataAccessLogMaxAggregateOutputType | null
+  export type AggregateInvitation = {
+    _count: InvitationCountAggregateOutputType | null
+    _min: InvitationMinAggregateOutputType | null
+    _max: InvitationMaxAggregateOutputType | null
   }
 
-  export type DataAccessLogMinAggregateOutputType = {
+  export type InvitationMinAggregateOutputType = {
     id: string | null
-    entity: $Enums.DataAccessEntity | null
-    entityId: string | null
-    action: $Enums.DataAccessAction | null
-    userId: string | null
-    ipAddress: string | null
-    userAgent: string | null
-    success: boolean | null
-    errorMessage: string | null
-    timestamp: Date | null
+    inviterId: string | null
+    inviteeId: string | null
+    coupleId: string | null
+    status: $Enums.InvitationStatus | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type DataAccessLogMaxAggregateOutputType = {
+  export type InvitationMaxAggregateOutputType = {
     id: string | null
-    entity: $Enums.DataAccessEntity | null
-    entityId: string | null
-    action: $Enums.DataAccessAction | null
-    userId: string | null
-    ipAddress: string | null
-    userAgent: string | null
-    success: boolean | null
-    errorMessage: string | null
-    timestamp: Date | null
+    inviterId: string | null
+    inviteeId: string | null
+    coupleId: string | null
+    status: $Enums.InvitationStatus | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type DataAccessLogCountAggregateOutputType = {
+  export type InvitationCountAggregateOutputType = {
     id: number
-    entity: number
-    entityId: number
-    action: number
-    userId: number
-    ipAddress: number
-    userAgent: number
-    success: number
-    errorMessage: number
-    requestData: number
-    responseData: number
-    timestamp: number
+    inviterId: number
+    inviteeId: number
+    coupleId: number
+    status: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
-  export type DataAccessLogMinAggregateInputType = {
+  export type InvitationMinAggregateInputType = {
     id?: true
-    entity?: true
-    entityId?: true
-    action?: true
-    userId?: true
-    ipAddress?: true
-    userAgent?: true
-    success?: true
-    errorMessage?: true
-    timestamp?: true
+    inviterId?: true
+    inviteeId?: true
+    coupleId?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type DataAccessLogMaxAggregateInputType = {
+  export type InvitationMaxAggregateInputType = {
     id?: true
-    entity?: true
-    entityId?: true
-    action?: true
-    userId?: true
-    ipAddress?: true
-    userAgent?: true
-    success?: true
-    errorMessage?: true
-    timestamp?: true
+    inviterId?: true
+    inviteeId?: true
+    coupleId?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type DataAccessLogCountAggregateInputType = {
+  export type InvitationCountAggregateInputType = {
     id?: true
-    entity?: true
-    entityId?: true
-    action?: true
-    userId?: true
-    ipAddress?: true
-    userAgent?: true
-    success?: true
-    errorMessage?: true
-    requestData?: true
-    responseData?: true
-    timestamp?: true
+    inviterId?: true
+    inviteeId?: true
+    coupleId?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
   }
 
-  export type DataAccessLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which DataAccessLog to aggregate.
+     * Filter which Invitation to aggregate.
      */
-    where?: DataAccessLogWhereInput
+    where?: InvitationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of DataAccessLogs to fetch.
+     * Determine the order of Invitations to fetch.
      */
-    orderBy?: DataAccessLogOrderByWithRelationInput | DataAccessLogOrderByWithRelationInput[]
+    orderBy?: InvitationOrderByWithRelationInput | InvitationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: DataAccessLogWhereUniqueInput
+    cursor?: InvitationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` DataAccessLogs from the position of the cursor.
+     * Take `±n` Invitations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` DataAccessLogs.
+     * Skip the first `n` Invitations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned DataAccessLogs
+     * Count returned Invitations
     **/
-    _count?: true | DataAccessLogCountAggregateInputType
+    _count?: true | InvitationCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: DataAccessLogMinAggregateInputType
+    _min?: InvitationMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: DataAccessLogMaxAggregateInputType
+    _max?: InvitationMaxAggregateInputType
   }
 
-  export type GetDataAccessLogAggregateType<T extends DataAccessLogAggregateArgs> = {
-        [P in keyof T & keyof AggregateDataAccessLog]: P extends '_count' | 'count'
+  export type GetInvitationAggregateType<T extends InvitationAggregateArgs> = {
+        [P in keyof T & keyof AggregateInvitation]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateDataAccessLog[P]>
-      : GetScalarType<T[P], AggregateDataAccessLog[P]>
+        : GetScalarType<T[P], AggregateInvitation[P]>
+      : GetScalarType<T[P], AggregateInvitation[P]>
   }
 
 
 
 
-  export type DataAccessLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DataAccessLogWhereInput
-    orderBy?: DataAccessLogOrderByWithAggregationInput | DataAccessLogOrderByWithAggregationInput[]
-    by: DataAccessLogScalarFieldEnum[] | DataAccessLogScalarFieldEnum
-    having?: DataAccessLogScalarWhereWithAggregatesInput
+  export type InvitationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvitationWhereInput
+    orderBy?: InvitationOrderByWithAggregationInput | InvitationOrderByWithAggregationInput[]
+    by: InvitationScalarFieldEnum[] | InvitationScalarFieldEnum
+    having?: InvitationScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: DataAccessLogCountAggregateInputType | true
-    _min?: DataAccessLogMinAggregateInputType
-    _max?: DataAccessLogMaxAggregateInputType
+    _count?: InvitationCountAggregateInputType | true
+    _min?: InvitationMinAggregateInputType
+    _max?: InvitationMaxAggregateInputType
   }
 
-  export type DataAccessLogGroupByOutputType = {
+  export type InvitationGroupByOutputType = {
     id: string
-    entity: $Enums.DataAccessEntity
-    entityId: string
-    action: $Enums.DataAccessAction
-    userId: string | null
-    ipAddress: string | null
-    userAgent: string | null
-    success: boolean
-    errorMessage: string | null
-    requestData: JsonValue | null
-    responseData: JsonValue | null
-    timestamp: Date
+    inviterId: string
+    inviteeId: string
+    coupleId: string | null
+    status: $Enums.InvitationStatus
     createdAt: Date
     updatedAt: Date
-    _count: DataAccessLogCountAggregateOutputType | null
-    _min: DataAccessLogMinAggregateOutputType | null
-    _max: DataAccessLogMaxAggregateOutputType | null
+    _count: InvitationCountAggregateOutputType | null
+    _min: InvitationMinAggregateOutputType | null
+    _max: InvitationMaxAggregateOutputType | null
   }
 
-  type GetDataAccessLogGroupByPayload<T extends DataAccessLogGroupByArgs> = Prisma.PrismaPromise<
+  type GetInvitationGroupByPayload<T extends InvitationGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<DataAccessLogGroupByOutputType, T['by']> &
+      PickEnumerable<InvitationGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof DataAccessLogGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof InvitationGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], DataAccessLogGroupByOutputType[P]>
-            : GetScalarType<T[P], DataAccessLogGroupByOutputType[P]>
+              : GetScalarType<T[P], InvitationGroupByOutputType[P]>
+            : GetScalarType<T[P], InvitationGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type DataAccessLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type InvitationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    entity?: boolean
-    entityId?: boolean
-    action?: boolean
-    userId?: boolean
-    ipAddress?: boolean
-    userAgent?: boolean
-    success?: boolean
-    errorMessage?: boolean
-    requestData?: boolean
-    responseData?: boolean
-    timestamp?: boolean
+    inviterId?: boolean
+    inviteeId?: boolean
+    coupleId?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | DataAccessLog$userArgs<ExtArgs>
-  }, ExtArgs["result"]["dataAccessLog"]>
+    inviter?: boolean | ProfileDefaultArgs<ExtArgs>
+    invitee?: boolean | ProfileDefaultArgs<ExtArgs>
+    couple?: boolean | Invitation$coupleArgs<ExtArgs>
+  }, ExtArgs["result"]["invitation"]>
 
 
 
-  export type DataAccessLogSelectScalar = {
+  export type InvitationSelectScalar = {
     id?: boolean
-    entity?: boolean
-    entityId?: boolean
-    action?: boolean
-    userId?: boolean
-    ipAddress?: boolean
-    userAgent?: boolean
-    success?: boolean
-    errorMessage?: boolean
-    requestData?: boolean
-    responseData?: boolean
-    timestamp?: boolean
+    inviterId?: boolean
+    inviteeId?: boolean
+    coupleId?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DataAccessLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "entity" | "entityId" | "action" | "userId" | "ipAddress" | "userAgent" | "success" | "errorMessage" | "requestData" | "responseData" | "timestamp" | "createdAt" | "updatedAt", ExtArgs["result"]["dataAccessLog"]>
-  export type DataAccessLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | DataAccessLog$userArgs<ExtArgs>
+  export type InvitationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "inviterId" | "inviteeId" | "coupleId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["invitation"]>
+  export type InvitationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    inviter?: boolean | ProfileDefaultArgs<ExtArgs>
+    invitee?: boolean | ProfileDefaultArgs<ExtArgs>
+    couple?: boolean | Invitation$coupleArgs<ExtArgs>
   }
 
-  export type $DataAccessLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "DataAccessLog"
+  export type $InvitationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Invitation"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs> | null
+      inviter: Prisma.$ProfilePayload<ExtArgs>
+      invitee: Prisma.$ProfilePayload<ExtArgs>
+      couple: Prisma.$CouplePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      entity: $Enums.DataAccessEntity
-      entityId: string
-      action: $Enums.DataAccessAction
-      userId: string | null
-      ipAddress: string | null
-      userAgent: string | null
-      success: boolean
-      errorMessage: string | null
-      requestData: Prisma.JsonValue | null
-      responseData: Prisma.JsonValue | null
-      timestamp: Date
+      inviterId: string
+      inviteeId: string
+      coupleId: string | null
+      status: $Enums.InvitationStatus
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["dataAccessLog"]>
+    }, ExtArgs["result"]["invitation"]>
     composites: {}
   }
 
-  type DataAccessLogGetPayload<S extends boolean | null | undefined | DataAccessLogDefaultArgs> = $Result.GetResult<Prisma.$DataAccessLogPayload, S>
+  type InvitationGetPayload<S extends boolean | null | undefined | InvitationDefaultArgs> = $Result.GetResult<Prisma.$InvitationPayload, S>
 
-  type DataAccessLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<DataAccessLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: DataAccessLogCountAggregateInputType | true
+  type InvitationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InvitationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InvitationCountAggregateInputType | true
     }
 
-  export interface DataAccessLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DataAccessLog'], meta: { name: 'DataAccessLog' } }
+  export interface InvitationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Invitation'], meta: { name: 'Invitation' } }
     /**
-     * Find zero or one DataAccessLog that matches the filter.
-     * @param {DataAccessLogFindUniqueArgs} args - Arguments to find a DataAccessLog
+     * Find zero or one Invitation that matches the filter.
+     * @param {InvitationFindUniqueArgs} args - Arguments to find a Invitation
      * @example
-     * // Get one DataAccessLog
-     * const dataAccessLog = await prisma.dataAccessLog.findUnique({
+     * // Get one Invitation
+     * const invitation = await prisma.invitation.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends DataAccessLogFindUniqueArgs>(args: SelectSubset<T, DataAccessLogFindUniqueArgs<ExtArgs>>): Prisma__DataAccessLogClient<$Result.GetResult<Prisma.$DataAccessLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends InvitationFindUniqueArgs>(args: SelectSubset<T, InvitationFindUniqueArgs<ExtArgs>>): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one DataAccessLog that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Invitation that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {DataAccessLogFindUniqueOrThrowArgs} args - Arguments to find a DataAccessLog
+     * @param {InvitationFindUniqueOrThrowArgs} args - Arguments to find a Invitation
      * @example
-     * // Get one DataAccessLog
-     * const dataAccessLog = await prisma.dataAccessLog.findUniqueOrThrow({
+     * // Get one Invitation
+     * const invitation = await prisma.invitation.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends DataAccessLogFindUniqueOrThrowArgs>(args: SelectSubset<T, DataAccessLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DataAccessLogClient<$Result.GetResult<Prisma.$DataAccessLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends InvitationFindUniqueOrThrowArgs>(args: SelectSubset<T, InvitationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first DataAccessLog that matches the filter.
+     * Find the first Invitation that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DataAccessLogFindFirstArgs} args - Arguments to find a DataAccessLog
+     * @param {InvitationFindFirstArgs} args - Arguments to find a Invitation
      * @example
-     * // Get one DataAccessLog
-     * const dataAccessLog = await prisma.dataAccessLog.findFirst({
+     * // Get one Invitation
+     * const invitation = await prisma.invitation.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends DataAccessLogFindFirstArgs>(args?: SelectSubset<T, DataAccessLogFindFirstArgs<ExtArgs>>): Prisma__DataAccessLogClient<$Result.GetResult<Prisma.$DataAccessLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends InvitationFindFirstArgs>(args?: SelectSubset<T, InvitationFindFirstArgs<ExtArgs>>): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first DataAccessLog that matches the filter or
+     * Find the first Invitation that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DataAccessLogFindFirstOrThrowArgs} args - Arguments to find a DataAccessLog
+     * @param {InvitationFindFirstOrThrowArgs} args - Arguments to find a Invitation
      * @example
-     * // Get one DataAccessLog
-     * const dataAccessLog = await prisma.dataAccessLog.findFirstOrThrow({
+     * // Get one Invitation
+     * const invitation = await prisma.invitation.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends DataAccessLogFindFirstOrThrowArgs>(args?: SelectSubset<T, DataAccessLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__DataAccessLogClient<$Result.GetResult<Prisma.$DataAccessLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends InvitationFindFirstOrThrowArgs>(args?: SelectSubset<T, InvitationFindFirstOrThrowArgs<ExtArgs>>): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more DataAccessLogs that matches the filter.
+     * Find zero or more Invitations that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DataAccessLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {InvitationFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all DataAccessLogs
-     * const dataAccessLogs = await prisma.dataAccessLog.findMany()
+     * // Get all Invitations
+     * const invitations = await prisma.invitation.findMany()
      * 
-     * // Get first 10 DataAccessLogs
-     * const dataAccessLogs = await prisma.dataAccessLog.findMany({ take: 10 })
+     * // Get first 10 Invitations
+     * const invitations = await prisma.invitation.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const dataAccessLogWithIdOnly = await prisma.dataAccessLog.findMany({ select: { id: true } })
+     * const invitationWithIdOnly = await prisma.invitation.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends DataAccessLogFindManyArgs>(args?: SelectSubset<T, DataAccessLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataAccessLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends InvitationFindManyArgs>(args?: SelectSubset<T, InvitationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a DataAccessLog.
-     * @param {DataAccessLogCreateArgs} args - Arguments to create a DataAccessLog.
+     * Create a Invitation.
+     * @param {InvitationCreateArgs} args - Arguments to create a Invitation.
      * @example
-     * // Create one DataAccessLog
-     * const DataAccessLog = await prisma.dataAccessLog.create({
+     * // Create one Invitation
+     * const Invitation = await prisma.invitation.create({
      *   data: {
-     *     // ... data to create a DataAccessLog
+     *     // ... data to create a Invitation
      *   }
      * })
      * 
      */
-    create<T extends DataAccessLogCreateArgs>(args: SelectSubset<T, DataAccessLogCreateArgs<ExtArgs>>): Prisma__DataAccessLogClient<$Result.GetResult<Prisma.$DataAccessLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends InvitationCreateArgs>(args: SelectSubset<T, InvitationCreateArgs<ExtArgs>>): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many DataAccessLogs.
-     * @param {DataAccessLogCreateManyArgs} args - Arguments to create many DataAccessLogs.
+     * Create many Invitations.
+     * @param {InvitationCreateManyArgs} args - Arguments to create many Invitations.
      * @example
-     * // Create many DataAccessLogs
-     * const dataAccessLog = await prisma.dataAccessLog.createMany({
+     * // Create many Invitations
+     * const invitation = await prisma.invitation.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends DataAccessLogCreateManyArgs>(args?: SelectSubset<T, DataAccessLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends InvitationCreateManyArgs>(args?: SelectSubset<T, InvitationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Delete a DataAccessLog.
-     * @param {DataAccessLogDeleteArgs} args - Arguments to delete one DataAccessLog.
+     * Delete a Invitation.
+     * @param {InvitationDeleteArgs} args - Arguments to delete one Invitation.
      * @example
-     * // Delete one DataAccessLog
-     * const DataAccessLog = await prisma.dataAccessLog.delete({
+     * // Delete one Invitation
+     * const Invitation = await prisma.invitation.delete({
      *   where: {
-     *     // ... filter to delete one DataAccessLog
+     *     // ... filter to delete one Invitation
      *   }
      * })
      * 
      */
-    delete<T extends DataAccessLogDeleteArgs>(args: SelectSubset<T, DataAccessLogDeleteArgs<ExtArgs>>): Prisma__DataAccessLogClient<$Result.GetResult<Prisma.$DataAccessLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends InvitationDeleteArgs>(args: SelectSubset<T, InvitationDeleteArgs<ExtArgs>>): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one DataAccessLog.
-     * @param {DataAccessLogUpdateArgs} args - Arguments to update one DataAccessLog.
+     * Update one Invitation.
+     * @param {InvitationUpdateArgs} args - Arguments to update one Invitation.
      * @example
-     * // Update one DataAccessLog
-     * const dataAccessLog = await prisma.dataAccessLog.update({
+     * // Update one Invitation
+     * const invitation = await prisma.invitation.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -9930,30 +9997,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends DataAccessLogUpdateArgs>(args: SelectSubset<T, DataAccessLogUpdateArgs<ExtArgs>>): Prisma__DataAccessLogClient<$Result.GetResult<Prisma.$DataAccessLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends InvitationUpdateArgs>(args: SelectSubset<T, InvitationUpdateArgs<ExtArgs>>): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more DataAccessLogs.
-     * @param {DataAccessLogDeleteManyArgs} args - Arguments to filter DataAccessLogs to delete.
+     * Delete zero or more Invitations.
+     * @param {InvitationDeleteManyArgs} args - Arguments to filter Invitations to delete.
      * @example
-     * // Delete a few DataAccessLogs
-     * const { count } = await prisma.dataAccessLog.deleteMany({
+     * // Delete a few Invitations
+     * const { count } = await prisma.invitation.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends DataAccessLogDeleteManyArgs>(args?: SelectSubset<T, DataAccessLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends InvitationDeleteManyArgs>(args?: SelectSubset<T, InvitationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more DataAccessLogs.
+     * Update zero or more Invitations.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DataAccessLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {InvitationUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many DataAccessLogs
-     * const dataAccessLog = await prisma.dataAccessLog.updateMany({
+     * // Update many Invitations
+     * const invitation = await prisma.invitation.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -9963,79 +10030,79 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends DataAccessLogUpdateManyArgs>(args: SelectSubset<T, DataAccessLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends InvitationUpdateManyArgs>(args: SelectSubset<T, InvitationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one DataAccessLog.
-     * @param {DataAccessLogUpsertArgs} args - Arguments to update or create a DataAccessLog.
+     * Create or update one Invitation.
+     * @param {InvitationUpsertArgs} args - Arguments to update or create a Invitation.
      * @example
-     * // Update or create a DataAccessLog
-     * const dataAccessLog = await prisma.dataAccessLog.upsert({
+     * // Update or create a Invitation
+     * const invitation = await prisma.invitation.upsert({
      *   create: {
-     *     // ... data to create a DataAccessLog
+     *     // ... data to create a Invitation
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the DataAccessLog we want to update
+     *     // ... the filter for the Invitation we want to update
      *   }
      * })
      */
-    upsert<T extends DataAccessLogUpsertArgs>(args: SelectSubset<T, DataAccessLogUpsertArgs<ExtArgs>>): Prisma__DataAccessLogClient<$Result.GetResult<Prisma.$DataAccessLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends InvitationUpsertArgs>(args: SelectSubset<T, InvitationUpsertArgs<ExtArgs>>): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more DataAccessLogs that matches the filter.
-     * @param {DataAccessLogFindRawArgs} args - Select which filters you would like to apply.
+     * Find zero or more Invitations that matches the filter.
+     * @param {InvitationFindRawArgs} args - Select which filters you would like to apply.
      * @example
-     * const dataAccessLog = await prisma.dataAccessLog.findRaw({
+     * const invitation = await prisma.invitation.findRaw({
      *   filter: { age: { $gt: 25 } }
      * })
      */
-    findRaw(args?: DataAccessLogFindRawArgs): Prisma.PrismaPromise<JsonObject>
+    findRaw(args?: InvitationFindRawArgs): Prisma.PrismaPromise<JsonObject>
 
     /**
-     * Perform aggregation operations on a DataAccessLog.
-     * @param {DataAccessLogAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * Perform aggregation operations on a Invitation.
+     * @param {InvitationAggregateRawArgs} args - Select which aggregations you would like to apply.
      * @example
-     * const dataAccessLog = await prisma.dataAccessLog.aggregateRaw({
+     * const invitation = await prisma.invitation.aggregateRaw({
      *   pipeline: [
      *     { $match: { status: "registered" } },
      *     { $group: { _id: "$country", total: { $sum: 1 } } }
      *   ]
      * })
      */
-    aggregateRaw(args?: DataAccessLogAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+    aggregateRaw(args?: InvitationAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
 
 
     /**
-     * Count the number of DataAccessLogs.
+     * Count the number of Invitations.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DataAccessLogCountArgs} args - Arguments to filter DataAccessLogs to count.
+     * @param {InvitationCountArgs} args - Arguments to filter Invitations to count.
      * @example
-     * // Count the number of DataAccessLogs
-     * const count = await prisma.dataAccessLog.count({
+     * // Count the number of Invitations
+     * const count = await prisma.invitation.count({
      *   where: {
-     *     // ... the filter for the DataAccessLogs we want to count
+     *     // ... the filter for the Invitations we want to count
      *   }
      * })
     **/
-    count<T extends DataAccessLogCountArgs>(
-      args?: Subset<T, DataAccessLogCountArgs>,
+    count<T extends InvitationCountArgs>(
+      args?: Subset<T, InvitationCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], DataAccessLogCountAggregateOutputType>
+          : GetScalarType<T['select'], InvitationCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a DataAccessLog.
+     * Allows you to perform aggregations operations on a Invitation.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DataAccessLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {InvitationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -10055,13 +10122,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends DataAccessLogAggregateArgs>(args: Subset<T, DataAccessLogAggregateArgs>): Prisma.PrismaPromise<GetDataAccessLogAggregateType<T>>
+    aggregate<T extends InvitationAggregateArgs>(args: Subset<T, InvitationAggregateArgs>): Prisma.PrismaPromise<GetInvitationAggregateType<T>>
 
     /**
-     * Group by DataAccessLog.
+     * Group by Invitation.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DataAccessLogGroupByArgs} args - Group by arguments.
+     * @param {InvitationGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -10076,14 +10143,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends DataAccessLogGroupByArgs,
+      T extends InvitationGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: DataAccessLogGroupByArgs['orderBy'] }
-        : { orderBy?: DataAccessLogGroupByArgs['orderBy'] },
+        ? { orderBy: InvitationGroupByArgs['orderBy'] }
+        : { orderBy?: InvitationGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -10132,22 +10199,24 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, DataAccessLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDataAccessLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, InvitationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInvitationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the DataAccessLog model
+   * Fields of the Invitation model
    */
-  readonly fields: DataAccessLogFieldRefs;
+  readonly fields: InvitationFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for DataAccessLog.
+   * The delegate class that acts as a "Promise-like" for Invitation.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__DataAccessLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__InvitationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends DataAccessLog$userArgs<ExtArgs> = {}>(args?: Subset<T, DataAccessLog$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    inviter<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    invitee<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    couple<T extends Invitation$coupleArgs<ExtArgs> = {}>(args?: Subset<T, Invitation$coupleArgs<ExtArgs>>): Prisma__CoupleClient<$Result.GetResult<Prisma.$CouplePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10174,368 +10243,361 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the DataAccessLog model
+   * Fields of the Invitation model
    */
-  interface DataAccessLogFieldRefs {
-    readonly id: FieldRef<"DataAccessLog", 'String'>
-    readonly entity: FieldRef<"DataAccessLog", 'DataAccessEntity'>
-    readonly entityId: FieldRef<"DataAccessLog", 'String'>
-    readonly action: FieldRef<"DataAccessLog", 'DataAccessAction'>
-    readonly userId: FieldRef<"DataAccessLog", 'String'>
-    readonly ipAddress: FieldRef<"DataAccessLog", 'String'>
-    readonly userAgent: FieldRef<"DataAccessLog", 'String'>
-    readonly success: FieldRef<"DataAccessLog", 'Boolean'>
-    readonly errorMessage: FieldRef<"DataAccessLog", 'String'>
-    readonly requestData: FieldRef<"DataAccessLog", 'Json'>
-    readonly responseData: FieldRef<"DataAccessLog", 'Json'>
-    readonly timestamp: FieldRef<"DataAccessLog", 'DateTime'>
-    readonly createdAt: FieldRef<"DataAccessLog", 'DateTime'>
-    readonly updatedAt: FieldRef<"DataAccessLog", 'DateTime'>
+  interface InvitationFieldRefs {
+    readonly id: FieldRef<"Invitation", 'String'>
+    readonly inviterId: FieldRef<"Invitation", 'String'>
+    readonly inviteeId: FieldRef<"Invitation", 'String'>
+    readonly coupleId: FieldRef<"Invitation", 'String'>
+    readonly status: FieldRef<"Invitation", 'InvitationStatus'>
+    readonly createdAt: FieldRef<"Invitation", 'DateTime'>
+    readonly updatedAt: FieldRef<"Invitation", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * DataAccessLog findUnique
+   * Invitation findUnique
    */
-  export type DataAccessLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DataAccessLog
+     * Select specific fields to fetch from the Invitation
      */
-    select?: DataAccessLogSelect<ExtArgs> | null
+    select?: InvitationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DataAccessLog
+     * Omit specific fields from the Invitation
      */
-    omit?: DataAccessLogOmit<ExtArgs> | null
+    omit?: InvitationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DataAccessLogInclude<ExtArgs> | null
+    include?: InvitationInclude<ExtArgs> | null
     /**
-     * Filter, which DataAccessLog to fetch.
+     * Filter, which Invitation to fetch.
      */
-    where: DataAccessLogWhereUniqueInput
+    where: InvitationWhereUniqueInput
   }
 
   /**
-   * DataAccessLog findUniqueOrThrow
+   * Invitation findUniqueOrThrow
    */
-  export type DataAccessLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DataAccessLog
+     * Select specific fields to fetch from the Invitation
      */
-    select?: DataAccessLogSelect<ExtArgs> | null
+    select?: InvitationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DataAccessLog
+     * Omit specific fields from the Invitation
      */
-    omit?: DataAccessLogOmit<ExtArgs> | null
+    omit?: InvitationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DataAccessLogInclude<ExtArgs> | null
+    include?: InvitationInclude<ExtArgs> | null
     /**
-     * Filter, which DataAccessLog to fetch.
+     * Filter, which Invitation to fetch.
      */
-    where: DataAccessLogWhereUniqueInput
+    where: InvitationWhereUniqueInput
   }
 
   /**
-   * DataAccessLog findFirst
+   * Invitation findFirst
    */
-  export type DataAccessLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DataAccessLog
+     * Select specific fields to fetch from the Invitation
      */
-    select?: DataAccessLogSelect<ExtArgs> | null
+    select?: InvitationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DataAccessLog
+     * Omit specific fields from the Invitation
      */
-    omit?: DataAccessLogOmit<ExtArgs> | null
+    omit?: InvitationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DataAccessLogInclude<ExtArgs> | null
+    include?: InvitationInclude<ExtArgs> | null
     /**
-     * Filter, which DataAccessLog to fetch.
+     * Filter, which Invitation to fetch.
      */
-    where?: DataAccessLogWhereInput
+    where?: InvitationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of DataAccessLogs to fetch.
+     * Determine the order of Invitations to fetch.
      */
-    orderBy?: DataAccessLogOrderByWithRelationInput | DataAccessLogOrderByWithRelationInput[]
+    orderBy?: InvitationOrderByWithRelationInput | InvitationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for DataAccessLogs.
+     * Sets the position for searching for Invitations.
      */
-    cursor?: DataAccessLogWhereUniqueInput
+    cursor?: InvitationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` DataAccessLogs from the position of the cursor.
+     * Take `±n` Invitations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` DataAccessLogs.
+     * Skip the first `n` Invitations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of DataAccessLogs.
+     * Filter by unique combinations of Invitations.
      */
-    distinct?: DataAccessLogScalarFieldEnum | DataAccessLogScalarFieldEnum[]
+    distinct?: InvitationScalarFieldEnum | InvitationScalarFieldEnum[]
   }
 
   /**
-   * DataAccessLog findFirstOrThrow
+   * Invitation findFirstOrThrow
    */
-  export type DataAccessLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DataAccessLog
+     * Select specific fields to fetch from the Invitation
      */
-    select?: DataAccessLogSelect<ExtArgs> | null
+    select?: InvitationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DataAccessLog
+     * Omit specific fields from the Invitation
      */
-    omit?: DataAccessLogOmit<ExtArgs> | null
+    omit?: InvitationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DataAccessLogInclude<ExtArgs> | null
+    include?: InvitationInclude<ExtArgs> | null
     /**
-     * Filter, which DataAccessLog to fetch.
+     * Filter, which Invitation to fetch.
      */
-    where?: DataAccessLogWhereInput
+    where?: InvitationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of DataAccessLogs to fetch.
+     * Determine the order of Invitations to fetch.
      */
-    orderBy?: DataAccessLogOrderByWithRelationInput | DataAccessLogOrderByWithRelationInput[]
+    orderBy?: InvitationOrderByWithRelationInput | InvitationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for DataAccessLogs.
+     * Sets the position for searching for Invitations.
      */
-    cursor?: DataAccessLogWhereUniqueInput
+    cursor?: InvitationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` DataAccessLogs from the position of the cursor.
+     * Take `±n` Invitations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` DataAccessLogs.
+     * Skip the first `n` Invitations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of DataAccessLogs.
+     * Filter by unique combinations of Invitations.
      */
-    distinct?: DataAccessLogScalarFieldEnum | DataAccessLogScalarFieldEnum[]
+    distinct?: InvitationScalarFieldEnum | InvitationScalarFieldEnum[]
   }
 
   /**
-   * DataAccessLog findMany
+   * Invitation findMany
    */
-  export type DataAccessLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DataAccessLog
+     * Select specific fields to fetch from the Invitation
      */
-    select?: DataAccessLogSelect<ExtArgs> | null
+    select?: InvitationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DataAccessLog
+     * Omit specific fields from the Invitation
      */
-    omit?: DataAccessLogOmit<ExtArgs> | null
+    omit?: InvitationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DataAccessLogInclude<ExtArgs> | null
+    include?: InvitationInclude<ExtArgs> | null
     /**
-     * Filter, which DataAccessLogs to fetch.
+     * Filter, which Invitations to fetch.
      */
-    where?: DataAccessLogWhereInput
+    where?: InvitationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of DataAccessLogs to fetch.
+     * Determine the order of Invitations to fetch.
      */
-    orderBy?: DataAccessLogOrderByWithRelationInput | DataAccessLogOrderByWithRelationInput[]
+    orderBy?: InvitationOrderByWithRelationInput | InvitationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing DataAccessLogs.
+     * Sets the position for listing Invitations.
      */
-    cursor?: DataAccessLogWhereUniqueInput
+    cursor?: InvitationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` DataAccessLogs from the position of the cursor.
+     * Take `±n` Invitations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` DataAccessLogs.
+     * Skip the first `n` Invitations.
      */
     skip?: number
-    distinct?: DataAccessLogScalarFieldEnum | DataAccessLogScalarFieldEnum[]
+    distinct?: InvitationScalarFieldEnum | InvitationScalarFieldEnum[]
   }
 
   /**
-   * DataAccessLog create
+   * Invitation create
    */
-  export type DataAccessLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DataAccessLog
+     * Select specific fields to fetch from the Invitation
      */
-    select?: DataAccessLogSelect<ExtArgs> | null
+    select?: InvitationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DataAccessLog
+     * Omit specific fields from the Invitation
      */
-    omit?: DataAccessLogOmit<ExtArgs> | null
+    omit?: InvitationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DataAccessLogInclude<ExtArgs> | null
+    include?: InvitationInclude<ExtArgs> | null
     /**
-     * The data needed to create a DataAccessLog.
+     * The data needed to create a Invitation.
      */
-    data: XOR<DataAccessLogCreateInput, DataAccessLogUncheckedCreateInput>
+    data: XOR<InvitationCreateInput, InvitationUncheckedCreateInput>
   }
 
   /**
-   * DataAccessLog createMany
+   * Invitation createMany
    */
-  export type DataAccessLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many DataAccessLogs.
+     * The data used to create many Invitations.
      */
-    data: DataAccessLogCreateManyInput | DataAccessLogCreateManyInput[]
+    data: InvitationCreateManyInput | InvitationCreateManyInput[]
   }
 
   /**
-   * DataAccessLog update
+   * Invitation update
    */
-  export type DataAccessLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DataAccessLog
+     * Select specific fields to fetch from the Invitation
      */
-    select?: DataAccessLogSelect<ExtArgs> | null
+    select?: InvitationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DataAccessLog
+     * Omit specific fields from the Invitation
      */
-    omit?: DataAccessLogOmit<ExtArgs> | null
+    omit?: InvitationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DataAccessLogInclude<ExtArgs> | null
+    include?: InvitationInclude<ExtArgs> | null
     /**
-     * The data needed to update a DataAccessLog.
+     * The data needed to update a Invitation.
      */
-    data: XOR<DataAccessLogUpdateInput, DataAccessLogUncheckedUpdateInput>
+    data: XOR<InvitationUpdateInput, InvitationUncheckedUpdateInput>
     /**
-     * Choose, which DataAccessLog to update.
+     * Choose, which Invitation to update.
      */
-    where: DataAccessLogWhereUniqueInput
+    where: InvitationWhereUniqueInput
   }
 
   /**
-   * DataAccessLog updateMany
+   * Invitation updateMany
    */
-  export type DataAccessLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update DataAccessLogs.
+     * The data used to update Invitations.
      */
-    data: XOR<DataAccessLogUpdateManyMutationInput, DataAccessLogUncheckedUpdateManyInput>
+    data: XOR<InvitationUpdateManyMutationInput, InvitationUncheckedUpdateManyInput>
     /**
-     * Filter which DataAccessLogs to update
+     * Filter which Invitations to update
      */
-    where?: DataAccessLogWhereInput
+    where?: InvitationWhereInput
     /**
-     * Limit how many DataAccessLogs to update.
+     * Limit how many Invitations to update.
      */
     limit?: number
   }
 
   /**
-   * DataAccessLog upsert
+   * Invitation upsert
    */
-  export type DataAccessLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DataAccessLog
+     * Select specific fields to fetch from the Invitation
      */
-    select?: DataAccessLogSelect<ExtArgs> | null
+    select?: InvitationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DataAccessLog
+     * Omit specific fields from the Invitation
      */
-    omit?: DataAccessLogOmit<ExtArgs> | null
+    omit?: InvitationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DataAccessLogInclude<ExtArgs> | null
+    include?: InvitationInclude<ExtArgs> | null
     /**
-     * The filter to search for the DataAccessLog to update in case it exists.
+     * The filter to search for the Invitation to update in case it exists.
      */
-    where: DataAccessLogWhereUniqueInput
+    where: InvitationWhereUniqueInput
     /**
-     * In case the DataAccessLog found by the `where` argument doesn't exist, create a new DataAccessLog with this data.
+     * In case the Invitation found by the `where` argument doesn't exist, create a new Invitation with this data.
      */
-    create: XOR<DataAccessLogCreateInput, DataAccessLogUncheckedCreateInput>
+    create: XOR<InvitationCreateInput, InvitationUncheckedCreateInput>
     /**
-     * In case the DataAccessLog was found with the provided `where` argument, update it with this data.
+     * In case the Invitation was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<DataAccessLogUpdateInput, DataAccessLogUncheckedUpdateInput>
+    update: XOR<InvitationUpdateInput, InvitationUncheckedUpdateInput>
   }
 
   /**
-   * DataAccessLog delete
+   * Invitation delete
    */
-  export type DataAccessLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DataAccessLog
+     * Select specific fields to fetch from the Invitation
      */
-    select?: DataAccessLogSelect<ExtArgs> | null
+    select?: InvitationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DataAccessLog
+     * Omit specific fields from the Invitation
      */
-    omit?: DataAccessLogOmit<ExtArgs> | null
+    omit?: InvitationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DataAccessLogInclude<ExtArgs> | null
+    include?: InvitationInclude<ExtArgs> | null
     /**
-     * Filter which DataAccessLog to delete.
+     * Filter which Invitation to delete.
      */
-    where: DataAccessLogWhereUniqueInput
+    where: InvitationWhereUniqueInput
   }
 
   /**
-   * DataAccessLog deleteMany
+   * Invitation deleteMany
    */
-  export type DataAccessLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which DataAccessLogs to delete
+     * Filter which Invitations to delete
      */
-    where?: DataAccessLogWhereInput
+    where?: InvitationWhereInput
     /**
-     * Limit how many DataAccessLogs to delete.
+     * Limit how many Invitations to delete.
      */
     limit?: number
   }
 
   /**
-   * DataAccessLog findRaw
+   * Invitation findRaw
    */
-  export type DataAccessLogFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
      */
@@ -10547,9 +10609,9 @@ export namespace Prisma {
   }
 
   /**
-   * DataAccessLog aggregateRaw
+   * Invitation aggregateRaw
    */
-  export type DataAccessLogAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
      */
@@ -10561,40 +10623,40 @@ export namespace Prisma {
   }
 
   /**
-   * DataAccessLog.user
+   * Invitation.couple
    */
-  export type DataAccessLog$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Invitation$coupleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the User
+     * Select specific fields to fetch from the Couple
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: CoupleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the User
+     * Omit specific fields from the Couple
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: CoupleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
+    include?: CoupleInclude<ExtArgs> | null
+    where?: CoupleWhereInput
   }
 
   /**
-   * DataAccessLog without action
+   * Invitation without action
    */
-  export type DataAccessLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvitationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DataAccessLog
+     * Select specific fields to fetch from the Invitation
      */
-    select?: DataAccessLogSelect<ExtArgs> | null
+    select?: InvitationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DataAccessLog
+     * Omit specific fields from the Invitation
      */
-    omit?: DataAccessLogOmit<ExtArgs> | null
+    omit?: InvitationOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DataAccessLogInclude<ExtArgs> | null
+    include?: InvitationInclude<ExtArgs> | null
   }
 
 
@@ -10631,6 +10693,7 @@ export namespace Prisma {
     godparent2Id: 'godparent2Id',
     marriageDate: 'marriageDate',
     parishId: 'parishId',
+    approvalStatus: 'approvalStatus',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -10662,6 +10725,7 @@ export namespace Prisma {
     role: 'role',
     isActive: 'isActive',
     profileId: 'profileId',
+    approvalStatus: 'approvalStatus',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -10698,24 +10762,17 @@ export namespace Prisma {
   export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
 
 
-  export const DataAccessLogScalarFieldEnum: {
+  export const InvitationScalarFieldEnum: {
     id: 'id',
-    entity: 'entity',
-    entityId: 'entityId',
-    action: 'action',
-    userId: 'userId',
-    ipAddress: 'ipAddress',
-    userAgent: 'userAgent',
-    success: 'success',
-    errorMessage: 'errorMessage',
-    requestData: 'requestData',
-    responseData: 'responseData',
-    timestamp: 'timestamp',
+    inviterId: 'inviterId',
+    inviteeId: 'inviteeId',
+    coupleId: 'coupleId',
+    status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
-  export type DataAccessLogScalarFieldEnum = (typeof DataAccessLogScalarFieldEnum)[keyof typeof DataAccessLogScalarFieldEnum]
+  export type InvitationScalarFieldEnum = (typeof InvitationScalarFieldEnum)[keyof typeof InvitationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10764,6 +10821,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ApprovalStatus'
+   */
+  export type EnumApprovalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApprovalStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ApprovalStatus[]'
+   */
+  export type ListEnumApprovalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApprovalStatus[]'>
     
 
 
@@ -10845,9 +10916,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
+   * Reference to a field of type 'InvitationStatus'
    */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+  export type EnumInvitationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvitationStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'InvitationStatus[]'
+   */
+  export type ListEnumInvitationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvitationStatus[]'>
     
 
 
@@ -11003,6 +11081,7 @@ export namespace Prisma {
     godparent2Id?: StringNullableFilter<"Couple"> | string | null
     marriageDate?: DateTimeFilter<"Couple"> | Date | string
     parishId?: StringFilter<"Couple"> | string
+    approvalStatus?: EnumApprovalStatusFilter<"Couple"> | $Enums.ApprovalStatus
     createdAt?: DateTimeFilter<"Couple"> | Date | string
     updatedAt?: DateTimeFilter<"Couple"> | Date | string
     member1?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
@@ -11012,6 +11091,7 @@ export namespace Prisma {
     parish?: XOR<ParishScalarRelationFilter, ParishWhereInput>
     roles?: RoleAssignmentListRelationFilter
     permissions?: PermissionListRelationFilter
+    invitations?: InvitationListRelationFilter
   }
 
   export type CoupleOrderByWithRelationInput = {
@@ -11022,6 +11102,7 @@ export namespace Prisma {
     godparent2Id?: SortOrder
     marriageDate?: SortOrder
     parishId?: SortOrder
+    approvalStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     member1?: ProfileOrderByWithRelationInput
@@ -11031,6 +11112,7 @@ export namespace Prisma {
     parish?: ParishOrderByWithRelationInput
     roles?: RoleAssignmentOrderByRelationAggregateInput
     permissions?: PermissionOrderByRelationAggregateInput
+    invitations?: InvitationOrderByRelationAggregateInput
   }
 
   export type CoupleWhereUniqueInput = Prisma.AtLeast<{
@@ -11045,6 +11127,7 @@ export namespace Prisma {
     godparent2Id?: StringNullableFilter<"Couple"> | string | null
     marriageDate?: DateTimeFilter<"Couple"> | Date | string
     parishId?: StringFilter<"Couple"> | string
+    approvalStatus?: EnumApprovalStatusFilter<"Couple"> | $Enums.ApprovalStatus
     createdAt?: DateTimeFilter<"Couple"> | Date | string
     updatedAt?: DateTimeFilter<"Couple"> | Date | string
     member1?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
@@ -11054,6 +11137,7 @@ export namespace Prisma {
     parish?: XOR<ParishScalarRelationFilter, ParishWhereInput>
     roles?: RoleAssignmentListRelationFilter
     permissions?: PermissionListRelationFilter
+    invitations?: InvitationListRelationFilter
   }, "id" | "member1Id_member2Id">
 
   export type CoupleOrderByWithAggregationInput = {
@@ -11064,6 +11148,7 @@ export namespace Prisma {
     godparent2Id?: SortOrder
     marriageDate?: SortOrder
     parishId?: SortOrder
+    approvalStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CoupleCountOrderByAggregateInput
@@ -11082,6 +11167,7 @@ export namespace Prisma {
     godparent2Id?: StringNullableWithAggregatesFilter<"Couple"> | string | null
     marriageDate?: DateTimeWithAggregatesFilter<"Couple"> | Date | string
     parishId?: StringWithAggregatesFilter<"Couple"> | string
+    approvalStatus?: EnumApprovalStatusWithAggregatesFilter<"Couple"> | $Enums.ApprovalStatus
     createdAt?: DateTimeWithAggregatesFilter<"Couple"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Couple"> | Date | string
   }
@@ -11107,6 +11193,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleListRelationFilter
     coupleAsGodparent1?: CoupleListRelationFilter
     coupleAsGodparent2?: CoupleListRelationFilter
+    sentInvitations?: InvitationListRelationFilter
+    receivedInvitations?: InvitationListRelationFilter
   }
 
   export type ProfileOrderByWithRelationInput = {
@@ -11127,6 +11215,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleOrderByRelationAggregateInput
     coupleAsGodparent1?: CoupleOrderByRelationAggregateInput
     coupleAsGodparent2?: CoupleOrderByRelationAggregateInput
+    sentInvitations?: InvitationOrderByRelationAggregateInput
+    receivedInvitations?: InvitationOrderByRelationAggregateInput
   }
 
   export type ProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -11150,6 +11240,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleListRelationFilter
     coupleAsGodparent1?: CoupleListRelationFilter
     coupleAsGodparent2?: CoupleListRelationFilter
+    sentInvitations?: InvitationListRelationFilter
+    receivedInvitations?: InvitationListRelationFilter
   }, "id" | "email">
 
   export type ProfileOrderByWithAggregationInput = {
@@ -11196,11 +11288,11 @@ export namespace Prisma {
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     isActive?: BoolFilter<"User"> | boolean
     profileId?: StringFilter<"User"> | string
+    approvalStatus?: EnumApprovalStatusFilter<"User"> | $Enums.ApprovalStatus
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     profile?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
     permissions?: PermissionListRelationFilter
-    dataAccessLogs?: DataAccessLogListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -11210,11 +11302,11 @@ export namespace Prisma {
     role?: SortOrder
     isActive?: SortOrder
     profileId?: SortOrder
+    approvalStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     profile?: ProfileOrderByWithRelationInput
     permissions?: PermissionOrderByRelationAggregateInput
-    dataAccessLogs?: DataAccessLogOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11227,11 +11319,11 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     isActive?: BoolFilter<"User"> | boolean
+    approvalStatus?: EnumApprovalStatusFilter<"User"> | $Enums.ApprovalStatus
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     profile?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
     permissions?: PermissionListRelationFilter
-    dataAccessLogs?: DataAccessLogListRelationFilter
   }, "id" | "email" | "profileId">
 
   export type UserOrderByWithAggregationInput = {
@@ -11241,6 +11333,7 @@ export namespace Prisma {
     role?: SortOrder
     isActive?: SortOrder
     profileId?: SortOrder
+    approvalStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -11258,6 +11351,7 @@ export namespace Prisma {
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     isActive?: BoolWithAggregatesFilter<"User"> | boolean
     profileId?: StringWithAggregatesFilter<"User"> | string
+    approvalStatus?: EnumApprovalStatusWithAggregatesFilter<"User"> | $Enums.ApprovalStatus
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -11424,104 +11518,76 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
   }
 
-  export type DataAccessLogWhereInput = {
-    AND?: DataAccessLogWhereInput | DataAccessLogWhereInput[]
-    OR?: DataAccessLogWhereInput[]
-    NOT?: DataAccessLogWhereInput | DataAccessLogWhereInput[]
-    id?: StringFilter<"DataAccessLog"> | string
-    entity?: EnumDataAccessEntityFilter<"DataAccessLog"> | $Enums.DataAccessEntity
-    entityId?: StringFilter<"DataAccessLog"> | string
-    action?: EnumDataAccessActionFilter<"DataAccessLog"> | $Enums.DataAccessAction
-    userId?: StringNullableFilter<"DataAccessLog"> | string | null
-    ipAddress?: StringNullableFilter<"DataAccessLog"> | string | null
-    userAgent?: StringNullableFilter<"DataAccessLog"> | string | null
-    success?: BoolFilter<"DataAccessLog"> | boolean
-    errorMessage?: StringNullableFilter<"DataAccessLog"> | string | null
-    requestData?: JsonNullableFilter<"DataAccessLog">
-    responseData?: JsonNullableFilter<"DataAccessLog">
-    timestamp?: DateTimeFilter<"DataAccessLog"> | Date | string
-    createdAt?: DateTimeFilter<"DataAccessLog"> | Date | string
-    updatedAt?: DateTimeFilter<"DataAccessLog"> | Date | string
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  export type InvitationWhereInput = {
+    AND?: InvitationWhereInput | InvitationWhereInput[]
+    OR?: InvitationWhereInput[]
+    NOT?: InvitationWhereInput | InvitationWhereInput[]
+    id?: StringFilter<"Invitation"> | string
+    inviterId?: StringFilter<"Invitation"> | string
+    inviteeId?: StringFilter<"Invitation"> | string
+    coupleId?: StringNullableFilter<"Invitation"> | string | null
+    status?: EnumInvitationStatusFilter<"Invitation"> | $Enums.InvitationStatus
+    createdAt?: DateTimeFilter<"Invitation"> | Date | string
+    updatedAt?: DateTimeFilter<"Invitation"> | Date | string
+    inviter?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+    invitee?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+    couple?: XOR<CoupleNullableScalarRelationFilter, CoupleWhereInput> | null
   }
 
-  export type DataAccessLogOrderByWithRelationInput = {
+  export type InvitationOrderByWithRelationInput = {
     id?: SortOrder
-    entity?: SortOrder
-    entityId?: SortOrder
-    action?: SortOrder
-    userId?: SortOrder
-    ipAddress?: SortOrder
-    userAgent?: SortOrder
-    success?: SortOrder
-    errorMessage?: SortOrder
-    requestData?: SortOrder
-    responseData?: SortOrder
-    timestamp?: SortOrder
+    inviterId?: SortOrder
+    inviteeId?: SortOrder
+    coupleId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
+    inviter?: ProfileOrderByWithRelationInput
+    invitee?: ProfileOrderByWithRelationInput
+    couple?: CoupleOrderByWithRelationInput
   }
 
-  export type DataAccessLogWhereUniqueInput = Prisma.AtLeast<{
+  export type InvitationWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: DataAccessLogWhereInput | DataAccessLogWhereInput[]
-    OR?: DataAccessLogWhereInput[]
-    NOT?: DataAccessLogWhereInput | DataAccessLogWhereInput[]
-    entity?: EnumDataAccessEntityFilter<"DataAccessLog"> | $Enums.DataAccessEntity
-    entityId?: StringFilter<"DataAccessLog"> | string
-    action?: EnumDataAccessActionFilter<"DataAccessLog"> | $Enums.DataAccessAction
-    userId?: StringNullableFilter<"DataAccessLog"> | string | null
-    ipAddress?: StringNullableFilter<"DataAccessLog"> | string | null
-    userAgent?: StringNullableFilter<"DataAccessLog"> | string | null
-    success?: BoolFilter<"DataAccessLog"> | boolean
-    errorMessage?: StringNullableFilter<"DataAccessLog"> | string | null
-    requestData?: JsonNullableFilter<"DataAccessLog">
-    responseData?: JsonNullableFilter<"DataAccessLog">
-    timestamp?: DateTimeFilter<"DataAccessLog"> | Date | string
-    createdAt?: DateTimeFilter<"DataAccessLog"> | Date | string
-    updatedAt?: DateTimeFilter<"DataAccessLog"> | Date | string
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }, "id">
+    inviterId_inviteeId_coupleId?: InvitationInviterIdInviteeIdCoupleIdCompoundUniqueInput
+    AND?: InvitationWhereInput | InvitationWhereInput[]
+    OR?: InvitationWhereInput[]
+    NOT?: InvitationWhereInput | InvitationWhereInput[]
+    inviterId?: StringFilter<"Invitation"> | string
+    inviteeId?: StringFilter<"Invitation"> | string
+    coupleId?: StringNullableFilter<"Invitation"> | string | null
+    status?: EnumInvitationStatusFilter<"Invitation"> | $Enums.InvitationStatus
+    createdAt?: DateTimeFilter<"Invitation"> | Date | string
+    updatedAt?: DateTimeFilter<"Invitation"> | Date | string
+    inviter?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+    invitee?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+    couple?: XOR<CoupleNullableScalarRelationFilter, CoupleWhereInput> | null
+  }, "id" | "inviterId_inviteeId_coupleId">
 
-  export type DataAccessLogOrderByWithAggregationInput = {
+  export type InvitationOrderByWithAggregationInput = {
     id?: SortOrder
-    entity?: SortOrder
-    entityId?: SortOrder
-    action?: SortOrder
-    userId?: SortOrder
-    ipAddress?: SortOrder
-    userAgent?: SortOrder
-    success?: SortOrder
-    errorMessage?: SortOrder
-    requestData?: SortOrder
-    responseData?: SortOrder
-    timestamp?: SortOrder
+    inviterId?: SortOrder
+    inviteeId?: SortOrder
+    coupleId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: DataAccessLogCountOrderByAggregateInput
-    _max?: DataAccessLogMaxOrderByAggregateInput
-    _min?: DataAccessLogMinOrderByAggregateInput
+    _count?: InvitationCountOrderByAggregateInput
+    _max?: InvitationMaxOrderByAggregateInput
+    _min?: InvitationMinOrderByAggregateInput
   }
 
-  export type DataAccessLogScalarWhereWithAggregatesInput = {
-    AND?: DataAccessLogScalarWhereWithAggregatesInput | DataAccessLogScalarWhereWithAggregatesInput[]
-    OR?: DataAccessLogScalarWhereWithAggregatesInput[]
-    NOT?: DataAccessLogScalarWhereWithAggregatesInput | DataAccessLogScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"DataAccessLog"> | string
-    entity?: EnumDataAccessEntityWithAggregatesFilter<"DataAccessLog"> | $Enums.DataAccessEntity
-    entityId?: StringWithAggregatesFilter<"DataAccessLog"> | string
-    action?: EnumDataAccessActionWithAggregatesFilter<"DataAccessLog"> | $Enums.DataAccessAction
-    userId?: StringNullableWithAggregatesFilter<"DataAccessLog"> | string | null
-    ipAddress?: StringNullableWithAggregatesFilter<"DataAccessLog"> | string | null
-    userAgent?: StringNullableWithAggregatesFilter<"DataAccessLog"> | string | null
-    success?: BoolWithAggregatesFilter<"DataAccessLog"> | boolean
-    errorMessage?: StringNullableWithAggregatesFilter<"DataAccessLog"> | string | null
-    requestData?: JsonNullableWithAggregatesFilter<"DataAccessLog">
-    responseData?: JsonNullableWithAggregatesFilter<"DataAccessLog">
-    timestamp?: DateTimeWithAggregatesFilter<"DataAccessLog"> | Date | string
-    createdAt?: DateTimeWithAggregatesFilter<"DataAccessLog"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"DataAccessLog"> | Date | string
+  export type InvitationScalarWhereWithAggregatesInput = {
+    AND?: InvitationScalarWhereWithAggregatesInput | InvitationScalarWhereWithAggregatesInput[]
+    OR?: InvitationScalarWhereWithAggregatesInput[]
+    NOT?: InvitationScalarWhereWithAggregatesInput | InvitationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Invitation"> | string
+    inviterId?: StringWithAggregatesFilter<"Invitation"> | string
+    inviteeId?: StringWithAggregatesFilter<"Invitation"> | string
+    coupleId?: StringNullableWithAggregatesFilter<"Invitation"> | string | null
+    status?: EnumInvitationStatusWithAggregatesFilter<"Invitation"> | $Enums.InvitationStatus
+    createdAt?: DateTimeWithAggregatesFilter<"Invitation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Invitation"> | Date | string
   }
 
   export type ArchdioceseCreateInput = {
@@ -11654,6 +11720,7 @@ export namespace Prisma {
   export type CoupleCreateInput = {
     id?: string
     marriageDate: Date | string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     member1: ProfileCreateNestedOneWithoutCoupleAsMember1Input
@@ -11663,6 +11730,7 @@ export namespace Prisma {
     parish: ParishCreateNestedOneWithoutCouplesInput
     roles?: RoleAssignmentCreateNestedManyWithoutCoupleInput
     permissions?: PermissionCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleUncheckedCreateInput = {
@@ -11673,14 +11741,17 @@ export namespace Prisma {
     godparent2Id?: string | null
     marriageDate: Date | string
     parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: RoleAssignmentUncheckedCreateNestedManyWithoutCoupleInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleUpdateInput = {
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     member1?: ProfileUpdateOneRequiredWithoutCoupleAsMember1NestedInput
@@ -11690,6 +11761,7 @@ export namespace Prisma {
     parish?: ParishUpdateOneRequiredWithoutCouplesNestedInput
     roles?: RoleAssignmentUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateInput = {
@@ -11699,10 +11771,12 @@ export namespace Prisma {
     godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
     parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: RoleAssignmentUncheckedUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleCreateManyInput = {
@@ -11713,12 +11787,14 @@ export namespace Prisma {
     godparent2Id?: string | null
     marriageDate: Date | string
     parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CoupleUpdateManyMutationInput = {
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11730,6 +11806,7 @@ export namespace Prisma {
     godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
     parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11752,6 +11829,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleCreateNestedManyWithoutMember2Input
     coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
+    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
   }
 
   export type ProfileUncheckedCreateInput = {
@@ -11772,6 +11851,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
     coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
+    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
   }
 
   export type ProfileUpdateInput = {
@@ -11791,6 +11872,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUpdateManyWithoutMember2NestedInput
     coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
+    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
   }
 
   export type ProfileUncheckedUpdateInput = {
@@ -11810,6 +11893,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
     coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
+    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
   }
 
   export type ProfileCreateManyInput = {
@@ -11861,11 +11946,11 @@ export namespace Prisma {
     password: string
     role?: $Enums.UserRole
     isActive?: boolean
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     profile: ProfileCreateNestedOneWithoutUserInput
     permissions?: PermissionCreateNestedManyWithoutUserInput
-    dataAccessLogs?: DataAccessLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11875,10 +11960,10 @@ export namespace Prisma {
     role?: $Enums.UserRole
     isActive?: boolean
     profileId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
-    dataAccessLogs?: DataAccessLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -11886,11 +11971,11 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUpdateOneRequiredWithoutUserNestedInput
     permissions?: PermissionUpdateManyWithoutUserNestedInput
-    dataAccessLogs?: DataAccessLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11899,10 +11984,10 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
     profileId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
-    dataAccessLogs?: DataAccessLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -11912,6 +11997,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     isActive?: boolean
     profileId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11921,6 +12007,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11931,6 +12018,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
     profileId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12081,116 +12169,65 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DataAccessLogCreateInput = {
+  export type InvitationCreateInput = {
     id?: string
-    entity: $Enums.DataAccessEntity
-    entityId: string
-    action: $Enums.DataAccessAction
-    ipAddress?: string | null
-    userAgent?: string | null
-    success?: boolean
-    errorMessage?: string | null
-    requestData?: InputJsonValue | null
-    responseData?: InputJsonValue | null
-    timestamp?: Date | string
+    status?: $Enums.InvitationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    user?: UserCreateNestedOneWithoutDataAccessLogsInput
+    inviter: ProfileCreateNestedOneWithoutSentInvitationsInput
+    invitee: ProfileCreateNestedOneWithoutReceivedInvitationsInput
+    couple?: CoupleCreateNestedOneWithoutInvitationsInput
   }
 
-  export type DataAccessLogUncheckedCreateInput = {
+  export type InvitationUncheckedCreateInput = {
     id?: string
-    entity: $Enums.DataAccessEntity
-    entityId: string
-    action: $Enums.DataAccessAction
-    userId?: string | null
-    ipAddress?: string | null
-    userAgent?: string | null
-    success?: boolean
-    errorMessage?: string | null
-    requestData?: InputJsonValue | null
-    responseData?: InputJsonValue | null
-    timestamp?: Date | string
+    inviterId: string
+    inviteeId: string
+    coupleId?: string | null
+    status?: $Enums.InvitationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type DataAccessLogUpdateInput = {
-    entity?: EnumDataAccessEntityFieldUpdateOperationsInput | $Enums.DataAccessEntity
-    entityId?: StringFieldUpdateOperationsInput | string
-    action?: EnumDataAccessActionFieldUpdateOperationsInput | $Enums.DataAccessAction
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    success?: BoolFieldUpdateOperationsInput | boolean
-    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
-    requestData?: InputJsonValue | InputJsonValue | null
-    responseData?: InputJsonValue | InputJsonValue | null
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type InvitationUpdateInput = {
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutDataAccessLogsNestedInput
+    inviter?: ProfileUpdateOneRequiredWithoutSentInvitationsNestedInput
+    invitee?: ProfileUpdateOneRequiredWithoutReceivedInvitationsNestedInput
+    couple?: CoupleUpdateOneWithoutInvitationsNestedInput
   }
 
-  export type DataAccessLogUncheckedUpdateInput = {
-    entity?: EnumDataAccessEntityFieldUpdateOperationsInput | $Enums.DataAccessEntity
-    entityId?: StringFieldUpdateOperationsInput | string
-    action?: EnumDataAccessActionFieldUpdateOperationsInput | $Enums.DataAccessAction
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    success?: BoolFieldUpdateOperationsInput | boolean
-    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
-    requestData?: InputJsonValue | InputJsonValue | null
-    responseData?: InputJsonValue | InputJsonValue | null
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type InvitationUncheckedUpdateInput = {
+    inviterId?: StringFieldUpdateOperationsInput | string
+    inviteeId?: StringFieldUpdateOperationsInput | string
+    coupleId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DataAccessLogCreateManyInput = {
+  export type InvitationCreateManyInput = {
     id?: string
-    entity: $Enums.DataAccessEntity
-    entityId: string
-    action: $Enums.DataAccessAction
-    userId?: string | null
-    ipAddress?: string | null
-    userAgent?: string | null
-    success?: boolean
-    errorMessage?: string | null
-    requestData?: InputJsonValue | null
-    responseData?: InputJsonValue | null
-    timestamp?: Date | string
+    inviterId: string
+    inviteeId: string
+    coupleId?: string | null
+    status?: $Enums.InvitationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type DataAccessLogUpdateManyMutationInput = {
-    entity?: EnumDataAccessEntityFieldUpdateOperationsInput | $Enums.DataAccessEntity
-    entityId?: StringFieldUpdateOperationsInput | string
-    action?: EnumDataAccessActionFieldUpdateOperationsInput | $Enums.DataAccessAction
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    success?: BoolFieldUpdateOperationsInput | boolean
-    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
-    requestData?: InputJsonValue | InputJsonValue | null
-    responseData?: InputJsonValue | InputJsonValue | null
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type InvitationUpdateManyMutationInput = {
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DataAccessLogUncheckedUpdateManyInput = {
-    entity?: EnumDataAccessEntityFieldUpdateOperationsInput | $Enums.DataAccessEntity
-    entityId?: StringFieldUpdateOperationsInput | string
-    action?: EnumDataAccessActionFieldUpdateOperationsInput | $Enums.DataAccessAction
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    success?: BoolFieldUpdateOperationsInput | boolean
-    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
-    requestData?: InputJsonValue | InputJsonValue | null
-    responseData?: InputJsonValue | InputJsonValue | null
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type InvitationUncheckedUpdateManyInput = {
+    inviterId?: StringFieldUpdateOperationsInput | string
+    inviteeId?: StringFieldUpdateOperationsInput | string
+    coupleId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12392,6 +12429,13 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type EnumApprovalStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApprovalStatus | EnumApprovalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApprovalStatus[] | ListEnumApprovalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApprovalStatus[] | ListEnumApprovalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApprovalStatusFilter<$PrismaModel> | $Enums.ApprovalStatus
+  }
+
   export type ProfileScalarRelationFilter = {
     is?: ProfileWhereInput
     isNot?: ProfileWhereInput
@@ -12407,6 +12451,16 @@ export namespace Prisma {
     isNot?: ParishWhereInput
   }
 
+  export type InvitationListRelationFilter = {
+    every?: InvitationWhereInput
+    some?: InvitationWhereInput
+    none?: InvitationWhereInput
+  }
+
+  export type InvitationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CoupleMember1IdMember2IdCompoundUniqueInput = {
     member1Id: string
     member2Id: string
@@ -12420,6 +12474,7 @@ export namespace Prisma {
     godparent2Id?: SortOrder
     marriageDate?: SortOrder
     parishId?: SortOrder
+    approvalStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12432,6 +12487,7 @@ export namespace Prisma {
     godparent2Id?: SortOrder
     marriageDate?: SortOrder
     parishId?: SortOrder
+    approvalStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12444,6 +12500,7 @@ export namespace Prisma {
     godparent2Id?: SortOrder
     marriageDate?: SortOrder
     parishId?: SortOrder
+    approvalStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12465,6 +12522,16 @@ export namespace Prisma {
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
     isSet?: boolean
+  }
+
+  export type EnumApprovalStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApprovalStatus | EnumApprovalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApprovalStatus[] | ListEnumApprovalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApprovalStatus[] | ListEnumApprovalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApprovalStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApprovalStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumApprovalStatusFilter<$PrismaModel>
+    _max?: NestedEnumApprovalStatusFilter<$PrismaModel>
   }
 
   export type EnumGenderFilter<$PrismaModel = never> = {
@@ -12543,16 +12610,6 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type DataAccessLogListRelationFilter = {
-    every?: DataAccessLogWhereInput
-    some?: DataAccessLogWhereInput
-    none?: DataAccessLogWhereInput
-  }
-
-  export type DataAccessLogOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
@@ -12560,6 +12617,7 @@ export namespace Prisma {
     role?: SortOrder
     isActive?: SortOrder
     profileId?: SortOrder
+    approvalStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12571,6 +12629,7 @@ export namespace Prisma {
     role?: SortOrder
     isActive?: SortOrder
     profileId?: SortOrder
+    approvalStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12582,6 +12641,7 @@ export namespace Prisma {
     role?: SortOrder
     isActive?: SortOrder
     profileId?: SortOrder
+    approvalStatus?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12765,79 +12825,58 @@ export namespace Prisma {
     _min?: NestedEnumDataAccessActionFilter<$PrismaModel>
     _max?: NestedEnumDataAccessActionFilter<$PrismaModel>
   }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    isSet?: boolean
+  export type EnumInvitationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvitationStatus | EnumInvitationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvitationStatusFilter<$PrismaModel> | $Enums.InvitationStatus
   }
 
-  export type DataAccessLogCountOrderByAggregateInput = {
+  export type InvitationInviterIdInviteeIdCoupleIdCompoundUniqueInput = {
+    inviterId: string
+    inviteeId: string
+    coupleId: string
+  }
+
+  export type InvitationCountOrderByAggregateInput = {
     id?: SortOrder
-    entity?: SortOrder
-    entityId?: SortOrder
-    action?: SortOrder
-    userId?: SortOrder
-    ipAddress?: SortOrder
-    userAgent?: SortOrder
-    success?: SortOrder
-    errorMessage?: SortOrder
-    requestData?: SortOrder
-    responseData?: SortOrder
-    timestamp?: SortOrder
+    inviterId?: SortOrder
+    inviteeId?: SortOrder
+    coupleId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type DataAccessLogMaxOrderByAggregateInput = {
+  export type InvitationMaxOrderByAggregateInput = {
     id?: SortOrder
-    entity?: SortOrder
-    entityId?: SortOrder
-    action?: SortOrder
-    userId?: SortOrder
-    ipAddress?: SortOrder
-    userAgent?: SortOrder
-    success?: SortOrder
-    errorMessage?: SortOrder
-    timestamp?: SortOrder
+    inviterId?: SortOrder
+    inviteeId?: SortOrder
+    coupleId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type DataAccessLogMinOrderByAggregateInput = {
+  export type InvitationMinOrderByAggregateInput = {
     id?: SortOrder
-    entity?: SortOrder
-    entityId?: SortOrder
-    action?: SortOrder
-    userId?: SortOrder
-    ipAddress?: SortOrder
-    userAgent?: SortOrder
-    success?: SortOrder
-    errorMessage?: SortOrder
-    timestamp?: SortOrder
+    inviterId?: SortOrder
+    inviteeId?: SortOrder
+    coupleId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
-    isSet?: boolean
+  export type EnumInvitationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvitationStatus | EnumInvitationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvitationStatusWithAggregatesFilter<$PrismaModel> | $Enums.InvitationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumInvitationStatusFilter<$PrismaModel>
+    _max?: NestedEnumInvitationStatusFilter<$PrismaModel>
   }
 
   export type ParishCreateNestedManyWithoutArchdioceseInput = {
@@ -13178,6 +13217,13 @@ export namespace Prisma {
     connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
   }
 
+  export type InvitationCreateNestedManyWithoutCoupleInput = {
+    create?: XOR<InvitationCreateWithoutCoupleInput, InvitationUncheckedCreateWithoutCoupleInput> | InvitationCreateWithoutCoupleInput[] | InvitationUncheckedCreateWithoutCoupleInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutCoupleInput | InvitationCreateOrConnectWithoutCoupleInput[]
+    createMany?: InvitationCreateManyCoupleInputEnvelope
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+  }
+
   export type RoleAssignmentUncheckedCreateNestedManyWithoutCoupleInput = {
     create?: XOR<RoleAssignmentCreateWithoutCoupleInput, RoleAssignmentUncheckedCreateWithoutCoupleInput> | RoleAssignmentCreateWithoutCoupleInput[] | RoleAssignmentUncheckedCreateWithoutCoupleInput[]
     connectOrCreate?: RoleAssignmentCreateOrConnectWithoutCoupleInput | RoleAssignmentCreateOrConnectWithoutCoupleInput[]
@@ -13190,6 +13236,17 @@ export namespace Prisma {
     connectOrCreate?: PermissionCreateOrConnectWithoutCoupleInput | PermissionCreateOrConnectWithoutCoupleInput[]
     createMany?: PermissionCreateManyCoupleInputEnvelope
     connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
+  }
+
+  export type InvitationUncheckedCreateNestedManyWithoutCoupleInput = {
+    create?: XOR<InvitationCreateWithoutCoupleInput, InvitationUncheckedCreateWithoutCoupleInput> | InvitationCreateWithoutCoupleInput[] | InvitationUncheckedCreateWithoutCoupleInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutCoupleInput | InvitationCreateOrConnectWithoutCoupleInput[]
+    createMany?: InvitationCreateManyCoupleInputEnvelope
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+  }
+
+  export type EnumApprovalStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ApprovalStatus
   }
 
   export type ProfileUpdateOneRequiredWithoutCoupleAsMember1NestedInput = {
@@ -13264,6 +13321,20 @@ export namespace Prisma {
     deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
   }
 
+  export type InvitationUpdateManyWithoutCoupleNestedInput = {
+    create?: XOR<InvitationCreateWithoutCoupleInput, InvitationUncheckedCreateWithoutCoupleInput> | InvitationCreateWithoutCoupleInput[] | InvitationUncheckedCreateWithoutCoupleInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutCoupleInput | InvitationCreateOrConnectWithoutCoupleInput[]
+    upsert?: InvitationUpsertWithWhereUniqueWithoutCoupleInput | InvitationUpsertWithWhereUniqueWithoutCoupleInput[]
+    createMany?: InvitationCreateManyCoupleInputEnvelope
+    set?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    disconnect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    delete?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    update?: InvitationUpdateWithWhereUniqueWithoutCoupleInput | InvitationUpdateWithWhereUniqueWithoutCoupleInput[]
+    updateMany?: InvitationUpdateManyWithWhereWithoutCoupleInput | InvitationUpdateManyWithWhereWithoutCoupleInput[]
+    deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
     unset?: boolean
@@ -13295,6 +13366,20 @@ export namespace Prisma {
     update?: PermissionUpdateWithWhereUniqueWithoutCoupleInput | PermissionUpdateWithWhereUniqueWithoutCoupleInput[]
     updateMany?: PermissionUpdateManyWithWhereWithoutCoupleInput | PermissionUpdateManyWithWhereWithoutCoupleInput[]
     deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
+  }
+
+  export type InvitationUncheckedUpdateManyWithoutCoupleNestedInput = {
+    create?: XOR<InvitationCreateWithoutCoupleInput, InvitationUncheckedCreateWithoutCoupleInput> | InvitationCreateWithoutCoupleInput[] | InvitationUncheckedCreateWithoutCoupleInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutCoupleInput | InvitationCreateOrConnectWithoutCoupleInput[]
+    upsert?: InvitationUpsertWithWhereUniqueWithoutCoupleInput | InvitationUpsertWithWhereUniqueWithoutCoupleInput[]
+    createMany?: InvitationCreateManyCoupleInputEnvelope
+    set?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    disconnect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    delete?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    update?: InvitationUpdateWithWhereUniqueWithoutCoupleInput | InvitationUpdateWithWhereUniqueWithoutCoupleInput[]
+    updateMany?: InvitationUpdateManyWithWhereWithoutCoupleInput | InvitationUpdateManyWithWhereWithoutCoupleInput[]
+    deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutProfileInput = {
@@ -13331,6 +13416,20 @@ export namespace Prisma {
     connect?: CoupleWhereUniqueInput | CoupleWhereUniqueInput[]
   }
 
+  export type InvitationCreateNestedManyWithoutInviterInput = {
+    create?: XOR<InvitationCreateWithoutInviterInput, InvitationUncheckedCreateWithoutInviterInput> | InvitationCreateWithoutInviterInput[] | InvitationUncheckedCreateWithoutInviterInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutInviterInput | InvitationCreateOrConnectWithoutInviterInput[]
+    createMany?: InvitationCreateManyInviterInputEnvelope
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+  }
+
+  export type InvitationCreateNestedManyWithoutInviteeInput = {
+    create?: XOR<InvitationCreateWithoutInviteeInput, InvitationUncheckedCreateWithoutInviteeInput> | InvitationCreateWithoutInviteeInput[] | InvitationUncheckedCreateWithoutInviteeInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutInviteeInput | InvitationCreateOrConnectWithoutInviteeInput[]
+    createMany?: InvitationCreateManyInviteeInputEnvelope
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedOneWithoutProfileInput = {
     create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutProfileInput
@@ -13363,6 +13462,20 @@ export namespace Prisma {
     connectOrCreate?: CoupleCreateOrConnectWithoutGodparent2Input | CoupleCreateOrConnectWithoutGodparent2Input[]
     createMany?: CoupleCreateManyGodparent2InputEnvelope
     connect?: CoupleWhereUniqueInput | CoupleWhereUniqueInput[]
+  }
+
+  export type InvitationUncheckedCreateNestedManyWithoutInviterInput = {
+    create?: XOR<InvitationCreateWithoutInviterInput, InvitationUncheckedCreateWithoutInviterInput> | InvitationCreateWithoutInviterInput[] | InvitationUncheckedCreateWithoutInviterInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutInviterInput | InvitationCreateOrConnectWithoutInviterInput[]
+    createMany?: InvitationCreateManyInviterInputEnvelope
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+  }
+
+  export type InvitationUncheckedCreateNestedManyWithoutInviteeInput = {
+    create?: XOR<InvitationCreateWithoutInviteeInput, InvitationUncheckedCreateWithoutInviteeInput> | InvitationCreateWithoutInviteeInput[] | InvitationUncheckedCreateWithoutInviteeInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutInviteeInput | InvitationCreateOrConnectWithoutInviteeInput[]
+    createMany?: InvitationCreateManyInviteeInputEnvelope
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
   }
 
   export type EnumGenderFieldUpdateOperationsInput = {
@@ -13435,6 +13548,34 @@ export namespace Prisma {
     deleteMany?: CoupleScalarWhereInput | CoupleScalarWhereInput[]
   }
 
+  export type InvitationUpdateManyWithoutInviterNestedInput = {
+    create?: XOR<InvitationCreateWithoutInviterInput, InvitationUncheckedCreateWithoutInviterInput> | InvitationCreateWithoutInviterInput[] | InvitationUncheckedCreateWithoutInviterInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutInviterInput | InvitationCreateOrConnectWithoutInviterInput[]
+    upsert?: InvitationUpsertWithWhereUniqueWithoutInviterInput | InvitationUpsertWithWhereUniqueWithoutInviterInput[]
+    createMany?: InvitationCreateManyInviterInputEnvelope
+    set?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    disconnect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    delete?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    update?: InvitationUpdateWithWhereUniqueWithoutInviterInput | InvitationUpdateWithWhereUniqueWithoutInviterInput[]
+    updateMany?: InvitationUpdateManyWithWhereWithoutInviterInput | InvitationUpdateManyWithWhereWithoutInviterInput[]
+    deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+  }
+
+  export type InvitationUpdateManyWithoutInviteeNestedInput = {
+    create?: XOR<InvitationCreateWithoutInviteeInput, InvitationUncheckedCreateWithoutInviteeInput> | InvitationCreateWithoutInviteeInput[] | InvitationUncheckedCreateWithoutInviteeInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutInviteeInput | InvitationCreateOrConnectWithoutInviteeInput[]
+    upsert?: InvitationUpsertWithWhereUniqueWithoutInviteeInput | InvitationUpsertWithWhereUniqueWithoutInviteeInput[]
+    createMany?: InvitationCreateManyInviteeInputEnvelope
+    set?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    disconnect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    delete?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    update?: InvitationUpdateWithWhereUniqueWithoutInviteeInput | InvitationUpdateWithWhereUniqueWithoutInviteeInput[]
+    updateMany?: InvitationUpdateManyWithWhereWithoutInviteeInput | InvitationUpdateManyWithWhereWithoutInviteeInput[]
+    deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateOneWithoutProfileNestedInput = {
     create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutProfileInput
@@ -13501,6 +13642,34 @@ export namespace Prisma {
     deleteMany?: CoupleScalarWhereInput | CoupleScalarWhereInput[]
   }
 
+  export type InvitationUncheckedUpdateManyWithoutInviterNestedInput = {
+    create?: XOR<InvitationCreateWithoutInviterInput, InvitationUncheckedCreateWithoutInviterInput> | InvitationCreateWithoutInviterInput[] | InvitationUncheckedCreateWithoutInviterInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutInviterInput | InvitationCreateOrConnectWithoutInviterInput[]
+    upsert?: InvitationUpsertWithWhereUniqueWithoutInviterInput | InvitationUpsertWithWhereUniqueWithoutInviterInput[]
+    createMany?: InvitationCreateManyInviterInputEnvelope
+    set?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    disconnect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    delete?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    update?: InvitationUpdateWithWhereUniqueWithoutInviterInput | InvitationUpdateWithWhereUniqueWithoutInviterInput[]
+    updateMany?: InvitationUpdateManyWithWhereWithoutInviterInput | InvitationUpdateManyWithWhereWithoutInviterInput[]
+    deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+  }
+
+  export type InvitationUncheckedUpdateManyWithoutInviteeNestedInput = {
+    create?: XOR<InvitationCreateWithoutInviteeInput, InvitationUncheckedCreateWithoutInviteeInput> | InvitationCreateWithoutInviteeInput[] | InvitationUncheckedCreateWithoutInviteeInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutInviteeInput | InvitationCreateOrConnectWithoutInviteeInput[]
+    upsert?: InvitationUpsertWithWhereUniqueWithoutInviteeInput | InvitationUpsertWithWhereUniqueWithoutInviteeInput[]
+    createMany?: InvitationCreateManyInviteeInputEnvelope
+    set?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    disconnect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    delete?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    update?: InvitationUpdateWithWhereUniqueWithoutInviteeInput | InvitationUpdateWithWhereUniqueWithoutInviteeInput[]
+    updateMany?: InvitationUpdateManyWithWhereWithoutInviteeInput | InvitationUpdateManyWithWhereWithoutInviteeInput[]
+    deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+  }
+
   export type ProfileCreateNestedOneWithoutUserInput = {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
@@ -13514,25 +13683,11 @@ export namespace Prisma {
     connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
   }
 
-  export type DataAccessLogCreateNestedManyWithoutUserInput = {
-    create?: XOR<DataAccessLogCreateWithoutUserInput, DataAccessLogUncheckedCreateWithoutUserInput> | DataAccessLogCreateWithoutUserInput[] | DataAccessLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DataAccessLogCreateOrConnectWithoutUserInput | DataAccessLogCreateOrConnectWithoutUserInput[]
-    createMany?: DataAccessLogCreateManyUserInputEnvelope
-    connect?: DataAccessLogWhereUniqueInput | DataAccessLogWhereUniqueInput[]
-  }
-
   export type PermissionUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<PermissionCreateWithoutUserInput, PermissionUncheckedCreateWithoutUserInput> | PermissionCreateWithoutUserInput[] | PermissionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PermissionCreateOrConnectWithoutUserInput | PermissionCreateOrConnectWithoutUserInput[]
     createMany?: PermissionCreateManyUserInputEnvelope
     connect?: PermissionWhereUniqueInput | PermissionWhereUniqueInput[]
-  }
-
-  export type DataAccessLogUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<DataAccessLogCreateWithoutUserInput, DataAccessLogUncheckedCreateWithoutUserInput> | DataAccessLogCreateWithoutUserInput[] | DataAccessLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DataAccessLogCreateOrConnectWithoutUserInput | DataAccessLogCreateOrConnectWithoutUserInput[]
-    createMany?: DataAccessLogCreateManyUserInputEnvelope
-    connect?: DataAccessLogWhereUniqueInput | DataAccessLogWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -13565,20 +13720,6 @@ export namespace Prisma {
     deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
   }
 
-  export type DataAccessLogUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DataAccessLogCreateWithoutUserInput, DataAccessLogUncheckedCreateWithoutUserInput> | DataAccessLogCreateWithoutUserInput[] | DataAccessLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DataAccessLogCreateOrConnectWithoutUserInput | DataAccessLogCreateOrConnectWithoutUserInput[]
-    upsert?: DataAccessLogUpsertWithWhereUniqueWithoutUserInput | DataAccessLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DataAccessLogCreateManyUserInputEnvelope
-    set?: DataAccessLogWhereUniqueInput | DataAccessLogWhereUniqueInput[]
-    disconnect?: DataAccessLogWhereUniqueInput | DataAccessLogWhereUniqueInput[]
-    delete?: DataAccessLogWhereUniqueInput | DataAccessLogWhereUniqueInput[]
-    connect?: DataAccessLogWhereUniqueInput | DataAccessLogWhereUniqueInput[]
-    update?: DataAccessLogUpdateWithWhereUniqueWithoutUserInput | DataAccessLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DataAccessLogUpdateManyWithWhereWithoutUserInput | DataAccessLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DataAccessLogScalarWhereInput | DataAccessLogScalarWhereInput[]
-  }
-
   export type PermissionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<PermissionCreateWithoutUserInput, PermissionUncheckedCreateWithoutUserInput> | PermissionCreateWithoutUserInput[] | PermissionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PermissionCreateOrConnectWithoutUserInput | PermissionCreateOrConnectWithoutUserInput[]
@@ -13591,20 +13732,6 @@ export namespace Prisma {
     update?: PermissionUpdateWithWhereUniqueWithoutUserInput | PermissionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PermissionUpdateManyWithWhereWithoutUserInput | PermissionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PermissionScalarWhereInput | PermissionScalarWhereInput[]
-  }
-
-  export type DataAccessLogUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DataAccessLogCreateWithoutUserInput, DataAccessLogUncheckedCreateWithoutUserInput> | DataAccessLogCreateWithoutUserInput[] | DataAccessLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DataAccessLogCreateOrConnectWithoutUserInput | DataAccessLogCreateOrConnectWithoutUserInput[]
-    upsert?: DataAccessLogUpsertWithWhereUniqueWithoutUserInput | DataAccessLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DataAccessLogCreateManyUserInputEnvelope
-    set?: DataAccessLogWhereUniqueInput | DataAccessLogWhereUniqueInput[]
-    disconnect?: DataAccessLogWhereUniqueInput | DataAccessLogWhereUniqueInput[]
-    delete?: DataAccessLogWhereUniqueInput | DataAccessLogWhereUniqueInput[]
-    connect?: DataAccessLogWhereUniqueInput | DataAccessLogWhereUniqueInput[]
-    update?: DataAccessLogUpdateWithWhereUniqueWithoutUserInput | DataAccessLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DataAccessLogUpdateManyWithWhereWithoutUserInput | DataAccessLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DataAccessLogScalarWhereInput | DataAccessLogScalarWhereInput[]
   }
 
   export type CoupleCreateNestedOneWithoutRolesInput = {
@@ -13727,20 +13854,52 @@ export namespace Prisma {
     update?: XOR<XOR<CoupleUpdateToOneWithWhereWithoutPermissionsInput, CoupleUpdateWithoutPermissionsInput>, CoupleUncheckedUpdateWithoutPermissionsInput>
   }
 
-  export type UserCreateNestedOneWithoutDataAccessLogsInput = {
-    create?: XOR<UserCreateWithoutDataAccessLogsInput, UserUncheckedCreateWithoutDataAccessLogsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutDataAccessLogsInput
-    connect?: UserWhereUniqueInput
+  export type ProfileCreateNestedOneWithoutSentInvitationsInput = {
+    create?: XOR<ProfileCreateWithoutSentInvitationsInput, ProfileUncheckedCreateWithoutSentInvitationsInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutSentInvitationsInput
+    connect?: ProfileWhereUniqueInput
   }
 
-  export type UserUpdateOneWithoutDataAccessLogsNestedInput = {
-    create?: XOR<UserCreateWithoutDataAccessLogsInput, UserUncheckedCreateWithoutDataAccessLogsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutDataAccessLogsInput
-    upsert?: UserUpsertWithoutDataAccessLogsInput
+  export type ProfileCreateNestedOneWithoutReceivedInvitationsInput = {
+    create?: XOR<ProfileCreateWithoutReceivedInvitationsInput, ProfileUncheckedCreateWithoutReceivedInvitationsInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutReceivedInvitationsInput
+    connect?: ProfileWhereUniqueInput
+  }
+
+  export type CoupleCreateNestedOneWithoutInvitationsInput = {
+    create?: XOR<CoupleCreateWithoutInvitationsInput, CoupleUncheckedCreateWithoutInvitationsInput>
+    connectOrCreate?: CoupleCreateOrConnectWithoutInvitationsInput
+    connect?: CoupleWhereUniqueInput
+  }
+
+  export type EnumInvitationStatusFieldUpdateOperationsInput = {
+    set?: $Enums.InvitationStatus
+  }
+
+  export type ProfileUpdateOneRequiredWithoutSentInvitationsNestedInput = {
+    create?: XOR<ProfileCreateWithoutSentInvitationsInput, ProfileUncheckedCreateWithoutSentInvitationsInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutSentInvitationsInput
+    upsert?: ProfileUpsertWithoutSentInvitationsInput
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutSentInvitationsInput, ProfileUpdateWithoutSentInvitationsInput>, ProfileUncheckedUpdateWithoutSentInvitationsInput>
+  }
+
+  export type ProfileUpdateOneRequiredWithoutReceivedInvitationsNestedInput = {
+    create?: XOR<ProfileCreateWithoutReceivedInvitationsInput, ProfileUncheckedCreateWithoutReceivedInvitationsInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutReceivedInvitationsInput
+    upsert?: ProfileUpsertWithoutReceivedInvitationsInput
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutReceivedInvitationsInput, ProfileUpdateWithoutReceivedInvitationsInput>, ProfileUncheckedUpdateWithoutReceivedInvitationsInput>
+  }
+
+  export type CoupleUpdateOneWithoutInvitationsNestedInput = {
+    create?: XOR<CoupleCreateWithoutInvitationsInput, CoupleUncheckedCreateWithoutInvitationsInput>
+    connectOrCreate?: CoupleCreateOrConnectWithoutInvitationsInput
+    upsert?: CoupleUpsertWithoutInvitationsInput
     disconnect?: boolean
-    delete?: UserWhereInput | boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDataAccessLogsInput, UserUpdateWithoutDataAccessLogsInput>, UserUncheckedUpdateWithoutDataAccessLogsInput>
+    delete?: CoupleWhereInput | boolean
+    connect?: CoupleWhereUniqueInput
+    update?: XOR<XOR<CoupleUpdateToOneWithWhereWithoutInvitationsInput, CoupleUpdateWithoutInvitationsInput>, CoupleUncheckedUpdateWithoutInvitationsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13839,6 +13998,13 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type NestedEnumApprovalStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApprovalStatus | EnumApprovalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApprovalStatus[] | ListEnumApprovalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApprovalStatus[] | ListEnumApprovalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApprovalStatusFilter<$PrismaModel> | $Enums.ApprovalStatus
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -13867,6 +14033,16 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
     isSet?: boolean
+  }
+
+  export type NestedEnumApprovalStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApprovalStatus | EnumApprovalStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApprovalStatus[] | ListEnumApprovalStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApprovalStatus[] | ListEnumApprovalStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApprovalStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApprovalStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumApprovalStatusFilter<$PrismaModel>
+    _max?: NestedEnumApprovalStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumGenderFilter<$PrismaModel = never> = {
@@ -13966,17 +14142,22 @@ export namespace Prisma {
     _min?: NestedEnumDataAccessActionFilter<$PrismaModel>
     _max?: NestedEnumDataAccessActionFilter<$PrismaModel>
   }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    isSet?: boolean
+  export type NestedEnumInvitationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvitationStatus | EnumInvitationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvitationStatusFilter<$PrismaModel> | $Enums.InvitationStatus
+  }
+
+  export type NestedEnumInvitationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvitationStatus | EnumInvitationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvitationStatus[] | ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvitationStatusWithAggregatesFilter<$PrismaModel> | $Enums.InvitationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumInvitationStatusFilter<$PrismaModel>
+    _max?: NestedEnumInvitationStatusFilter<$PrismaModel>
   }
 
   export type ParishCreateWithoutArchdioceseInput = {
@@ -14184,6 +14365,7 @@ export namespace Prisma {
   export type CoupleCreateWithoutParishInput = {
     id?: string
     marriageDate: Date | string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     member1: ProfileCreateNestedOneWithoutCoupleAsMember1Input
@@ -14192,6 +14374,7 @@ export namespace Prisma {
     godparent2?: ProfileCreateNestedOneWithoutCoupleAsGodparent2Input
     roles?: RoleAssignmentCreateNestedManyWithoutCoupleInput
     permissions?: PermissionCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleUncheckedCreateWithoutParishInput = {
@@ -14201,10 +14384,12 @@ export namespace Prisma {
     godparent1Id?: string | null
     godparent2Id?: string | null
     marriageDate: Date | string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: RoleAssignmentUncheckedCreateNestedManyWithoutCoupleInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleCreateOrConnectWithoutParishInput = {
@@ -14341,6 +14526,7 @@ export namespace Prisma {
     godparent2Id?: StringNullableFilter<"Couple"> | string | null
     marriageDate?: DateTimeFilter<"Couple"> | Date | string
     parishId?: StringFilter<"Couple"> | string
+    approvalStatus?: EnumApprovalStatusFilter<"Couple"> | $Enums.ApprovalStatus
     createdAt?: DateTimeFilter<"Couple"> | Date | string
     updatedAt?: DateTimeFilter<"Couple"> | Date | string
   }
@@ -14394,6 +14580,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleCreateNestedManyWithoutMember2Input
     coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
+    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
   }
 
   export type ProfileUncheckedCreateWithoutCoupleAsMember1Input = {
@@ -14413,6 +14601,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
     coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
+    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
   }
 
   export type ProfileCreateOrConnectWithoutCoupleAsMember1Input = {
@@ -14437,6 +14627,8 @@ export namespace Prisma {
     coupleAsMember1?: CoupleCreateNestedManyWithoutMember1Input
     coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
+    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
   }
 
   export type ProfileUncheckedCreateWithoutCoupleAsMember2Input = {
@@ -14456,6 +14648,8 @@ export namespace Prisma {
     coupleAsMember1?: CoupleUncheckedCreateNestedManyWithoutMember1Input
     coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
+    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
   }
 
   export type ProfileCreateOrConnectWithoutCoupleAsMember2Input = {
@@ -14480,6 +14674,8 @@ export namespace Prisma {
     coupleAsMember1?: CoupleCreateNestedManyWithoutMember1Input
     coupleAsMember2?: CoupleCreateNestedManyWithoutMember2Input
     coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
+    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
   }
 
   export type ProfileUncheckedCreateWithoutCoupleAsGodparent1Input = {
@@ -14499,6 +14695,8 @@ export namespace Prisma {
     coupleAsMember1?: CoupleUncheckedCreateNestedManyWithoutMember1Input
     coupleAsMember2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
     coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
+    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
   }
 
   export type ProfileCreateOrConnectWithoutCoupleAsGodparent1Input = {
@@ -14523,6 +14721,8 @@ export namespace Prisma {
     coupleAsMember1?: CoupleCreateNestedManyWithoutMember1Input
     coupleAsMember2?: CoupleCreateNestedManyWithoutMember2Input
     coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
+    sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
+    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
   }
 
   export type ProfileUncheckedCreateWithoutCoupleAsGodparent2Input = {
@@ -14542,6 +14742,8 @@ export namespace Prisma {
     coupleAsMember1?: CoupleUncheckedCreateNestedManyWithoutMember1Input
     coupleAsMember2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
     coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
+    sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
+    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
   }
 
   export type ProfileCreateOrConnectWithoutCoupleAsGodparent2Input = {
@@ -14636,6 +14838,33 @@ export namespace Prisma {
     data: PermissionCreateManyCoupleInput | PermissionCreateManyCoupleInput[]
   }
 
+  export type InvitationCreateWithoutCoupleInput = {
+    id?: string
+    status?: $Enums.InvitationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inviter: ProfileCreateNestedOneWithoutSentInvitationsInput
+    invitee: ProfileCreateNestedOneWithoutReceivedInvitationsInput
+  }
+
+  export type InvitationUncheckedCreateWithoutCoupleInput = {
+    id?: string
+    inviterId: string
+    inviteeId: string
+    status?: $Enums.InvitationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InvitationCreateOrConnectWithoutCoupleInput = {
+    where: InvitationWhereUniqueInput
+    create: XOR<InvitationCreateWithoutCoupleInput, InvitationUncheckedCreateWithoutCoupleInput>
+  }
+
+  export type InvitationCreateManyCoupleInputEnvelope = {
+    data: InvitationCreateManyCoupleInput | InvitationCreateManyCoupleInput[]
+  }
+
   export type ProfileUpsertWithoutCoupleAsMember1Input = {
     update: XOR<ProfileUpdateWithoutCoupleAsMember1Input, ProfileUncheckedUpdateWithoutCoupleAsMember1Input>
     create: XOR<ProfileCreateWithoutCoupleAsMember1Input, ProfileUncheckedCreateWithoutCoupleAsMember1Input>
@@ -14663,6 +14892,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUpdateManyWithoutMember2NestedInput
     coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
+    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutCoupleAsMember1Input = {
@@ -14681,6 +14912,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
     coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
+    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
   }
 
   export type ProfileUpsertWithoutCoupleAsMember2Input = {
@@ -14710,6 +14943,8 @@ export namespace Prisma {
     coupleAsMember1?: CoupleUpdateManyWithoutMember1NestedInput
     coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
+    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutCoupleAsMember2Input = {
@@ -14728,6 +14963,8 @@ export namespace Prisma {
     coupleAsMember1?: CoupleUncheckedUpdateManyWithoutMember1NestedInput
     coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
+    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
   }
 
   export type ProfileUpsertWithoutCoupleAsGodparent1Input = {
@@ -14757,6 +14994,8 @@ export namespace Prisma {
     coupleAsMember1?: CoupleUpdateManyWithoutMember1NestedInput
     coupleAsMember2?: CoupleUpdateManyWithoutMember2NestedInput
     coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
+    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutCoupleAsGodparent1Input = {
@@ -14775,6 +15014,8 @@ export namespace Prisma {
     coupleAsMember1?: CoupleUncheckedUpdateManyWithoutMember1NestedInput
     coupleAsMember2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
     coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
+    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
   }
 
   export type ProfileUpsertWithoutCoupleAsGodparent2Input = {
@@ -14804,6 +15045,8 @@ export namespace Prisma {
     coupleAsMember1?: CoupleUpdateManyWithoutMember1NestedInput
     coupleAsMember2?: CoupleUpdateManyWithoutMember2NestedInput
     coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
+    sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
+    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutCoupleAsGodparent2Input = {
@@ -14822,6 +15065,8 @@ export namespace Prisma {
     coupleAsMember1?: CoupleUncheckedUpdateManyWithoutMember1NestedInput
     coupleAsMember2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
     coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
+    sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
+    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
   }
 
   export type ParishUpsertWithoutCouplesInput = {
@@ -14887,16 +15132,45 @@ export namespace Prisma {
     data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyWithoutCoupleInput>
   }
 
+  export type InvitationUpsertWithWhereUniqueWithoutCoupleInput = {
+    where: InvitationWhereUniqueInput
+    update: XOR<InvitationUpdateWithoutCoupleInput, InvitationUncheckedUpdateWithoutCoupleInput>
+    create: XOR<InvitationCreateWithoutCoupleInput, InvitationUncheckedCreateWithoutCoupleInput>
+  }
+
+  export type InvitationUpdateWithWhereUniqueWithoutCoupleInput = {
+    where: InvitationWhereUniqueInput
+    data: XOR<InvitationUpdateWithoutCoupleInput, InvitationUncheckedUpdateWithoutCoupleInput>
+  }
+
+  export type InvitationUpdateManyWithWhereWithoutCoupleInput = {
+    where: InvitationScalarWhereInput
+    data: XOR<InvitationUpdateManyMutationInput, InvitationUncheckedUpdateManyWithoutCoupleInput>
+  }
+
+  export type InvitationScalarWhereInput = {
+    AND?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+    OR?: InvitationScalarWhereInput[]
+    NOT?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+    id?: StringFilter<"Invitation"> | string
+    inviterId?: StringFilter<"Invitation"> | string
+    inviteeId?: StringFilter<"Invitation"> | string
+    coupleId?: StringNullableFilter<"Invitation"> | string | null
+    status?: EnumInvitationStatusFilter<"Invitation"> | $Enums.InvitationStatus
+    createdAt?: DateTimeFilter<"Invitation"> | Date | string
+    updatedAt?: DateTimeFilter<"Invitation"> | Date | string
+  }
+
   export type UserCreateWithoutProfileInput = {
     id?: string
     email: string
     password: string
     role?: $Enums.UserRole
     isActive?: boolean
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     permissions?: PermissionCreateNestedManyWithoutUserInput
-    dataAccessLogs?: DataAccessLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -14905,10 +15179,10 @@ export namespace Prisma {
     password: string
     role?: $Enums.UserRole
     isActive?: boolean
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
-    dataAccessLogs?: DataAccessLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -14919,6 +15193,7 @@ export namespace Prisma {
   export type CoupleCreateWithoutMember1Input = {
     id?: string
     marriageDate: Date | string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     member2: ProfileCreateNestedOneWithoutCoupleAsMember2Input
@@ -14927,6 +15202,7 @@ export namespace Prisma {
     parish: ParishCreateNestedOneWithoutCouplesInput
     roles?: RoleAssignmentCreateNestedManyWithoutCoupleInput
     permissions?: PermissionCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleUncheckedCreateWithoutMember1Input = {
@@ -14936,10 +15212,12 @@ export namespace Prisma {
     godparent2Id?: string | null
     marriageDate: Date | string
     parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: RoleAssignmentUncheckedCreateNestedManyWithoutCoupleInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleCreateOrConnectWithoutMember1Input = {
@@ -14954,6 +15232,7 @@ export namespace Prisma {
   export type CoupleCreateWithoutMember2Input = {
     id?: string
     marriageDate: Date | string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     member1: ProfileCreateNestedOneWithoutCoupleAsMember1Input
@@ -14962,6 +15241,7 @@ export namespace Prisma {
     parish: ParishCreateNestedOneWithoutCouplesInput
     roles?: RoleAssignmentCreateNestedManyWithoutCoupleInput
     permissions?: PermissionCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleUncheckedCreateWithoutMember2Input = {
@@ -14971,10 +15251,12 @@ export namespace Prisma {
     godparent2Id?: string | null
     marriageDate: Date | string
     parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: RoleAssignmentUncheckedCreateNestedManyWithoutCoupleInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleCreateOrConnectWithoutMember2Input = {
@@ -14989,6 +15271,7 @@ export namespace Prisma {
   export type CoupleCreateWithoutGodparent1Input = {
     id?: string
     marriageDate: Date | string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     member1: ProfileCreateNestedOneWithoutCoupleAsMember1Input
@@ -14997,6 +15280,7 @@ export namespace Prisma {
     parish: ParishCreateNestedOneWithoutCouplesInput
     roles?: RoleAssignmentCreateNestedManyWithoutCoupleInput
     permissions?: PermissionCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleUncheckedCreateWithoutGodparent1Input = {
@@ -15006,10 +15290,12 @@ export namespace Prisma {
     godparent2Id?: string | null
     marriageDate: Date | string
     parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: RoleAssignmentUncheckedCreateNestedManyWithoutCoupleInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleCreateOrConnectWithoutGodparent1Input = {
@@ -15024,6 +15310,7 @@ export namespace Prisma {
   export type CoupleCreateWithoutGodparent2Input = {
     id?: string
     marriageDate: Date | string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     member1: ProfileCreateNestedOneWithoutCoupleAsMember1Input
@@ -15032,6 +15319,7 @@ export namespace Prisma {
     parish: ParishCreateNestedOneWithoutCouplesInput
     roles?: RoleAssignmentCreateNestedManyWithoutCoupleInput
     permissions?: PermissionCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleUncheckedCreateWithoutGodparent2Input = {
@@ -15041,10 +15329,12 @@ export namespace Prisma {
     godparent1Id?: string | null
     marriageDate: Date | string
     parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: RoleAssignmentUncheckedCreateNestedManyWithoutCoupleInput
     permissions?: PermissionUncheckedCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleCreateOrConnectWithoutGodparent2Input = {
@@ -15054,6 +15344,60 @@ export namespace Prisma {
 
   export type CoupleCreateManyGodparent2InputEnvelope = {
     data: CoupleCreateManyGodparent2Input | CoupleCreateManyGodparent2Input[]
+  }
+
+  export type InvitationCreateWithoutInviterInput = {
+    id?: string
+    status?: $Enums.InvitationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    invitee: ProfileCreateNestedOneWithoutReceivedInvitationsInput
+    couple?: CoupleCreateNestedOneWithoutInvitationsInput
+  }
+
+  export type InvitationUncheckedCreateWithoutInviterInput = {
+    id?: string
+    inviteeId: string
+    coupleId?: string | null
+    status?: $Enums.InvitationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InvitationCreateOrConnectWithoutInviterInput = {
+    where: InvitationWhereUniqueInput
+    create: XOR<InvitationCreateWithoutInviterInput, InvitationUncheckedCreateWithoutInviterInput>
+  }
+
+  export type InvitationCreateManyInviterInputEnvelope = {
+    data: InvitationCreateManyInviterInput | InvitationCreateManyInviterInput[]
+  }
+
+  export type InvitationCreateWithoutInviteeInput = {
+    id?: string
+    status?: $Enums.InvitationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inviter: ProfileCreateNestedOneWithoutSentInvitationsInput
+    couple?: CoupleCreateNestedOneWithoutInvitationsInput
+  }
+
+  export type InvitationUncheckedCreateWithoutInviteeInput = {
+    id?: string
+    inviterId: string
+    coupleId?: string | null
+    status?: $Enums.InvitationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InvitationCreateOrConnectWithoutInviteeInput = {
+    where: InvitationWhereUniqueInput
+    create: XOR<InvitationCreateWithoutInviteeInput, InvitationUncheckedCreateWithoutInviteeInput>
+  }
+
+  export type InvitationCreateManyInviteeInputEnvelope = {
+    data: InvitationCreateManyInviteeInput | InvitationCreateManyInviteeInput[]
   }
 
   export type UserUpsertWithoutProfileInput = {
@@ -15072,10 +15416,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     permissions?: PermissionUpdateManyWithoutUserNestedInput
-    dataAccessLogs?: DataAccessLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -15083,10 +15427,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
-    dataAccessLogs?: DataAccessLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CoupleUpsertWithWhereUniqueWithoutMember1Input = {
@@ -15153,6 +15497,38 @@ export namespace Prisma {
     data: XOR<CoupleUpdateManyMutationInput, CoupleUncheckedUpdateManyWithoutGodparent2Input>
   }
 
+  export type InvitationUpsertWithWhereUniqueWithoutInviterInput = {
+    where: InvitationWhereUniqueInput
+    update: XOR<InvitationUpdateWithoutInviterInput, InvitationUncheckedUpdateWithoutInviterInput>
+    create: XOR<InvitationCreateWithoutInviterInput, InvitationUncheckedCreateWithoutInviterInput>
+  }
+
+  export type InvitationUpdateWithWhereUniqueWithoutInviterInput = {
+    where: InvitationWhereUniqueInput
+    data: XOR<InvitationUpdateWithoutInviterInput, InvitationUncheckedUpdateWithoutInviterInput>
+  }
+
+  export type InvitationUpdateManyWithWhereWithoutInviterInput = {
+    where: InvitationScalarWhereInput
+    data: XOR<InvitationUpdateManyMutationInput, InvitationUncheckedUpdateManyWithoutInviterInput>
+  }
+
+  export type InvitationUpsertWithWhereUniqueWithoutInviteeInput = {
+    where: InvitationWhereUniqueInput
+    update: XOR<InvitationUpdateWithoutInviteeInput, InvitationUncheckedUpdateWithoutInviteeInput>
+    create: XOR<InvitationCreateWithoutInviteeInput, InvitationUncheckedCreateWithoutInviteeInput>
+  }
+
+  export type InvitationUpdateWithWhereUniqueWithoutInviteeInput = {
+    where: InvitationWhereUniqueInput
+    data: XOR<InvitationUpdateWithoutInviteeInput, InvitationUncheckedUpdateWithoutInviteeInput>
+  }
+
+  export type InvitationUpdateManyWithWhereWithoutInviteeInput = {
+    where: InvitationScalarWhereInput
+    data: XOR<InvitationUpdateManyMutationInput, InvitationUncheckedUpdateManyWithoutInviteeInput>
+  }
+
   export type ProfileCreateWithoutUserInput = {
     id?: string
     name: string
@@ -15170,6 +15546,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleCreateNestedManyWithoutMember2Input
     coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
+    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
   }
 
   export type ProfileUncheckedCreateWithoutUserInput = {
@@ -15189,6 +15567,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
     coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
+    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
   }
 
   export type ProfileCreateOrConnectWithoutUserInput = {
@@ -15229,47 +15609,6 @@ export namespace Prisma {
     data: PermissionCreateManyUserInput | PermissionCreateManyUserInput[]
   }
 
-  export type DataAccessLogCreateWithoutUserInput = {
-    id?: string
-    entity: $Enums.DataAccessEntity
-    entityId: string
-    action: $Enums.DataAccessAction
-    ipAddress?: string | null
-    userAgent?: string | null
-    success?: boolean
-    errorMessage?: string | null
-    requestData?: InputJsonValue | null
-    responseData?: InputJsonValue | null
-    timestamp?: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type DataAccessLogUncheckedCreateWithoutUserInput = {
-    id?: string
-    entity: $Enums.DataAccessEntity
-    entityId: string
-    action: $Enums.DataAccessAction
-    ipAddress?: string | null
-    userAgent?: string | null
-    success?: boolean
-    errorMessage?: string | null
-    requestData?: InputJsonValue | null
-    responseData?: InputJsonValue | null
-    timestamp?: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type DataAccessLogCreateOrConnectWithoutUserInput = {
-    where: DataAccessLogWhereUniqueInput
-    create: XOR<DataAccessLogCreateWithoutUserInput, DataAccessLogUncheckedCreateWithoutUserInput>
-  }
-
-  export type DataAccessLogCreateManyUserInputEnvelope = {
-    data: DataAccessLogCreateManyUserInput | DataAccessLogCreateManyUserInput[]
-  }
-
   export type ProfileUpsertWithoutUserInput = {
     update: XOR<ProfileUpdateWithoutUserInput, ProfileUncheckedUpdateWithoutUserInput>
     create: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
@@ -15297,6 +15636,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUpdateManyWithoutMember2NestedInput
     coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
+    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutUserInput = {
@@ -15315,6 +15656,8 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
     coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
+    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
   }
 
   export type PermissionUpsertWithWhereUniqueWithoutUserInput = {
@@ -15333,45 +15676,10 @@ export namespace Prisma {
     data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type DataAccessLogUpsertWithWhereUniqueWithoutUserInput = {
-    where: DataAccessLogWhereUniqueInput
-    update: XOR<DataAccessLogUpdateWithoutUserInput, DataAccessLogUncheckedUpdateWithoutUserInput>
-    create: XOR<DataAccessLogCreateWithoutUserInput, DataAccessLogUncheckedCreateWithoutUserInput>
-  }
-
-  export type DataAccessLogUpdateWithWhereUniqueWithoutUserInput = {
-    where: DataAccessLogWhereUniqueInput
-    data: XOR<DataAccessLogUpdateWithoutUserInput, DataAccessLogUncheckedUpdateWithoutUserInput>
-  }
-
-  export type DataAccessLogUpdateManyWithWhereWithoutUserInput = {
-    where: DataAccessLogScalarWhereInput
-    data: XOR<DataAccessLogUpdateManyMutationInput, DataAccessLogUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type DataAccessLogScalarWhereInput = {
-    AND?: DataAccessLogScalarWhereInput | DataAccessLogScalarWhereInput[]
-    OR?: DataAccessLogScalarWhereInput[]
-    NOT?: DataAccessLogScalarWhereInput | DataAccessLogScalarWhereInput[]
-    id?: StringFilter<"DataAccessLog"> | string
-    entity?: EnumDataAccessEntityFilter<"DataAccessLog"> | $Enums.DataAccessEntity
-    entityId?: StringFilter<"DataAccessLog"> | string
-    action?: EnumDataAccessActionFilter<"DataAccessLog"> | $Enums.DataAccessAction
-    userId?: StringNullableFilter<"DataAccessLog"> | string | null
-    ipAddress?: StringNullableFilter<"DataAccessLog"> | string | null
-    userAgent?: StringNullableFilter<"DataAccessLog"> | string | null
-    success?: BoolFilter<"DataAccessLog"> | boolean
-    errorMessage?: StringNullableFilter<"DataAccessLog"> | string | null
-    requestData?: JsonNullableFilter<"DataAccessLog">
-    responseData?: JsonNullableFilter<"DataAccessLog">
-    timestamp?: DateTimeFilter<"DataAccessLog"> | Date | string
-    createdAt?: DateTimeFilter<"DataAccessLog"> | Date | string
-    updatedAt?: DateTimeFilter<"DataAccessLog"> | Date | string
-  }
-
   export type CoupleCreateWithoutRolesInput = {
     id?: string
     marriageDate: Date | string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     member1: ProfileCreateNestedOneWithoutCoupleAsMember1Input
@@ -15380,6 +15688,7 @@ export namespace Prisma {
     godparent2?: ProfileCreateNestedOneWithoutCoupleAsGodparent2Input
     parish: ParishCreateNestedOneWithoutCouplesInput
     permissions?: PermissionCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleUncheckedCreateWithoutRolesInput = {
@@ -15390,9 +15699,11 @@ export namespace Prisma {
     godparent2Id?: string | null
     marriageDate: Date | string
     parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     permissions?: PermissionUncheckedCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleCreateOrConnectWithoutRolesInput = {
@@ -15463,6 +15774,7 @@ export namespace Prisma {
 
   export type CoupleUpdateWithoutRolesInput = {
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     member1?: ProfileUpdateOneRequiredWithoutCoupleAsMember1NestedInput
@@ -15471,6 +15783,7 @@ export namespace Prisma {
     godparent2?: ProfileUpdateOneWithoutCoupleAsGodparent2NestedInput
     parish?: ParishUpdateOneRequiredWithoutCouplesNestedInput
     permissions?: PermissionUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateWithoutRolesInput = {
@@ -15480,9 +15793,11 @@ export namespace Prisma {
     godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
     parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     permissions?: PermissionUncheckedUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutCoupleNestedInput
   }
 
   export type ArchdioceseUpsertWithoutRolesInput = {
@@ -15549,10 +15864,10 @@ export namespace Prisma {
     password: string
     role?: $Enums.UserRole
     isActive?: boolean
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     profile: ProfileCreateNestedOneWithoutUserInput
-    dataAccessLogs?: DataAccessLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPermissionsInput = {
@@ -15562,9 +15877,9 @@ export namespace Prisma {
     role?: $Enums.UserRole
     isActive?: boolean
     profileId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    dataAccessLogs?: DataAccessLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPermissionsInput = {
@@ -15625,6 +15940,7 @@ export namespace Prisma {
   export type CoupleCreateWithoutPermissionsInput = {
     id?: string
     marriageDate: Date | string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     member1: ProfileCreateNestedOneWithoutCoupleAsMember1Input
@@ -15633,6 +15949,7 @@ export namespace Prisma {
     godparent2?: ProfileCreateNestedOneWithoutCoupleAsGodparent2Input
     parish: ParishCreateNestedOneWithoutCouplesInput
     roles?: RoleAssignmentCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleUncheckedCreateWithoutPermissionsInput = {
@@ -15643,9 +15960,11 @@ export namespace Prisma {
     godparent2Id?: string | null
     marriageDate: Date | string
     parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     roles?: RoleAssignmentUncheckedCreateNestedManyWithoutCoupleInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutCoupleInput
   }
 
   export type CoupleCreateOrConnectWithoutPermissionsInput = {
@@ -15669,10 +15988,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUpdateOneRequiredWithoutUserNestedInput
-    dataAccessLogs?: DataAccessLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPermissionsInput = {
@@ -15681,9 +16000,9 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
     profileId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    dataAccessLogs?: DataAccessLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ArchdioceseUpsertWithoutPermissionsInput = {
@@ -15757,6 +16076,7 @@ export namespace Prisma {
 
   export type CoupleUpdateWithoutPermissionsInput = {
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     member1?: ProfileUpdateOneRequiredWithoutCoupleAsMember1NestedInput
@@ -15765,6 +16085,7 @@ export namespace Prisma {
     godparent2?: ProfileUpdateOneWithoutCoupleAsGodparent2NestedInput
     parish?: ParishUpdateOneRequiredWithoutCouplesNestedInput
     roles?: RoleAssignmentUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateWithoutPermissionsInput = {
@@ -15774,71 +16095,281 @@ export namespace Prisma {
     godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
     parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: RoleAssignmentUncheckedUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutCoupleNestedInput
   }
 
-  export type UserCreateWithoutDataAccessLogsInput = {
+  export type ProfileCreateWithoutSentInvitationsInput = {
     id?: string
+    name: string
+    address: XOR<AddressCreateEnvelopeInput, AddressCreateInput>
+    gender: $Enums.Gender
+    birthDate: Date | string
+    phone: string
     email: string
-    password: string
-    role?: $Enums.UserRole
-    isActive?: boolean
+    photo?: string | null
+    instagram?: string | null
+    facebook?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    profile: ProfileCreateNestedOneWithoutUserInput
-    permissions?: PermissionCreateNestedManyWithoutUserInput
+    user?: UserCreateNestedOneWithoutProfileInput
+    coupleAsMember1?: CoupleCreateNestedManyWithoutMember1Input
+    coupleAsMember2?: CoupleCreateNestedManyWithoutMember2Input
+    coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
+    coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
+    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
   }
 
-  export type UserUncheckedCreateWithoutDataAccessLogsInput = {
+  export type ProfileUncheckedCreateWithoutSentInvitationsInput = {
     id?: string
+    name: string
+    address: XOR<AddressCreateEnvelopeInput, AddressCreateInput>
+    gender: $Enums.Gender
+    birthDate: Date | string
+    phone: string
     email: string
-    password: string
-    role?: $Enums.UserRole
-    isActive?: boolean
-    profileId: string
+    photo?: string | null
+    instagram?: string | null
+    facebook?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    permissions?: PermissionUncheckedCreateNestedManyWithoutUserInput
+    user?: UserUncheckedCreateNestedOneWithoutProfileInput
+    coupleAsMember1?: CoupleUncheckedCreateNestedManyWithoutMember1Input
+    coupleAsMember2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
+    coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
+    coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
+    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
   }
 
-  export type UserCreateOrConnectWithoutDataAccessLogsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutDataAccessLogsInput, UserUncheckedCreateWithoutDataAccessLogsInput>
+  export type ProfileCreateOrConnectWithoutSentInvitationsInput = {
+    where: ProfileWhereUniqueInput
+    create: XOR<ProfileCreateWithoutSentInvitationsInput, ProfileUncheckedCreateWithoutSentInvitationsInput>
   }
 
-  export type UserUpsertWithoutDataAccessLogsInput = {
-    update: XOR<UserUpdateWithoutDataAccessLogsInput, UserUncheckedUpdateWithoutDataAccessLogsInput>
-    create: XOR<UserCreateWithoutDataAccessLogsInput, UserUncheckedCreateWithoutDataAccessLogsInput>
-    where?: UserWhereInput
+  export type ProfileCreateWithoutReceivedInvitationsInput = {
+    id?: string
+    name: string
+    address: XOR<AddressCreateEnvelopeInput, AddressCreateInput>
+    gender: $Enums.Gender
+    birthDate: Date | string
+    phone: string
+    email: string
+    photo?: string | null
+    instagram?: string | null
+    facebook?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutProfileInput
+    coupleAsMember1?: CoupleCreateNestedManyWithoutMember1Input
+    coupleAsMember2?: CoupleCreateNestedManyWithoutMember2Input
+    coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
+    coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutDataAccessLogsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutDataAccessLogsInput, UserUncheckedUpdateWithoutDataAccessLogsInput>
+  export type ProfileUncheckedCreateWithoutReceivedInvitationsInput = {
+    id?: string
+    name: string
+    address: XOR<AddressCreateEnvelopeInput, AddressCreateInput>
+    gender: $Enums.Gender
+    birthDate: Date | string
+    phone: string
+    email: string
+    photo?: string | null
+    instagram?: string | null
+    facebook?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserUncheckedCreateNestedOneWithoutProfileInput
+    coupleAsMember1?: CoupleUncheckedCreateNestedManyWithoutMember1Input
+    coupleAsMember2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
+    coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
+    coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
   }
 
-  export type UserUpdateWithoutDataAccessLogsInput = {
+  export type ProfileCreateOrConnectWithoutReceivedInvitationsInput = {
+    where: ProfileWhereUniqueInput
+    create: XOR<ProfileCreateWithoutReceivedInvitationsInput, ProfileUncheckedCreateWithoutReceivedInvitationsInput>
+  }
+
+  export type CoupleCreateWithoutInvitationsInput = {
+    id?: string
+    marriageDate: Date | string
+    approvalStatus?: $Enums.ApprovalStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    member1: ProfileCreateNestedOneWithoutCoupleAsMember1Input
+    member2: ProfileCreateNestedOneWithoutCoupleAsMember2Input
+    godparent1?: ProfileCreateNestedOneWithoutCoupleAsGodparent1Input
+    godparent2?: ProfileCreateNestedOneWithoutCoupleAsGodparent2Input
+    parish: ParishCreateNestedOneWithoutCouplesInput
+    roles?: RoleAssignmentCreateNestedManyWithoutCoupleInput
+    permissions?: PermissionCreateNestedManyWithoutCoupleInput
+  }
+
+  export type CoupleUncheckedCreateWithoutInvitationsInput = {
+    id?: string
+    member1Id: string
+    member2Id: string
+    godparent1Id?: string | null
+    godparent2Id?: string | null
+    marriageDate: Date | string
+    parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: RoleAssignmentUncheckedCreateNestedManyWithoutCoupleInput
+    permissions?: PermissionUncheckedCreateNestedManyWithoutCoupleInput
+  }
+
+  export type CoupleCreateOrConnectWithoutInvitationsInput = {
+    where: CoupleWhereUniqueInput
+    create: XOR<CoupleCreateWithoutInvitationsInput, CoupleUncheckedCreateWithoutInvitationsInput>
+  }
+
+  export type ProfileUpsertWithoutSentInvitationsInput = {
+    update: XOR<ProfileUpdateWithoutSentInvitationsInput, ProfileUncheckedUpdateWithoutSentInvitationsInput>
+    create: XOR<ProfileCreateWithoutSentInvitationsInput, ProfileUncheckedCreateWithoutSentInvitationsInput>
+    where?: ProfileWhereInput
+  }
+
+  export type ProfileUpdateToOneWithWhereWithoutSentInvitationsInput = {
+    where?: ProfileWhereInput
+    data: XOR<ProfileUpdateWithoutSentInvitationsInput, ProfileUncheckedUpdateWithoutSentInvitationsInput>
+  }
+
+  export type ProfileUpdateWithoutSentInvitationsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: XOR<AddressUpdateEnvelopeInput, AddressCreateInput>
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    phone?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUpdateOneRequiredWithoutUserNestedInput
-    permissions?: PermissionUpdateManyWithoutUserNestedInput
+    user?: UserUpdateOneWithoutProfileNestedInput
+    coupleAsMember1?: CoupleUpdateManyWithoutMember1NestedInput
+    coupleAsMember2?: CoupleUpdateManyWithoutMember2NestedInput
+    coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
+    coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
+    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutDataAccessLogsInput = {
+  export type ProfileUncheckedUpdateWithoutSentInvitationsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: XOR<AddressUpdateEnvelopeInput, AddressCreateInput>
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    phone?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    profileId?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    permissions?: PermissionUncheckedUpdateManyWithoutUserNestedInput
+    user?: UserUncheckedUpdateOneWithoutProfileNestedInput
+    coupleAsMember1?: CoupleUncheckedUpdateManyWithoutMember1NestedInput
+    coupleAsMember2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
+    coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
+    coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
+    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  }
+
+  export type ProfileUpsertWithoutReceivedInvitationsInput = {
+    update: XOR<ProfileUpdateWithoutReceivedInvitationsInput, ProfileUncheckedUpdateWithoutReceivedInvitationsInput>
+    create: XOR<ProfileCreateWithoutReceivedInvitationsInput, ProfileUncheckedCreateWithoutReceivedInvitationsInput>
+    where?: ProfileWhereInput
+  }
+
+  export type ProfileUpdateToOneWithWhereWithoutReceivedInvitationsInput = {
+    where?: ProfileWhereInput
+    data: XOR<ProfileUpdateWithoutReceivedInvitationsInput, ProfileUncheckedUpdateWithoutReceivedInvitationsInput>
+  }
+
+  export type ProfileUpdateWithoutReceivedInvitationsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: XOR<AddressUpdateEnvelopeInput, AddressCreateInput>
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutProfileNestedInput
+    coupleAsMember1?: CoupleUpdateManyWithoutMember1NestedInput
+    coupleAsMember2?: CoupleUpdateManyWithoutMember2NestedInput
+    coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
+    coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
+  }
+
+  export type ProfileUncheckedUpdateWithoutReceivedInvitationsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: XOR<AddressUpdateEnvelopeInput, AddressCreateInput>
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUncheckedUpdateOneWithoutProfileNestedInput
+    coupleAsMember1?: CoupleUncheckedUpdateManyWithoutMember1NestedInput
+    coupleAsMember2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
+    coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
+    coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
+  }
+
+  export type CoupleUpsertWithoutInvitationsInput = {
+    update: XOR<CoupleUpdateWithoutInvitationsInput, CoupleUncheckedUpdateWithoutInvitationsInput>
+    create: XOR<CoupleCreateWithoutInvitationsInput, CoupleUncheckedCreateWithoutInvitationsInput>
+    where?: CoupleWhereInput
+  }
+
+  export type CoupleUpdateToOneWithWhereWithoutInvitationsInput = {
+    where?: CoupleWhereInput
+    data: XOR<CoupleUpdateWithoutInvitationsInput, CoupleUncheckedUpdateWithoutInvitationsInput>
+  }
+
+  export type CoupleUpdateWithoutInvitationsInput = {
+    marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    member1?: ProfileUpdateOneRequiredWithoutCoupleAsMember1NestedInput
+    member2?: ProfileUpdateOneRequiredWithoutCoupleAsMember2NestedInput
+    godparent1?: ProfileUpdateOneWithoutCoupleAsGodparent1NestedInput
+    godparent2?: ProfileUpdateOneWithoutCoupleAsGodparent2NestedInput
+    parish?: ParishUpdateOneRequiredWithoutCouplesNestedInput
+    roles?: RoleAssignmentUpdateManyWithoutCoupleNestedInput
+    permissions?: PermissionUpdateManyWithoutCoupleNestedInput
+  }
+
+  export type CoupleUncheckedUpdateWithoutInvitationsInput = {
+    member1Id?: StringFieldUpdateOperationsInput | string
+    member2Id?: StringFieldUpdateOperationsInput | string
+    godparent1Id?: NullableStringFieldUpdateOperationsInput | string | null
+    godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
+    marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: RoleAssignmentUncheckedUpdateManyWithoutCoupleNestedInput
+    permissions?: PermissionUncheckedUpdateManyWithoutCoupleNestedInput
   }
 
   export type ParishCreateManyArchdioceseInput = {
@@ -15961,6 +16492,7 @@ export namespace Prisma {
     godparent1Id?: string | null
     godparent2Id?: string | null
     marriageDate: Date | string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15988,6 +16520,7 @@ export namespace Prisma {
 
   export type CoupleUpdateWithoutParishInput = {
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     member1?: ProfileUpdateOneRequiredWithoutCoupleAsMember1NestedInput
@@ -15996,6 +16529,7 @@ export namespace Prisma {
     godparent2?: ProfileUpdateOneWithoutCoupleAsGodparent2NestedInput
     roles?: RoleAssignmentUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateWithoutParishInput = {
@@ -16004,10 +16538,12 @@ export namespace Prisma {
     godparent1Id?: NullableStringFieldUpdateOperationsInput | string | null
     godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: RoleAssignmentUncheckedUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateManyWithoutParishInput = {
@@ -16016,6 +16552,7 @@ export namespace Prisma {
     godparent1Id?: NullableStringFieldUpdateOperationsInput | string | null
     godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16098,6 +16635,15 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type InvitationCreateManyCoupleInput = {
+    id?: string
+    inviterId: string
+    inviteeId: string
+    status?: $Enums.InvitationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type RoleAssignmentUpdateWithoutCoupleInput = {
     role?: EnumCoupleRoleFieldUpdateOperationsInput | $Enums.CoupleRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16155,6 +16701,30 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type InvitationUpdateWithoutCoupleInput = {
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inviter?: ProfileUpdateOneRequiredWithoutSentInvitationsNestedInput
+    invitee?: ProfileUpdateOneRequiredWithoutReceivedInvitationsNestedInput
+  }
+
+  export type InvitationUncheckedUpdateWithoutCoupleInput = {
+    inviterId?: StringFieldUpdateOperationsInput | string
+    inviteeId?: StringFieldUpdateOperationsInput | string
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvitationUncheckedUpdateManyWithoutCoupleInput = {
+    inviterId?: StringFieldUpdateOperationsInput | string
+    inviteeId?: StringFieldUpdateOperationsInput | string
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CoupleCreateManyMember1Input = {
     id?: string
     member2Id: string
@@ -16162,6 +16732,7 @@ export namespace Prisma {
     godparent2Id?: string | null
     marriageDate: Date | string
     parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16173,6 +16744,7 @@ export namespace Prisma {
     godparent2Id?: string | null
     marriageDate: Date | string
     parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16184,6 +16756,7 @@ export namespace Prisma {
     godparent2Id?: string | null
     marriageDate: Date | string
     parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16195,12 +16768,32 @@ export namespace Prisma {
     godparent1Id?: string | null
     marriageDate: Date | string
     parishId: string
+    approvalStatus?: $Enums.ApprovalStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InvitationCreateManyInviterInput = {
+    id?: string
+    inviteeId: string
+    coupleId?: string | null
+    status?: $Enums.InvitationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InvitationCreateManyInviteeInput = {
+    id?: string
+    inviterId: string
+    coupleId?: string | null
+    status?: $Enums.InvitationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CoupleUpdateWithoutMember1Input = {
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     member2?: ProfileUpdateOneRequiredWithoutCoupleAsMember2NestedInput
@@ -16209,6 +16802,7 @@ export namespace Prisma {
     parish?: ParishUpdateOneRequiredWithoutCouplesNestedInput
     roles?: RoleAssignmentUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateWithoutMember1Input = {
@@ -16217,10 +16811,12 @@ export namespace Prisma {
     godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
     parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: RoleAssignmentUncheckedUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateManyWithoutMember1Input = {
@@ -16229,12 +16825,14 @@ export namespace Prisma {
     godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
     parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CoupleUpdateWithoutMember2Input = {
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     member1?: ProfileUpdateOneRequiredWithoutCoupleAsMember1NestedInput
@@ -16243,6 +16841,7 @@ export namespace Prisma {
     parish?: ParishUpdateOneRequiredWithoutCouplesNestedInput
     roles?: RoleAssignmentUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateWithoutMember2Input = {
@@ -16251,10 +16850,12 @@ export namespace Prisma {
     godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
     parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: RoleAssignmentUncheckedUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateManyWithoutMember2Input = {
@@ -16263,12 +16864,14 @@ export namespace Prisma {
     godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
     parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CoupleUpdateWithoutGodparent1Input = {
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     member1?: ProfileUpdateOneRequiredWithoutCoupleAsMember1NestedInput
@@ -16277,6 +16880,7 @@ export namespace Prisma {
     parish?: ParishUpdateOneRequiredWithoutCouplesNestedInput
     roles?: RoleAssignmentUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateWithoutGodparent1Input = {
@@ -16285,10 +16889,12 @@ export namespace Prisma {
     godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
     parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: RoleAssignmentUncheckedUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateManyWithoutGodparent1Input = {
@@ -16297,12 +16903,14 @@ export namespace Prisma {
     godparent2Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
     parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CoupleUpdateWithoutGodparent2Input = {
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     member1?: ProfileUpdateOneRequiredWithoutCoupleAsMember1NestedInput
@@ -16311,6 +16919,7 @@ export namespace Prisma {
     parish?: ParishUpdateOneRequiredWithoutCouplesNestedInput
     roles?: RoleAssignmentUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateWithoutGodparent2Input = {
@@ -16319,10 +16928,12 @@ export namespace Prisma {
     godparent1Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
     parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: RoleAssignmentUncheckedUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutCoupleNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutCoupleNestedInput
   }
 
   export type CoupleUncheckedUpdateManyWithoutGodparent2Input = {
@@ -16331,6 +16942,55 @@ export namespace Prisma {
     godparent1Id?: NullableStringFieldUpdateOperationsInput | string | null
     marriageDate?: DateTimeFieldUpdateOperationsInput | Date | string
     parishId?: StringFieldUpdateOperationsInput | string
+    approvalStatus?: EnumApprovalStatusFieldUpdateOperationsInput | $Enums.ApprovalStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvitationUpdateWithoutInviterInput = {
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    invitee?: ProfileUpdateOneRequiredWithoutReceivedInvitationsNestedInput
+    couple?: CoupleUpdateOneWithoutInvitationsNestedInput
+  }
+
+  export type InvitationUncheckedUpdateWithoutInviterInput = {
+    inviteeId?: StringFieldUpdateOperationsInput | string
+    coupleId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvitationUncheckedUpdateManyWithoutInviterInput = {
+    inviteeId?: StringFieldUpdateOperationsInput | string
+    coupleId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvitationUpdateWithoutInviteeInput = {
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inviter?: ProfileUpdateOneRequiredWithoutSentInvitationsNestedInput
+    couple?: CoupleUpdateOneWithoutInvitationsNestedInput
+  }
+
+  export type InvitationUncheckedUpdateWithoutInviteeInput = {
+    inviterId?: StringFieldUpdateOperationsInput | string
+    coupleId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvitationUncheckedUpdateManyWithoutInviteeInput = {
+    inviterId?: StringFieldUpdateOperationsInput | string
+    coupleId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16343,22 +17003,6 @@ export namespace Prisma {
     parishId?: string | null
     coupleId?: string | null
     resourceId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type DataAccessLogCreateManyUserInput = {
-    id?: string
-    entity: $Enums.DataAccessEntity
-    entityId: string
-    action: $Enums.DataAccessAction
-    ipAddress?: string | null
-    userAgent?: string | null
-    success?: boolean
-    errorMessage?: string | null
-    requestData?: InputJsonValue | null
-    responseData?: InputJsonValue | null
-    timestamp?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16392,51 +17036,6 @@ export namespace Prisma {
     parishId?: NullableStringFieldUpdateOperationsInput | string | null
     coupleId?: NullableStringFieldUpdateOperationsInput | string | null
     resourceId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DataAccessLogUpdateWithoutUserInput = {
-    entity?: EnumDataAccessEntityFieldUpdateOperationsInput | $Enums.DataAccessEntity
-    entityId?: StringFieldUpdateOperationsInput | string
-    action?: EnumDataAccessActionFieldUpdateOperationsInput | $Enums.DataAccessAction
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    success?: BoolFieldUpdateOperationsInput | boolean
-    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
-    requestData?: InputJsonValue | InputJsonValue | null
-    responseData?: InputJsonValue | InputJsonValue | null
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DataAccessLogUncheckedUpdateWithoutUserInput = {
-    entity?: EnumDataAccessEntityFieldUpdateOperationsInput | $Enums.DataAccessEntity
-    entityId?: StringFieldUpdateOperationsInput | string
-    action?: EnumDataAccessActionFieldUpdateOperationsInput | $Enums.DataAccessAction
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    success?: BoolFieldUpdateOperationsInput | boolean
-    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
-    requestData?: InputJsonValue | InputJsonValue | null
-    responseData?: InputJsonValue | InputJsonValue | null
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DataAccessLogUncheckedUpdateManyWithoutUserInput = {
-    entity?: EnumDataAccessEntityFieldUpdateOperationsInput | $Enums.DataAccessEntity
-    entityId?: StringFieldUpdateOperationsInput | string
-    action?: EnumDataAccessActionFieldUpdateOperationsInput | $Enums.DataAccessAction
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    success?: BoolFieldUpdateOperationsInput | boolean
-    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
-    requestData?: InputJsonValue | InputJsonValue | null
-    responseData?: InputJsonValue | InputJsonValue | null
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

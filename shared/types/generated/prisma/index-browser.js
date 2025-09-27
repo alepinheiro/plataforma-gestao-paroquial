@@ -136,6 +136,7 @@ exports.Prisma.CoupleScalarFieldEnum = {
   godparent2Id: 'godparent2Id',
   marriageDate: 'marriageDate',
   parishId: 'parishId',
+  approvalStatus: 'approvalStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -161,6 +162,7 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   isActive: 'isActive',
   profileId: 'profileId',
+  approvalStatus: 'approvalStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -188,19 +190,12 @@ exports.Prisma.PermissionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.DataAccessLogScalarFieldEnum = {
+exports.Prisma.InvitationScalarFieldEnum = {
   id: 'id',
-  entity: 'entity',
-  entityId: 'entityId',
-  action: 'action',
-  userId: 'userId',
-  ipAddress: 'ipAddress',
-  userAgent: 'userAgent',
-  success: 'success',
-  errorMessage: 'errorMessage',
-  requestData: 'requestData',
-  responseData: 'responseData',
-  timestamp: 'timestamp',
+  inviterId: 'inviterId',
+  inviteeId: 'inviteeId',
+  coupleId: 'coupleId',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -214,6 +209,12 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+exports.ApprovalStatus = exports.$Enums.ApprovalStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
 exports.Gender = exports.$Enums.Gender = {
   MALE: 'MALE',
   FEMALE: 'FEMALE'
@@ -255,6 +256,13 @@ exports.DataAccessAction = exports.$Enums.DataAccessAction = {
   DELETE: 'DELETE'
 };
 
+exports.InvitationStatus = exports.$Enums.InvitationStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  DECLINED: 'DECLINED',
+  EXPIRED: 'EXPIRED'
+};
+
 exports.Prisma.ModelName = {
   Archdiocese: 'Archdiocese',
   Parish: 'Parish',
@@ -263,7 +271,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   RoleAssignment: 'RoleAssignment',
   Permission: 'Permission',
-  DataAccessLog: 'DataAccessLog'
+  Invitation: 'Invitation'
 };
 
 /**
