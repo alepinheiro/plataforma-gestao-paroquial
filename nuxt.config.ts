@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@vee-validate/nuxt',
     '@nuxt/icon',
+    'nuxt-auth-utils',
   ],
   devtools: { enabled: true },
   css: ['~/assets/css/tailwind.css'],

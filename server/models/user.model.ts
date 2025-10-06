@@ -15,6 +15,13 @@ export class UserModel {
     });
   };
 
+  getByEmail = async (email: string) => {
+    return await prisma.user.findUnique({
+      where: { email },
+      include: { profile: true, permissions: true },
+    });
+  };
+
   create = async (data: {
     email: string;
     password: string;

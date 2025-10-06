@@ -1,4 +1,4 @@
-// server/api/profiles.get.ts
+// server/api/profile.get.ts
 import { z } from 'zod';
 import { ProfileModel } from '~~/server/models/profile.model';
 

@@ -389,8 +389,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.16.2
-   * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
+   * Prisma Client JS version: 6.16.3
+   * Query Engine version: bb420e667c1820a8c05a38023385f6cc7ef8e83a
    */
   export type PrismaVersion = {
     client: string
@@ -1712,7 +1712,7 @@ export namespace Prisma {
     coupleAsGodparent1: number
     coupleAsGodparent2: number
     sentInvitations: number
-    receivedInvitations: number
+    Invitation: number
   }
 
   export type ProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1721,7 +1721,7 @@ export namespace Prisma {
     coupleAsGodparent1?: boolean | ProfileCountOutputTypeCountCoupleAsGodparent1Args
     coupleAsGodparent2?: boolean | ProfileCountOutputTypeCountCoupleAsGodparent2Args
     sentInvitations?: boolean | ProfileCountOutputTypeCountSentInvitationsArgs
-    receivedInvitations?: boolean | ProfileCountOutputTypeCountReceivedInvitationsArgs
+    Invitation?: boolean | ProfileCountOutputTypeCountInvitationArgs
   }
 
   // Custom InputTypes
@@ -1773,7 +1773,7 @@ export namespace Prisma {
   /**
    * ProfileCountOutputType without action
    */
-  export type ProfileCountOutputTypeCountReceivedInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ProfileCountOutputTypeCountInvitationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InvitationWhereInput
   }
 
@@ -5411,7 +5411,7 @@ export namespace Prisma {
     coupleAsGodparent1?: boolean | Profile$coupleAsGodparent1Args<ExtArgs>
     coupleAsGodparent2?: boolean | Profile$coupleAsGodparent2Args<ExtArgs>
     sentInvitations?: boolean | Profile$sentInvitationsArgs<ExtArgs>
-    receivedInvitations?: boolean | Profile$receivedInvitationsArgs<ExtArgs>
+    Invitation?: boolean | Profile$InvitationArgs<ExtArgs>
     _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -5439,7 +5439,7 @@ export namespace Prisma {
     coupleAsGodparent1?: boolean | Profile$coupleAsGodparent1Args<ExtArgs>
     coupleAsGodparent2?: boolean | Profile$coupleAsGodparent2Args<ExtArgs>
     sentInvitations?: boolean | Profile$sentInvitationsArgs<ExtArgs>
-    receivedInvitations?: boolean | Profile$receivedInvitationsArgs<ExtArgs>
+    Invitation?: boolean | Profile$InvitationArgs<ExtArgs>
     _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -5452,7 +5452,7 @@ export namespace Prisma {
       coupleAsGodparent1: Prisma.$CouplePayload<ExtArgs>[]
       coupleAsGodparent2: Prisma.$CouplePayload<ExtArgs>[]
       sentInvitations: Prisma.$InvitationPayload<ExtArgs>[]
-      receivedInvitations: Prisma.$InvitationPayload<ExtArgs>[]
+      Invitation: Prisma.$InvitationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5837,7 +5837,7 @@ export namespace Prisma {
     coupleAsGodparent1<T extends Profile$coupleAsGodparent1Args<ExtArgs> = {}>(args?: Subset<T, Profile$coupleAsGodparent1Args<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CouplePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     coupleAsGodparent2<T extends Profile$coupleAsGodparent2Args<ExtArgs> = {}>(args?: Subset<T, Profile$coupleAsGodparent2Args<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CouplePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sentInvitations<T extends Profile$sentInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, Profile$sentInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    receivedInvitations<T extends Profile$receivedInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, Profile$receivedInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Invitation<T extends Profile$InvitationArgs<ExtArgs> = {}>(args?: Subset<T, Profile$InvitationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6387,9 +6387,9 @@ export namespace Prisma {
   }
 
   /**
-   * Profile.receivedInvitations
+   * Profile.Invitation
    */
-  export type Profile$receivedInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Profile$InvitationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Invitation
      */
@@ -9645,31 +9645,40 @@ export namespace Prisma {
   export type InvitationMinAggregateOutputType = {
     id: string | null
     inviterId: string | null
-    inviteeId: string | null
+    coupleName: string | null
+    inviteeEmail: string | null
     coupleId: string | null
     status: $Enums.InvitationStatus | null
+    token: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    profileId: string | null
   }
 
   export type InvitationMaxAggregateOutputType = {
     id: string | null
     inviterId: string | null
-    inviteeId: string | null
+    coupleName: string | null
+    inviteeEmail: string | null
     coupleId: string | null
     status: $Enums.InvitationStatus | null
+    token: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    profileId: string | null
   }
 
   export type InvitationCountAggregateOutputType = {
     id: number
     inviterId: number
-    inviteeId: number
+    coupleName: number
+    inviteeEmail: number
     coupleId: number
     status: number
+    token: number
     createdAt: number
     updatedAt: number
+    profileId: number
     _all: number
   }
 
@@ -9677,31 +9686,40 @@ export namespace Prisma {
   export type InvitationMinAggregateInputType = {
     id?: true
     inviterId?: true
-    inviteeId?: true
+    coupleName?: true
+    inviteeEmail?: true
     coupleId?: true
     status?: true
+    token?: true
     createdAt?: true
     updatedAt?: true
+    profileId?: true
   }
 
   export type InvitationMaxAggregateInputType = {
     id?: true
     inviterId?: true
-    inviteeId?: true
+    coupleName?: true
+    inviteeEmail?: true
     coupleId?: true
     status?: true
+    token?: true
     createdAt?: true
     updatedAt?: true
+    profileId?: true
   }
 
   export type InvitationCountAggregateInputType = {
     id?: true
     inviterId?: true
-    inviteeId?: true
+    coupleName?: true
+    inviteeEmail?: true
     coupleId?: true
     status?: true
+    token?: true
     createdAt?: true
     updatedAt?: true
+    profileId?: true
     _all?: true
   }
 
@@ -9780,11 +9798,14 @@ export namespace Prisma {
   export type InvitationGroupByOutputType = {
     id: string
     inviterId: string
-    inviteeId: string
+    coupleName: string
+    inviteeEmail: string
     coupleId: string | null
     status: $Enums.InvitationStatus
+    token: string
     createdAt: Date
     updatedAt: Date
+    profileId: string | null
     _count: InvitationCountAggregateOutputType | null
     _min: InvitationMinAggregateOutputType | null
     _max: InvitationMaxAggregateOutputType | null
@@ -9807,14 +9828,17 @@ export namespace Prisma {
   export type InvitationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     inviterId?: boolean
-    inviteeId?: boolean
+    coupleName?: boolean
+    inviteeEmail?: boolean
     coupleId?: boolean
     status?: boolean
+    token?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    profileId?: boolean
     inviter?: boolean | ProfileDefaultArgs<ExtArgs>
-    invitee?: boolean | ProfileDefaultArgs<ExtArgs>
     couple?: boolean | Invitation$coupleArgs<ExtArgs>
+    Profile?: boolean | Invitation$ProfileArgs<ExtArgs>
   }, ExtArgs["result"]["invitation"]>
 
 
@@ -9822,35 +9846,44 @@ export namespace Prisma {
   export type InvitationSelectScalar = {
     id?: boolean
     inviterId?: boolean
-    inviteeId?: boolean
+    coupleName?: boolean
+    inviteeEmail?: boolean
     coupleId?: boolean
     status?: boolean
+    token?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    profileId?: boolean
   }
 
-  export type InvitationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "inviterId" | "inviteeId" | "coupleId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["invitation"]>
+  export type InvitationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "inviterId" | "coupleName" | "inviteeEmail" | "coupleId" | "status" | "token" | "createdAt" | "updatedAt" | "profileId", ExtArgs["result"]["invitation"]>
   export type InvitationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     inviter?: boolean | ProfileDefaultArgs<ExtArgs>
-    invitee?: boolean | ProfileDefaultArgs<ExtArgs>
     couple?: boolean | Invitation$coupleArgs<ExtArgs>
+    Profile?: boolean | Invitation$ProfileArgs<ExtArgs>
   }
 
   export type $InvitationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Invitation"
     objects: {
       inviter: Prisma.$ProfilePayload<ExtArgs>
-      invitee: Prisma.$ProfilePayload<ExtArgs>
       couple: Prisma.$CouplePayload<ExtArgs> | null
+      Profile: Prisma.$ProfilePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       inviterId: string
-      inviteeId: string
+      /**
+       * Dados temporários do convidado (antes de criar Profile/User)
+       */
+      coupleName: string
+      inviteeEmail: string
       coupleId: string | null
       status: $Enums.InvitationStatus
+      token: string
       createdAt: Date
       updatedAt: Date
+      profileId: string | null
     }, ExtArgs["result"]["invitation"]>
     composites: {}
   }
@@ -10215,8 +10248,8 @@ export namespace Prisma {
   export interface Prisma__InvitationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     inviter<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    invitee<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     couple<T extends Invitation$coupleArgs<ExtArgs> = {}>(args?: Subset<T, Invitation$coupleArgs<ExtArgs>>): Prisma__CoupleClient<$Result.GetResult<Prisma.$CouplePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    Profile<T extends Invitation$ProfileArgs<ExtArgs> = {}>(args?: Subset<T, Invitation$ProfileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10248,11 +10281,14 @@ export namespace Prisma {
   interface InvitationFieldRefs {
     readonly id: FieldRef<"Invitation", 'String'>
     readonly inviterId: FieldRef<"Invitation", 'String'>
-    readonly inviteeId: FieldRef<"Invitation", 'String'>
+    readonly coupleName: FieldRef<"Invitation", 'String'>
+    readonly inviteeEmail: FieldRef<"Invitation", 'String'>
     readonly coupleId: FieldRef<"Invitation", 'String'>
     readonly status: FieldRef<"Invitation", 'InvitationStatus'>
+    readonly token: FieldRef<"Invitation", 'String'>
     readonly createdAt: FieldRef<"Invitation", 'DateTime'>
     readonly updatedAt: FieldRef<"Invitation", 'DateTime'>
+    readonly profileId: FieldRef<"Invitation", 'String'>
   }
     
 
@@ -10642,6 +10678,25 @@ export namespace Prisma {
   }
 
   /**
+   * Invitation.Profile
+   */
+  export type Invitation$ProfileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Profile
+     */
+    select?: ProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Profile
+     */
+    omit?: ProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
+    where?: ProfileWhereInput
+  }
+
+  /**
    * Invitation without action
    */
   export type InvitationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10765,11 +10820,14 @@ export namespace Prisma {
   export const InvitationScalarFieldEnum: {
     id: 'id',
     inviterId: 'inviterId',
-    inviteeId: 'inviteeId',
+    coupleName: 'coupleName',
+    inviteeEmail: 'inviteeEmail',
     coupleId: 'coupleId',
     status: 'status',
+    token: 'token',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    profileId: 'profileId'
   };
 
   export type InvitationScalarFieldEnum = (typeof InvitationScalarFieldEnum)[keyof typeof InvitationScalarFieldEnum]
@@ -11194,7 +11252,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleListRelationFilter
     coupleAsGodparent2?: CoupleListRelationFilter
     sentInvitations?: InvitationListRelationFilter
-    receivedInvitations?: InvitationListRelationFilter
+    Invitation?: InvitationListRelationFilter
   }
 
   export type ProfileOrderByWithRelationInput = {
@@ -11216,7 +11274,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleOrderByRelationAggregateInput
     coupleAsGodparent2?: CoupleOrderByRelationAggregateInput
     sentInvitations?: InvitationOrderByRelationAggregateInput
-    receivedInvitations?: InvitationOrderByRelationAggregateInput
+    Invitation?: InvitationOrderByRelationAggregateInput
   }
 
   export type ProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -11241,7 +11299,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleListRelationFilter
     coupleAsGodparent2?: CoupleListRelationFilter
     sentInvitations?: InvitationListRelationFilter
-    receivedInvitations?: InvitationListRelationFilter
+    Invitation?: InvitationListRelationFilter
   }, "id" | "email">
 
   export type ProfileOrderByWithAggregationInput = {
@@ -11524,54 +11582,66 @@ export namespace Prisma {
     NOT?: InvitationWhereInput | InvitationWhereInput[]
     id?: StringFilter<"Invitation"> | string
     inviterId?: StringFilter<"Invitation"> | string
-    inviteeId?: StringFilter<"Invitation"> | string
+    coupleName?: StringFilter<"Invitation"> | string
+    inviteeEmail?: StringFilter<"Invitation"> | string
     coupleId?: StringNullableFilter<"Invitation"> | string | null
     status?: EnumInvitationStatusFilter<"Invitation"> | $Enums.InvitationStatus
+    token?: StringFilter<"Invitation"> | string
     createdAt?: DateTimeFilter<"Invitation"> | Date | string
     updatedAt?: DateTimeFilter<"Invitation"> | Date | string
+    profileId?: StringNullableFilter<"Invitation"> | string | null
     inviter?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
-    invitee?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
     couple?: XOR<CoupleNullableScalarRelationFilter, CoupleWhereInput> | null
+    Profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
   }
 
   export type InvitationOrderByWithRelationInput = {
     id?: SortOrder
     inviterId?: SortOrder
-    inviteeId?: SortOrder
+    coupleName?: SortOrder
+    inviteeEmail?: SortOrder
     coupleId?: SortOrder
     status?: SortOrder
+    token?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    profileId?: SortOrder
     inviter?: ProfileOrderByWithRelationInput
-    invitee?: ProfileOrderByWithRelationInput
     couple?: CoupleOrderByWithRelationInput
+    Profile?: ProfileOrderByWithRelationInput
   }
 
   export type InvitationWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    inviterId_inviteeId_coupleId?: InvitationInviterIdInviteeIdCoupleIdCompoundUniqueInput
+    token?: string
+    inviterId_inviteeEmail_coupleId?: InvitationInviterIdInviteeEmailCoupleIdCompoundUniqueInput
     AND?: InvitationWhereInput | InvitationWhereInput[]
     OR?: InvitationWhereInput[]
     NOT?: InvitationWhereInput | InvitationWhereInput[]
     inviterId?: StringFilter<"Invitation"> | string
-    inviteeId?: StringFilter<"Invitation"> | string
+    coupleName?: StringFilter<"Invitation"> | string
+    inviteeEmail?: StringFilter<"Invitation"> | string
     coupleId?: StringNullableFilter<"Invitation"> | string | null
     status?: EnumInvitationStatusFilter<"Invitation"> | $Enums.InvitationStatus
     createdAt?: DateTimeFilter<"Invitation"> | Date | string
     updatedAt?: DateTimeFilter<"Invitation"> | Date | string
+    profileId?: StringNullableFilter<"Invitation"> | string | null
     inviter?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
-    invitee?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
     couple?: XOR<CoupleNullableScalarRelationFilter, CoupleWhereInput> | null
-  }, "id" | "inviterId_inviteeId_coupleId">
+    Profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
+  }, "id" | "token" | "inviterId_inviteeEmail_coupleId">
 
   export type InvitationOrderByWithAggregationInput = {
     id?: SortOrder
     inviterId?: SortOrder
-    inviteeId?: SortOrder
+    coupleName?: SortOrder
+    inviteeEmail?: SortOrder
     coupleId?: SortOrder
     status?: SortOrder
+    token?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    profileId?: SortOrder
     _count?: InvitationCountOrderByAggregateInput
     _max?: InvitationMaxOrderByAggregateInput
     _min?: InvitationMinOrderByAggregateInput
@@ -11583,11 +11653,14 @@ export namespace Prisma {
     NOT?: InvitationScalarWhereWithAggregatesInput | InvitationScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Invitation"> | string
     inviterId?: StringWithAggregatesFilter<"Invitation"> | string
-    inviteeId?: StringWithAggregatesFilter<"Invitation"> | string
+    coupleName?: StringWithAggregatesFilter<"Invitation"> | string
+    inviteeEmail?: StringWithAggregatesFilter<"Invitation"> | string
     coupleId?: StringNullableWithAggregatesFilter<"Invitation"> | string | null
     status?: EnumInvitationStatusWithAggregatesFilter<"Invitation"> | $Enums.InvitationStatus
+    token?: StringWithAggregatesFilter<"Invitation"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Invitation"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Invitation"> | Date | string
+    profileId?: StringNullableWithAggregatesFilter<"Invitation"> | string | null
   }
 
   export type ArchdioceseCreateInput = {
@@ -11830,7 +11903,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
     sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
-    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateInput = {
@@ -11852,7 +11925,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
     sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
-    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUpdateInput = {
@@ -11873,7 +11946,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
     sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
-    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateInput = {
@@ -11894,7 +11967,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
     sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
-    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUncheckedUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileCreateManyInput = {
@@ -12171,65 +12244,86 @@ export namespace Prisma {
 
   export type InvitationCreateInput = {
     id?: string
+    coupleName: string
+    inviteeEmail: string
     status?: $Enums.InvitationStatus
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
     inviter: ProfileCreateNestedOneWithoutSentInvitationsInput
-    invitee: ProfileCreateNestedOneWithoutReceivedInvitationsInput
     couple?: CoupleCreateNestedOneWithoutInvitationsInput
+    Profile?: ProfileCreateNestedOneWithoutInvitationInput
   }
 
   export type InvitationUncheckedCreateInput = {
     id?: string
     inviterId: string
-    inviteeId: string
+    coupleName: string
+    inviteeEmail: string
     coupleId?: string | null
     status?: $Enums.InvitationStatus
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    profileId?: string | null
   }
 
   export type InvitationUpdateInput = {
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviter?: ProfileUpdateOneRequiredWithoutSentInvitationsNestedInput
-    invitee?: ProfileUpdateOneRequiredWithoutReceivedInvitationsNestedInput
     couple?: CoupleUpdateOneWithoutInvitationsNestedInput
+    Profile?: ProfileUpdateOneWithoutInvitationNestedInput
   }
 
   export type InvitationUncheckedUpdateInput = {
     inviterId?: StringFieldUpdateOperationsInput | string
-    inviteeId?: StringFieldUpdateOperationsInput | string
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     coupleId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InvitationCreateManyInput = {
     id?: string
     inviterId: string
-    inviteeId: string
+    coupleName: string
+    inviteeEmail: string
     coupleId?: string | null
     status?: $Enums.InvitationStatus
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    profileId?: string | null
   }
 
   export type InvitationUpdateManyMutationInput = {
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InvitationUncheckedUpdateManyInput = {
     inviterId?: StringFieldUpdateOperationsInput | string
-    inviteeId?: StringFieldUpdateOperationsInput | string
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     coupleId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -12833,40 +12927,49 @@ export namespace Prisma {
     not?: NestedEnumInvitationStatusFilter<$PrismaModel> | $Enums.InvitationStatus
   }
 
-  export type InvitationInviterIdInviteeIdCoupleIdCompoundUniqueInput = {
+  export type InvitationInviterIdInviteeEmailCoupleIdCompoundUniqueInput = {
     inviterId: string
-    inviteeId: string
+    inviteeEmail: string
     coupleId: string
   }
 
   export type InvitationCountOrderByAggregateInput = {
     id?: SortOrder
     inviterId?: SortOrder
-    inviteeId?: SortOrder
+    coupleName?: SortOrder
+    inviteeEmail?: SortOrder
     coupleId?: SortOrder
     status?: SortOrder
+    token?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    profileId?: SortOrder
   }
 
   export type InvitationMaxOrderByAggregateInput = {
     id?: SortOrder
     inviterId?: SortOrder
-    inviteeId?: SortOrder
+    coupleName?: SortOrder
+    inviteeEmail?: SortOrder
     coupleId?: SortOrder
     status?: SortOrder
+    token?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    profileId?: SortOrder
   }
 
   export type InvitationMinOrderByAggregateInput = {
     id?: SortOrder
     inviterId?: SortOrder
-    inviteeId?: SortOrder
+    coupleName?: SortOrder
+    inviteeEmail?: SortOrder
     coupleId?: SortOrder
     status?: SortOrder
+    token?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    profileId?: SortOrder
   }
 
   export type EnumInvitationStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -13423,10 +13526,10 @@ export namespace Prisma {
     connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
   }
 
-  export type InvitationCreateNestedManyWithoutInviteeInput = {
-    create?: XOR<InvitationCreateWithoutInviteeInput, InvitationUncheckedCreateWithoutInviteeInput> | InvitationCreateWithoutInviteeInput[] | InvitationUncheckedCreateWithoutInviteeInput[]
-    connectOrCreate?: InvitationCreateOrConnectWithoutInviteeInput | InvitationCreateOrConnectWithoutInviteeInput[]
-    createMany?: InvitationCreateManyInviteeInputEnvelope
+  export type InvitationCreateNestedManyWithoutProfileInput = {
+    create?: XOR<InvitationCreateWithoutProfileInput, InvitationUncheckedCreateWithoutProfileInput> | InvitationCreateWithoutProfileInput[] | InvitationUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutProfileInput | InvitationCreateOrConnectWithoutProfileInput[]
+    createMany?: InvitationCreateManyProfileInputEnvelope
     connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
   }
 
@@ -13471,10 +13574,10 @@ export namespace Prisma {
     connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
   }
 
-  export type InvitationUncheckedCreateNestedManyWithoutInviteeInput = {
-    create?: XOR<InvitationCreateWithoutInviteeInput, InvitationUncheckedCreateWithoutInviteeInput> | InvitationCreateWithoutInviteeInput[] | InvitationUncheckedCreateWithoutInviteeInput[]
-    connectOrCreate?: InvitationCreateOrConnectWithoutInviteeInput | InvitationCreateOrConnectWithoutInviteeInput[]
-    createMany?: InvitationCreateManyInviteeInputEnvelope
+  export type InvitationUncheckedCreateNestedManyWithoutProfileInput = {
+    create?: XOR<InvitationCreateWithoutProfileInput, InvitationUncheckedCreateWithoutProfileInput> | InvitationCreateWithoutProfileInput[] | InvitationUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutProfileInput | InvitationCreateOrConnectWithoutProfileInput[]
+    createMany?: InvitationCreateManyProfileInputEnvelope
     connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
   }
 
@@ -13562,17 +13665,17 @@ export namespace Prisma {
     deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
   }
 
-  export type InvitationUpdateManyWithoutInviteeNestedInput = {
-    create?: XOR<InvitationCreateWithoutInviteeInput, InvitationUncheckedCreateWithoutInviteeInput> | InvitationCreateWithoutInviteeInput[] | InvitationUncheckedCreateWithoutInviteeInput[]
-    connectOrCreate?: InvitationCreateOrConnectWithoutInviteeInput | InvitationCreateOrConnectWithoutInviteeInput[]
-    upsert?: InvitationUpsertWithWhereUniqueWithoutInviteeInput | InvitationUpsertWithWhereUniqueWithoutInviteeInput[]
-    createMany?: InvitationCreateManyInviteeInputEnvelope
+  export type InvitationUpdateManyWithoutProfileNestedInput = {
+    create?: XOR<InvitationCreateWithoutProfileInput, InvitationUncheckedCreateWithoutProfileInput> | InvitationCreateWithoutProfileInput[] | InvitationUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutProfileInput | InvitationCreateOrConnectWithoutProfileInput[]
+    upsert?: InvitationUpsertWithWhereUniqueWithoutProfileInput | InvitationUpsertWithWhereUniqueWithoutProfileInput[]
+    createMany?: InvitationCreateManyProfileInputEnvelope
     set?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
     disconnect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
     delete?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
     connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
-    update?: InvitationUpdateWithWhereUniqueWithoutInviteeInput | InvitationUpdateWithWhereUniqueWithoutInviteeInput[]
-    updateMany?: InvitationUpdateManyWithWhereWithoutInviteeInput | InvitationUpdateManyWithWhereWithoutInviteeInput[]
+    update?: InvitationUpdateWithWhereUniqueWithoutProfileInput | InvitationUpdateWithWhereUniqueWithoutProfileInput[]
+    updateMany?: InvitationUpdateManyWithWhereWithoutProfileInput | InvitationUpdateManyWithWhereWithoutProfileInput[]
     deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
   }
 
@@ -13656,17 +13759,17 @@ export namespace Prisma {
     deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
   }
 
-  export type InvitationUncheckedUpdateManyWithoutInviteeNestedInput = {
-    create?: XOR<InvitationCreateWithoutInviteeInput, InvitationUncheckedCreateWithoutInviteeInput> | InvitationCreateWithoutInviteeInput[] | InvitationUncheckedCreateWithoutInviteeInput[]
-    connectOrCreate?: InvitationCreateOrConnectWithoutInviteeInput | InvitationCreateOrConnectWithoutInviteeInput[]
-    upsert?: InvitationUpsertWithWhereUniqueWithoutInviteeInput | InvitationUpsertWithWhereUniqueWithoutInviteeInput[]
-    createMany?: InvitationCreateManyInviteeInputEnvelope
+  export type InvitationUncheckedUpdateManyWithoutProfileNestedInput = {
+    create?: XOR<InvitationCreateWithoutProfileInput, InvitationUncheckedCreateWithoutProfileInput> | InvitationCreateWithoutProfileInput[] | InvitationUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutProfileInput | InvitationCreateOrConnectWithoutProfileInput[]
+    upsert?: InvitationUpsertWithWhereUniqueWithoutProfileInput | InvitationUpsertWithWhereUniqueWithoutProfileInput[]
+    createMany?: InvitationCreateManyProfileInputEnvelope
     set?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
     disconnect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
     delete?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
     connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
-    update?: InvitationUpdateWithWhereUniqueWithoutInviteeInput | InvitationUpdateWithWhereUniqueWithoutInviteeInput[]
-    updateMany?: InvitationUpdateManyWithWhereWithoutInviteeInput | InvitationUpdateManyWithWhereWithoutInviteeInput[]
+    update?: InvitationUpdateWithWhereUniqueWithoutProfileInput | InvitationUpdateWithWhereUniqueWithoutProfileInput[]
+    updateMany?: InvitationUpdateManyWithWhereWithoutProfileInput | InvitationUpdateManyWithWhereWithoutProfileInput[]
     deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
   }
 
@@ -13860,16 +13963,16 @@ export namespace Prisma {
     connect?: ProfileWhereUniqueInput
   }
 
-  export type ProfileCreateNestedOneWithoutReceivedInvitationsInput = {
-    create?: XOR<ProfileCreateWithoutReceivedInvitationsInput, ProfileUncheckedCreateWithoutReceivedInvitationsInput>
-    connectOrCreate?: ProfileCreateOrConnectWithoutReceivedInvitationsInput
-    connect?: ProfileWhereUniqueInput
-  }
-
   export type CoupleCreateNestedOneWithoutInvitationsInput = {
     create?: XOR<CoupleCreateWithoutInvitationsInput, CoupleUncheckedCreateWithoutInvitationsInput>
     connectOrCreate?: CoupleCreateOrConnectWithoutInvitationsInput
     connect?: CoupleWhereUniqueInput
+  }
+
+  export type ProfileCreateNestedOneWithoutInvitationInput = {
+    create?: XOR<ProfileCreateWithoutInvitationInput, ProfileUncheckedCreateWithoutInvitationInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutInvitationInput
+    connect?: ProfileWhereUniqueInput
   }
 
   export type EnumInvitationStatusFieldUpdateOperationsInput = {
@@ -13884,14 +13987,6 @@ export namespace Prisma {
     update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutSentInvitationsInput, ProfileUpdateWithoutSentInvitationsInput>, ProfileUncheckedUpdateWithoutSentInvitationsInput>
   }
 
-  export type ProfileUpdateOneRequiredWithoutReceivedInvitationsNestedInput = {
-    create?: XOR<ProfileCreateWithoutReceivedInvitationsInput, ProfileUncheckedCreateWithoutReceivedInvitationsInput>
-    connectOrCreate?: ProfileCreateOrConnectWithoutReceivedInvitationsInput
-    upsert?: ProfileUpsertWithoutReceivedInvitationsInput
-    connect?: ProfileWhereUniqueInput
-    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutReceivedInvitationsInput, ProfileUpdateWithoutReceivedInvitationsInput>, ProfileUncheckedUpdateWithoutReceivedInvitationsInput>
-  }
-
   export type CoupleUpdateOneWithoutInvitationsNestedInput = {
     create?: XOR<CoupleCreateWithoutInvitationsInput, CoupleUncheckedCreateWithoutInvitationsInput>
     connectOrCreate?: CoupleCreateOrConnectWithoutInvitationsInput
@@ -13900,6 +13995,16 @@ export namespace Prisma {
     delete?: CoupleWhereInput | boolean
     connect?: CoupleWhereUniqueInput
     update?: XOR<XOR<CoupleUpdateToOneWithWhereWithoutInvitationsInput, CoupleUpdateWithoutInvitationsInput>, CoupleUncheckedUpdateWithoutInvitationsInput>
+  }
+
+  export type ProfileUpdateOneWithoutInvitationNestedInput = {
+    create?: XOR<ProfileCreateWithoutInvitationInput, ProfileUncheckedCreateWithoutInvitationInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutInvitationInput
+    upsert?: ProfileUpsertWithoutInvitationInput
+    disconnect?: boolean
+    delete?: ProfileWhereInput | boolean
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutInvitationInput, ProfileUpdateWithoutInvitationInput>, ProfileUncheckedUpdateWithoutInvitationInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -14581,7 +14686,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
     sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
-    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateWithoutCoupleAsMember1Input = {
@@ -14602,7 +14707,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
     sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
-    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileCreateOrConnectWithoutCoupleAsMember1Input = {
@@ -14628,7 +14733,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
     sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
-    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateWithoutCoupleAsMember2Input = {
@@ -14649,7 +14754,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
     sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
-    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileCreateOrConnectWithoutCoupleAsMember2Input = {
@@ -14675,7 +14780,7 @@ export namespace Prisma {
     coupleAsMember2?: CoupleCreateNestedManyWithoutMember2Input
     coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
     sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
-    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateWithoutCoupleAsGodparent1Input = {
@@ -14696,7 +14801,7 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
     coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
     sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
-    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileCreateOrConnectWithoutCoupleAsGodparent1Input = {
@@ -14722,7 +14827,7 @@ export namespace Prisma {
     coupleAsMember2?: CoupleCreateNestedManyWithoutMember2Input
     coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
     sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
-    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateWithoutCoupleAsGodparent2Input = {
@@ -14743,7 +14848,7 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
     coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
     sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
-    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileCreateOrConnectWithoutCoupleAsGodparent2Input = {
@@ -14840,20 +14945,26 @@ export namespace Prisma {
 
   export type InvitationCreateWithoutCoupleInput = {
     id?: string
+    coupleName: string
+    inviteeEmail: string
     status?: $Enums.InvitationStatus
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
     inviter: ProfileCreateNestedOneWithoutSentInvitationsInput
-    invitee: ProfileCreateNestedOneWithoutReceivedInvitationsInput
+    Profile?: ProfileCreateNestedOneWithoutInvitationInput
   }
 
   export type InvitationUncheckedCreateWithoutCoupleInput = {
     id?: string
     inviterId: string
-    inviteeId: string
+    coupleName: string
+    inviteeEmail: string
     status?: $Enums.InvitationStatus
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    profileId?: string | null
   }
 
   export type InvitationCreateOrConnectWithoutCoupleInput = {
@@ -14893,7 +15004,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
     sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
-    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutCoupleAsMember1Input = {
@@ -14913,7 +15024,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
     sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
-    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUncheckedUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUpsertWithoutCoupleAsMember2Input = {
@@ -14944,7 +15055,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
     sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
-    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutCoupleAsMember2Input = {
@@ -14964,7 +15075,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
     sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
-    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUncheckedUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUpsertWithoutCoupleAsGodparent1Input = {
@@ -14995,7 +15106,7 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUpdateManyWithoutMember2NestedInput
     coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
     sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
-    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutCoupleAsGodparent1Input = {
@@ -15015,7 +15126,7 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
     coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
     sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
-    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUncheckedUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUpsertWithoutCoupleAsGodparent2Input = {
@@ -15046,7 +15157,7 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUpdateManyWithoutMember2NestedInput
     coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
     sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
-    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutCoupleAsGodparent2Input = {
@@ -15066,7 +15177,7 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
     coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
     sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
-    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUncheckedUpdateManyWithoutProfileNestedInput
   }
 
   export type ParishUpsertWithoutCouplesInput = {
@@ -15154,11 +15265,14 @@ export namespace Prisma {
     NOT?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
     id?: StringFilter<"Invitation"> | string
     inviterId?: StringFilter<"Invitation"> | string
-    inviteeId?: StringFilter<"Invitation"> | string
+    coupleName?: StringFilter<"Invitation"> | string
+    inviteeEmail?: StringFilter<"Invitation"> | string
     coupleId?: StringNullableFilter<"Invitation"> | string | null
     status?: EnumInvitationStatusFilter<"Invitation"> | $Enums.InvitationStatus
+    token?: StringFilter<"Invitation"> | string
     createdAt?: DateTimeFilter<"Invitation"> | Date | string
     updatedAt?: DateTimeFilter<"Invitation"> | Date | string
+    profileId?: StringNullableFilter<"Invitation"> | string | null
   }
 
   export type UserCreateWithoutProfileInput = {
@@ -15348,20 +15462,26 @@ export namespace Prisma {
 
   export type InvitationCreateWithoutInviterInput = {
     id?: string
+    coupleName: string
+    inviteeEmail: string
     status?: $Enums.InvitationStatus
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    invitee: ProfileCreateNestedOneWithoutReceivedInvitationsInput
     couple?: CoupleCreateNestedOneWithoutInvitationsInput
+    Profile?: ProfileCreateNestedOneWithoutInvitationInput
   }
 
   export type InvitationUncheckedCreateWithoutInviterInput = {
     id?: string
-    inviteeId: string
+    coupleName: string
+    inviteeEmail: string
     coupleId?: string | null
     status?: $Enums.InvitationStatus
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    profileId?: string | null
   }
 
   export type InvitationCreateOrConnectWithoutInviterInput = {
@@ -15373,31 +15493,37 @@ export namespace Prisma {
     data: InvitationCreateManyInviterInput | InvitationCreateManyInviterInput[]
   }
 
-  export type InvitationCreateWithoutInviteeInput = {
+  export type InvitationCreateWithoutProfileInput = {
     id?: string
+    coupleName: string
+    inviteeEmail: string
     status?: $Enums.InvitationStatus
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
     inviter: ProfileCreateNestedOneWithoutSentInvitationsInput
     couple?: CoupleCreateNestedOneWithoutInvitationsInput
   }
 
-  export type InvitationUncheckedCreateWithoutInviteeInput = {
+  export type InvitationUncheckedCreateWithoutProfileInput = {
     id?: string
     inviterId: string
+    coupleName: string
+    inviteeEmail: string
     coupleId?: string | null
     status?: $Enums.InvitationStatus
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type InvitationCreateOrConnectWithoutInviteeInput = {
+  export type InvitationCreateOrConnectWithoutProfileInput = {
     where: InvitationWhereUniqueInput
-    create: XOR<InvitationCreateWithoutInviteeInput, InvitationUncheckedCreateWithoutInviteeInput>
+    create: XOR<InvitationCreateWithoutProfileInput, InvitationUncheckedCreateWithoutProfileInput>
   }
 
-  export type InvitationCreateManyInviteeInputEnvelope = {
-    data: InvitationCreateManyInviteeInput | InvitationCreateManyInviteeInput[]
+  export type InvitationCreateManyProfileInputEnvelope = {
+    data: InvitationCreateManyProfileInput | InvitationCreateManyProfileInput[]
   }
 
   export type UserUpsertWithoutProfileInput = {
@@ -15513,20 +15639,20 @@ export namespace Prisma {
     data: XOR<InvitationUpdateManyMutationInput, InvitationUncheckedUpdateManyWithoutInviterInput>
   }
 
-  export type InvitationUpsertWithWhereUniqueWithoutInviteeInput = {
+  export type InvitationUpsertWithWhereUniqueWithoutProfileInput = {
     where: InvitationWhereUniqueInput
-    update: XOR<InvitationUpdateWithoutInviteeInput, InvitationUncheckedUpdateWithoutInviteeInput>
-    create: XOR<InvitationCreateWithoutInviteeInput, InvitationUncheckedCreateWithoutInviteeInput>
+    update: XOR<InvitationUpdateWithoutProfileInput, InvitationUncheckedUpdateWithoutProfileInput>
+    create: XOR<InvitationCreateWithoutProfileInput, InvitationUncheckedCreateWithoutProfileInput>
   }
 
-  export type InvitationUpdateWithWhereUniqueWithoutInviteeInput = {
+  export type InvitationUpdateWithWhereUniqueWithoutProfileInput = {
     where: InvitationWhereUniqueInput
-    data: XOR<InvitationUpdateWithoutInviteeInput, InvitationUncheckedUpdateWithoutInviteeInput>
+    data: XOR<InvitationUpdateWithoutProfileInput, InvitationUncheckedUpdateWithoutProfileInput>
   }
 
-  export type InvitationUpdateManyWithWhereWithoutInviteeInput = {
+  export type InvitationUpdateManyWithWhereWithoutProfileInput = {
     where: InvitationScalarWhereInput
-    data: XOR<InvitationUpdateManyMutationInput, InvitationUncheckedUpdateManyWithoutInviteeInput>
+    data: XOR<InvitationUpdateManyMutationInput, InvitationUncheckedUpdateManyWithoutProfileInput>
   }
 
   export type ProfileCreateWithoutUserInput = {
@@ -15547,7 +15673,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
     sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
-    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateWithoutUserInput = {
@@ -15568,7 +15694,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
     sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
-    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileCreateOrConnectWithoutUserInput = {
@@ -15637,7 +15763,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
     sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
-    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutUserInput = {
@@ -15657,7 +15783,7 @@ export namespace Prisma {
     coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
     sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
-    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUncheckedUpdateManyWithoutProfileNestedInput
   }
 
   export type PermissionUpsertWithWhereUniqueWithoutUserInput = {
@@ -16120,7 +16246,7 @@ export namespace Prisma {
     coupleAsMember2?: CoupleCreateNestedManyWithoutMember2Input
     coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
-    receivedInvitations?: InvitationCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateWithoutSentInvitationsInput = {
@@ -16141,59 +16267,12 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
     coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
     coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
-    receivedInvitations?: InvitationUncheckedCreateNestedManyWithoutInviteeInput
+    Invitation?: InvitationUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileCreateOrConnectWithoutSentInvitationsInput = {
     where: ProfileWhereUniqueInput
     create: XOR<ProfileCreateWithoutSentInvitationsInput, ProfileUncheckedCreateWithoutSentInvitationsInput>
-  }
-
-  export type ProfileCreateWithoutReceivedInvitationsInput = {
-    id?: string
-    name: string
-    address: XOR<AddressCreateEnvelopeInput, AddressCreateInput>
-    gender: $Enums.Gender
-    birthDate: Date | string
-    phone: string
-    email: string
-    photo?: string | null
-    instagram?: string | null
-    facebook?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user?: UserCreateNestedOneWithoutProfileInput
-    coupleAsMember1?: CoupleCreateNestedManyWithoutMember1Input
-    coupleAsMember2?: CoupleCreateNestedManyWithoutMember2Input
-    coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
-    coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
-    sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
-  }
-
-  export type ProfileUncheckedCreateWithoutReceivedInvitationsInput = {
-    id?: string
-    name: string
-    address: XOR<AddressCreateEnvelopeInput, AddressCreateInput>
-    gender: $Enums.Gender
-    birthDate: Date | string
-    phone: string
-    email: string
-    photo?: string | null
-    instagram?: string | null
-    facebook?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user?: UserUncheckedCreateNestedOneWithoutProfileInput
-    coupleAsMember1?: CoupleUncheckedCreateNestedManyWithoutMember1Input
-    coupleAsMember2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
-    coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
-    coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
-    sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
-  }
-
-  export type ProfileCreateOrConnectWithoutReceivedInvitationsInput = {
-    where: ProfileWhereUniqueInput
-    create: XOR<ProfileCreateWithoutReceivedInvitationsInput, ProfileUncheckedCreateWithoutReceivedInvitationsInput>
   }
 
   export type CoupleCreateWithoutInvitationsInput = {
@@ -16231,6 +16310,53 @@ export namespace Prisma {
     create: XOR<CoupleCreateWithoutInvitationsInput, CoupleUncheckedCreateWithoutInvitationsInput>
   }
 
+  export type ProfileCreateWithoutInvitationInput = {
+    id?: string
+    name: string
+    address: XOR<AddressCreateEnvelopeInput, AddressCreateInput>
+    gender: $Enums.Gender
+    birthDate: Date | string
+    phone: string
+    email: string
+    photo?: string | null
+    instagram?: string | null
+    facebook?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutProfileInput
+    coupleAsMember1?: CoupleCreateNestedManyWithoutMember1Input
+    coupleAsMember2?: CoupleCreateNestedManyWithoutMember2Input
+    coupleAsGodparent1?: CoupleCreateNestedManyWithoutGodparent1Input
+    coupleAsGodparent2?: CoupleCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationCreateNestedManyWithoutInviterInput
+  }
+
+  export type ProfileUncheckedCreateWithoutInvitationInput = {
+    id?: string
+    name: string
+    address: XOR<AddressCreateEnvelopeInput, AddressCreateInput>
+    gender: $Enums.Gender
+    birthDate: Date | string
+    phone: string
+    email: string
+    photo?: string | null
+    instagram?: string | null
+    facebook?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserUncheckedCreateNestedOneWithoutProfileInput
+    coupleAsMember1?: CoupleUncheckedCreateNestedManyWithoutMember1Input
+    coupleAsMember2?: CoupleUncheckedCreateNestedManyWithoutMember2Input
+    coupleAsGodparent1?: CoupleUncheckedCreateNestedManyWithoutGodparent1Input
+    coupleAsGodparent2?: CoupleUncheckedCreateNestedManyWithoutGodparent2Input
+    sentInvitations?: InvitationUncheckedCreateNestedManyWithoutInviterInput
+  }
+
+  export type ProfileCreateOrConnectWithoutInvitationInput = {
+    where: ProfileWhereUniqueInput
+    create: XOR<ProfileCreateWithoutInvitationInput, ProfileUncheckedCreateWithoutInvitationInput>
+  }
+
   export type ProfileUpsertWithoutSentInvitationsInput = {
     update: XOR<ProfileUpdateWithoutSentInvitationsInput, ProfileUncheckedUpdateWithoutSentInvitationsInput>
     create: XOR<ProfileCreateWithoutSentInvitationsInput, ProfileUncheckedCreateWithoutSentInvitationsInput>
@@ -16259,7 +16385,7 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUpdateManyWithoutMember2NestedInput
     coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
-    receivedInvitations?: InvitationUpdateManyWithoutInviteeNestedInput
+    Invitation?: InvitationUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutSentInvitationsInput = {
@@ -16279,58 +16405,7 @@ export namespace Prisma {
     coupleAsMember2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
     coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
     coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
-    receivedInvitations?: InvitationUncheckedUpdateManyWithoutInviteeNestedInput
-  }
-
-  export type ProfileUpsertWithoutReceivedInvitationsInput = {
-    update: XOR<ProfileUpdateWithoutReceivedInvitationsInput, ProfileUncheckedUpdateWithoutReceivedInvitationsInput>
-    create: XOR<ProfileCreateWithoutReceivedInvitationsInput, ProfileUncheckedCreateWithoutReceivedInvitationsInput>
-    where?: ProfileWhereInput
-  }
-
-  export type ProfileUpdateToOneWithWhereWithoutReceivedInvitationsInput = {
-    where?: ProfileWhereInput
-    data: XOR<ProfileUpdateWithoutReceivedInvitationsInput, ProfileUncheckedUpdateWithoutReceivedInvitationsInput>
-  }
-
-  export type ProfileUpdateWithoutReceivedInvitationsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    address?: XOR<AddressUpdateEnvelopeInput, AddressCreateInput>
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    phone?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    photo?: NullableStringFieldUpdateOperationsInput | string | null
-    instagram?: NullableStringFieldUpdateOperationsInput | string | null
-    facebook?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutProfileNestedInput
-    coupleAsMember1?: CoupleUpdateManyWithoutMember1NestedInput
-    coupleAsMember2?: CoupleUpdateManyWithoutMember2NestedInput
-    coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
-    coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
-    sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
-  }
-
-  export type ProfileUncheckedUpdateWithoutReceivedInvitationsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    address?: XOR<AddressUpdateEnvelopeInput, AddressCreateInput>
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    phone?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    photo?: NullableStringFieldUpdateOperationsInput | string | null
-    instagram?: NullableStringFieldUpdateOperationsInput | string | null
-    facebook?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUncheckedUpdateOneWithoutProfileNestedInput
-    coupleAsMember1?: CoupleUncheckedUpdateManyWithoutMember1NestedInput
-    coupleAsMember2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
-    coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
-    coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
-    sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
+    Invitation?: InvitationUncheckedUpdateManyWithoutProfileNestedInput
   }
 
   export type CoupleUpsertWithoutInvitationsInput = {
@@ -16370,6 +16445,57 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roles?: RoleAssignmentUncheckedUpdateManyWithoutCoupleNestedInput
     permissions?: PermissionUncheckedUpdateManyWithoutCoupleNestedInput
+  }
+
+  export type ProfileUpsertWithoutInvitationInput = {
+    update: XOR<ProfileUpdateWithoutInvitationInput, ProfileUncheckedUpdateWithoutInvitationInput>
+    create: XOR<ProfileCreateWithoutInvitationInput, ProfileUncheckedCreateWithoutInvitationInput>
+    where?: ProfileWhereInput
+  }
+
+  export type ProfileUpdateToOneWithWhereWithoutInvitationInput = {
+    where?: ProfileWhereInput
+    data: XOR<ProfileUpdateWithoutInvitationInput, ProfileUncheckedUpdateWithoutInvitationInput>
+  }
+
+  export type ProfileUpdateWithoutInvitationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: XOR<AddressUpdateEnvelopeInput, AddressCreateInput>
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutProfileNestedInput
+    coupleAsMember1?: CoupleUpdateManyWithoutMember1NestedInput
+    coupleAsMember2?: CoupleUpdateManyWithoutMember2NestedInput
+    coupleAsGodparent1?: CoupleUpdateManyWithoutGodparent1NestedInput
+    coupleAsGodparent2?: CoupleUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUpdateManyWithoutInviterNestedInput
+  }
+
+  export type ProfileUncheckedUpdateWithoutInvitationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: XOR<AddressUpdateEnvelopeInput, AddressCreateInput>
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    birthDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    facebook?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUncheckedUpdateOneWithoutProfileNestedInput
+    coupleAsMember1?: CoupleUncheckedUpdateManyWithoutMember1NestedInput
+    coupleAsMember2?: CoupleUncheckedUpdateManyWithoutMember2NestedInput
+    coupleAsGodparent1?: CoupleUncheckedUpdateManyWithoutGodparent1NestedInput
+    coupleAsGodparent2?: CoupleUncheckedUpdateManyWithoutGodparent2NestedInput
+    sentInvitations?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
   }
 
   export type ParishCreateManyArchdioceseInput = {
@@ -16638,10 +16764,13 @@ export namespace Prisma {
   export type InvitationCreateManyCoupleInput = {
     id?: string
     inviterId: string
-    inviteeId: string
+    coupleName: string
+    inviteeEmail: string
     status?: $Enums.InvitationStatus
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    profileId?: string | null
   }
 
   export type RoleAssignmentUpdateWithoutCoupleInput = {
@@ -16702,27 +16831,36 @@ export namespace Prisma {
   }
 
   export type InvitationUpdateWithoutCoupleInput = {
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviter?: ProfileUpdateOneRequiredWithoutSentInvitationsNestedInput
-    invitee?: ProfileUpdateOneRequiredWithoutReceivedInvitationsNestedInput
+    Profile?: ProfileUpdateOneWithoutInvitationNestedInput
   }
 
   export type InvitationUncheckedUpdateWithoutCoupleInput = {
     inviterId?: StringFieldUpdateOperationsInput | string
-    inviteeId?: StringFieldUpdateOperationsInput | string
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InvitationUncheckedUpdateManyWithoutCoupleInput = {
     inviterId?: StringFieldUpdateOperationsInput | string
-    inviteeId?: StringFieldUpdateOperationsInput | string
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CoupleCreateManyMember1Input = {
@@ -16775,18 +16913,24 @@ export namespace Prisma {
 
   export type InvitationCreateManyInviterInput = {
     id?: string
-    inviteeId: string
+    coupleName: string
+    inviteeEmail: string
     coupleId?: string | null
     status?: $Enums.InvitationStatus
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    profileId?: string | null
   }
 
-  export type InvitationCreateManyInviteeInput = {
+  export type InvitationCreateManyProfileInput = {
     id?: string
     inviterId: string
+    coupleName: string
+    inviteeEmail: string
     coupleId?: string | null
     status?: $Enums.InvitationStatus
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16948,49 +17092,67 @@ export namespace Prisma {
   }
 
   export type InvitationUpdateWithoutInviterInput = {
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invitee?: ProfileUpdateOneRequiredWithoutReceivedInvitationsNestedInput
     couple?: CoupleUpdateOneWithoutInvitationsNestedInput
+    Profile?: ProfileUpdateOneWithoutInvitationNestedInput
   }
 
   export type InvitationUncheckedUpdateWithoutInviterInput = {
-    inviteeId?: StringFieldUpdateOperationsInput | string
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     coupleId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InvitationUncheckedUpdateManyWithoutInviterInput = {
-    inviteeId?: StringFieldUpdateOperationsInput | string
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     coupleId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profileId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type InvitationUpdateWithoutInviteeInput = {
+  export type InvitationUpdateWithoutProfileInput = {
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inviter?: ProfileUpdateOneRequiredWithoutSentInvitationsNestedInput
     couple?: CoupleUpdateOneWithoutInvitationsNestedInput
   }
 
-  export type InvitationUncheckedUpdateWithoutInviteeInput = {
+  export type InvitationUncheckedUpdateWithoutProfileInput = {
     inviterId?: StringFieldUpdateOperationsInput | string
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     coupleId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type InvitationUncheckedUpdateManyWithoutInviteeInput = {
+  export type InvitationUncheckedUpdateManyWithoutProfileInput = {
     inviterId?: StringFieldUpdateOperationsInput | string
+    coupleName?: StringFieldUpdateOperationsInput | string
+    inviteeEmail?: StringFieldUpdateOperationsInput | string
     coupleId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -13,5 +13,12 @@
 </template>
 
 <script lang="ts" setup>
+definePageMeta({
+  middleware: ['authenticated'],
+  title: 'Index',
+  description: 'Página inicial',
+});
 
+const { fetch } = useUserSession();
+await fetch();
 </script>

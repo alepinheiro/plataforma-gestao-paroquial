@@ -77,6 +77,12 @@ const items = reactive([
     component: 'NuxtLink',
   },
   {
+    title: 'Convites',
+    url: '/invite',
+    icon: Calendar,
+    component: 'NuxtLink',
+  },
+  {
     title: 'Área',
     url: '/area',
     icon: Search,

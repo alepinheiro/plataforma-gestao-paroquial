@@ -144,15 +144,16 @@ model Profile {
 
   user User?
 
-  coupleAsMember1     Couple[]     @relation("CoupleMember1")
-  coupleAsMember2     Couple[]     @relation("CoupleMember2")
-  coupleAsGodparent1  Couple[]     @relation("CoupleGodparent1")
-  coupleAsGodparent2  Couple[]     @relation("CoupleGodparent2")
-  sentInvitations     Invitation[] @relation("InviterRelation")
-  receivedInvitations Invitation[] @relation("InviteeRelation")
+  coupleAsMember1    Couple[]     @relation("CoupleMember1")
+  coupleAsMember2    Couple[]     @relation("CoupleMember2")
+  coupleAsGodparent1 Couple[]     @relation("CoupleGodparent1")
+  coupleAsGodparent2 Couple[]     @relation("CoupleGodparent2")
+  sentInvitations    Invitation[] @relation("InviterRelation")
+  // receivedInvitations Invitation[] @relation("InviteeRelation")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Invitation Invitation[]
 }
 
 /// Representa um usuário do sistema
@@ -215,17 +216,24 @@ model Permission {
 
 /// Representa um convite feito por padrinhos
 model Invitation {
-  id        String           @id @default(auto()) @map("_id") @db.ObjectId
-  inviter   Profile          @relation("InviterRelation", fields: [inviterId], references: [id])
-  inviterId String           @db.ObjectId
-  invitee   Profile          @relation("InviteeRelation", fields: [inviteeId], references: [id])
-  inviteeId String           @db.ObjectId
-  couple    Couple?          @relation(fields: [coupleId], references: [id])
-  coupleId  String?          @db.ObjectId
-  status    InvitationStatus @default(PENDING)
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  inviter   Profile @relation("InviterRelation", fields: [inviterId], references: [id])
+  inviterId String  @db.ObjectId
+
+  /// Dados temporários do convidado (antes de criar Profile/User)
+  coupleName   String
+  inviteeEmail String
+
+  couple   Couple? @relation(fields: [coupleId], references: [id])
+  coupleId String? @db.ObjectId
+
+  status InvitationStatus @default(PENDING)
+  token  String           @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Profile   Profile? @relation(fields: [profileId], references: [id])
+  profileId String?  @db.ObjectId
 
-  @@unique([inviterId, inviteeId, coupleId])
+  @@unique([inviterId, inviteeEmail, coupleId])
 }
