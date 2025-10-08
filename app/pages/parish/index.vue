@@ -15,19 +15,30 @@
   </div>
 
   <div v-else>
+    <div class="w-full flex">
+      <Button
+        class="ml-auto"
+        as-child
+      >
+        <NuxtLink to="/parish/new">
+          Nova paróquia
+        </NuxtLink>
+      </Button>
+    </div>
+
     {{ data }}
   </div>
 </template>
 
 <script lang='ts' setup>
-import type { Profile } from '~~/shared/types/generated/prisma';
+import type { Parish } from '~~/shared/types/generated/prisma';
 
 definePageMeta({
   title: 'Paróquias',
   description: 'Listagem das paróquias',
 });
 
-const { data, error, pending } = await useFetch<Array<Profile>>('/api/profile/', {
+const { data, error, pending } = await useFetch<Array<Parish>>('/api/parish/', {
   method: 'GET',
 });
 </script>

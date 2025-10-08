@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { ComboboxGroupProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { reactiveOmit } from '@vueuse/core';
-import { ComboboxGroup, ComboboxLabel } from 'reka-ui';
 import { cn } from '@/lib/utils';
+import { reactiveOmit } from '@vueuse/core';
+import type { ComboboxGroupProps } from 'reka-ui';
+import { ComboboxGroup, ComboboxLabel } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
 
 const props = defineProps<ComboboxGroupProps & {
   class?: HTMLAttributes['class'];
@@ -17,7 +17,7 @@ const delegatedProps = reactiveOmit(props, 'class');
   <ComboboxGroup
     data-slot="combobox-group"
     v-bind="delegatedProps"
-    :class="cn('overflow-hidden p-1 text-foreground', props.class)"
+    :class="cn('overflow-hidden p-1 text-foreground w-[var(--reka-popper-anchor-width)]', props.class)"
   >
     <ComboboxLabel
       v-if="heading"

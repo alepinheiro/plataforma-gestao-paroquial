@@ -10,7 +10,7 @@
 
     <FormField
       v-slot="{ componentField }"
-      name="address.postalCode"
+      :name="props.prefix ? `${props.prefix}.address.postalCode` : `address.postalCode`"
     >
       <FormItem class="w-full md:w-1/4 grow">
         <FormLabel> CEP </FormLabel>
@@ -42,7 +42,7 @@
 
     <FormField
       v-slot="{ componentField }"
-      name="address.street"
+      :name="props.prefix ? `${props.prefix}.address.street` : `address.street`"
     >
       <FormItem class="w-full md:w-1/2 grow">
         <FormLabel> Endereço </FormLabel>
@@ -59,7 +59,7 @@
 
     <FormField
       v-slot="{ componentField }"
-      name="address.number"
+      :name="props.prefix ? `${props.prefix}.address.number` : `address.number`"
     >
       <FormItem class="w-full md:w-1/5 grow">
         <FormLabel> Número </FormLabel>
@@ -76,7 +76,7 @@
 
     <FormField
       v-slot="{ componentField }"
-      name="address.complement"
+      :name="props.prefix ? `${props.prefix}.address.complement` : `address.complement`"
     >
       <FormItem class="w-full md:w-1/3 grow">
         <FormLabel> Complemento </FormLabel>
@@ -93,7 +93,7 @@
 
     <FormField
       v-slot="{ componentField }"
-      name="address.neighborhood"
+      :name="props.prefix ? `${props.prefix}.address.neighborhood` : `address.neighborhood`"
     >
       <FormItem class="w-full md:w-1/4 grow">
         <FormLabel> Bairro </FormLabel>
@@ -110,7 +110,7 @@
 
     <FormField
       v-slot="{ componentField }"
-      name="address.city"
+      :name="props.prefix ? `${props.prefix}.address.city` : `address.city`"
     >
       <FormItem class="w-full md:w-1/4 grow">
         <FormLabel> Cidade </FormLabel>
@@ -127,7 +127,7 @@
 
     <FormField
       v-slot="{ componentField }"
-      name="address.state"
+      :name="props.prefix ? `${props.prefix}.address.state` : `address.state`"
     >
       <FormItem class="w-full md:w-1/2 grow">
         <FormLabel> Estado </FormLabel>
@@ -158,7 +158,7 @@
 
     <FormField
       v-slot="{ componentField }"
-      name="address.country"
+      :name="props.prefix ? `${props.prefix}.address.country` : `address.country`"
     >
       <FormItem class="w-full md:w-1/4 grow">
         <FormLabel> País </FormLabel>
@@ -179,6 +179,10 @@
 import { vMaska } from 'maska/vue';
 import type { AddressSchema } from '~~/shared/types/address/index';
 import type { ViaCepResponse } from '~~/shared/types/viaCepResponse';
+
+const props = defineProps<{
+  prefix?: string;
+}>();
 
 const statesOptions = [
   { label: 'Acre', value: 'AC' },

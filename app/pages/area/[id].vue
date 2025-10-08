@@ -44,196 +44,6 @@
               <FormMessage />
             </FormItem>
           </FormField>
-
-          <FormField
-            v-slot="{ componentField }"
-            name="birthDate"
-          >
-            <FormItem class="w-full md:w-1/5 grow">
-              <FormLabel> Data de nascimento </FormLabel>
-              <FormControl>
-                <Input
-                  v-maska="'##/##/####'"
-                  placeholder="DD/MM/AAAA"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField
-            v-slot="{ componentField }"
-            name="gender"
-          >
-            <FormItem class="w-full md:w-1/5 grow">
-              <FormLabel> Gênero </FormLabel>
-              <Select
-                v-bind="componentField"
-              >
-                <FormControl>
-                  <SelectTrigger class="w-full">
-                    <SelectValue placeholder="Selecione uma opção" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectItem value="MALE">
-                      Masculino
-                    </SelectItem>
-                    <SelectItem value="FEMALE">
-                      Feminino
-                    </SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormAddressFields
-            @set-values="(address) => setValues({
-              address,
-            }, false)"
-          />
-
-          <FormTitleTemplate
-            description="Insira como poderemos nos conectar"
-            title="Contatos"
-            class="w-full"
-          />
-
-          <Separator class="w-full" />
-
-          <FormField
-            v-slot="{ componentField }"
-            name="phone"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Telefone / WhatsApp </FormLabel>
-              <FormControl>
-                <Input
-                  v-maska="'(##) ####-#####'"
-                  placeholder="(00) 0000-00000"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField
-            v-slot="{ componentField }"
-            name="email"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Email </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="email@exemplo.com"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField
-            v-slot="{ componentField }"
-            name="instagram"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Instagram </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="@usuario"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField
-            v-slot="{ componentField }"
-            name="facebook"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Facebook </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="@usuario"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField
-            v-slot="{ componentField }"
-            name="photo"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Foto </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Insira sua foto"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormTitleTemplate
-            description="Digite sua senha de acesso"
-            title="Acesso"
-            class="w-full"
-          />
-
-          <Separator class="w-full" />
-
-          <FormField
-            v-slot="{ componentField }"
-            name="password"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Senha </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Digite sua senha"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField
-            v-slot="{ componentField }"
-            name="confirmPassword"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Confirme sua senha </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Digite sua senha"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
         </CardContent>
 
         <CardFooter class="w-full flex justify-between items-center gap-2">
@@ -253,21 +63,20 @@
 </template>
 
 <script lang='ts' setup>
-import { vMaska } from 'maska/vue';
 import { toast } from 'vue-sonner';
 import z from 'zod';
-import { profileSchema } from '~~/shared/schemas/profile/index.schema';
-import type { Profile, User } from '~~/shared/types/generated/prisma';
+import { archdioceseSchema } from '~~/shared/schemas/archdiocese/index.schema';
+import type { Archdiocese } from '~~/shared/types/generated/prisma';
 
 definePageMeta({
-  title: 'Cadastrar Perfil',
-  description: 'Crie ou altere as informações do perfil',
+  title: 'Cadastrar Área',
+  description: 'Crie ou altere as informações da Área',
 });
 
 const route = useRoute();
 
-const { handleSubmit, setValues } = useForm({
-  validationSchema: toTypedSchema(profileSchema),
+const { handleSubmit } = useForm({
+  validationSchema: toTypedSchema(archdioceseSchema),
   initialValues: {
     id: `${route.params.id}`,
   },
@@ -276,15 +85,13 @@ const { handleSubmit, setValues } = useForm({
 const onSubmit = handleSubmit(async (values) => {
   const id = z.string().parse(route.params.id);
 
-  const response = await $fetch<{ profile: Profile; user: User }>(`/api/profile/${id}`, {
+  const response = await $fetch<Archdiocese>(`/api/archdiocese/${id}`, {
     method: 'POST',
     body: values,
   });
 
-  const [firstName] = response.profile.name.split(' ');
+  toast.success(response.name + ' Foi cadastrado com sucesso!');
 
-  toast.success(firstName + 'Foi cadastrado com sucesso!');
-
-  await navigateTo('/profile');
+  await navigateTo('/area');
 });
 </script>

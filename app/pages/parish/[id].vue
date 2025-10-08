@@ -99,137 +99,60 @@
             }, false)"
           />
 
-          <FormTitleTemplate
-            description="Insira como poderemos nos conectar"
-            title="Contatos"
+          <FormField
+            name="archdioceseId"
             class="w-full"
-          />
-
-          <Separator class="w-full" />
-
-          <FormField
-            v-slot="{ componentField }"
-            name="phone"
           >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Telefone / WhatsApp </FormLabel>
-              <FormControl>
-                <Input
-                  v-maska="'(##) ####-#####'"
-                  placeholder="(00) 0000-00000"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
+            <FormItem class="flex flex-col w-full">
+              <FormLabel>
+                Área da paróquia
+              </FormLabel>
 
-          <FormField
-            v-slot="{ componentField }"
-            name="email"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Email </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="email@exemplo.com"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
+              <Combobox
+                by="label"
+                class="w-full"
+              >
+                <FormControl>
+                  <ComboboxAnchor class="w-full">
+                    <div class="relative w-full items-center">
+                      <ComboboxInput
+                        class="w-full"
+                        :display-value="(val) => val?.name ?? ''"
+                        placeholder="Digite para pesquisar"
+                      />
+                      <ComboboxTrigger class="absolute end-0 inset-y-0 flex items-center justify-center px-3 right-0">
+                        <ChevronsUpDown class="size-4 text-muted-foreground" />
+                      </ComboboxTrigger>
+                    </div>
+                  </ComboboxAnchor>
+                </FormControl>
 
-          <FormField
-            v-slot="{ componentField }"
-            name="instagram"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Instagram </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="@usuario"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
+                <ComboboxList>
+                  <ComboboxEmpty>
+                    Nothing found.
+                  </ComboboxEmpty>
 
-          <FormField
-            v-slot="{ componentField }"
-            name="facebook"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Facebook </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="@usuario"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
+                  <ComboboxGroup
+                    v-if="archdioceses?.length"
+                  >
+                    <ComboboxItem
+                      v-for="item in archdioceses"
+                      :key="item.id"
+                      :value="item"
+                      @select="() => {
+                        setFieldValue('archdioceseId', item.id)
+                      }"
+                    >
+                      {{ item.name }}
 
-          <FormField
-            v-slot="{ componentField }"
-            name="photo"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Foto </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Insira sua foto"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
+                      <ComboboxItemIndicator>
+                        <Check :class="cn('ml-auto h-4 w-4')" />
+                      </ComboboxItemIndicator>
+                    </ComboboxItem>
+                  </ComboboxGroup>
+                </ComboboxList>
+              </Combobox>
 
-          <FormTitleTemplate
-            description="Digite sua senha de acesso"
-            title="Acesso"
-            class="w-full"
-          />
-
-          <Separator class="w-full" />
-
-          <FormField
-            v-slot="{ componentField }"
-            name="password"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Senha </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Digite sua senha"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField
-            v-slot="{ componentField }"
-            name="confirmPassword"
-          >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Confirme sua senha </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Digite sua senha"
-                  v-bind="componentField"
-                />
-              </FormControl>
               <FormDescription />
               <FormMessage />
             </FormItem>
@@ -253,11 +176,13 @@
 </template>
 
 <script lang='ts' setup>
+import { Check, ChevronsUpDown } from 'lucide-vue-next';
 import { vMaska } from 'maska/vue';
 import { toast } from 'vue-sonner';
 import z from 'zod';
-import { profileSchema } from '~~/shared/schemas/profile/index.schema';
-import type { Profile, User } from '~~/shared/types/generated/prisma';
+import { cn } from '~/lib/utils';
+import { parishSchema } from '~~/shared/schemas/parish/index.schema';
+import type { Archdiocese, Profile, User } from '~~/shared/types/generated/prisma';
 
 definePageMeta({
   title: 'Cadastrar Perfil',
@@ -266,17 +191,21 @@ definePageMeta({
 
 const route = useRoute();
 
-const { handleSubmit, setValues } = useForm({
-  validationSchema: toTypedSchema(profileSchema),
+const { handleSubmit, setValues, setFieldValue } = useForm({
+  validationSchema: toTypedSchema(parishSchema),
   initialValues: {
     id: `${route.params.id}`,
   },
 });
 
+const { data: archdioceses, error, pending } = await useFetch<Array<Archdiocese>>('/api/archdiocese/', {
+  method: 'GET',
+});
+
 const onSubmit = handleSubmit(async (values) => {
   const id = z.string().parse(route.params.id);
 
-  const response = await $fetch<{ profile: Profile; user: User }>(`/api/profile/${id}`, {
+  const response = await $fetch<{ profile: Profile; user: User }>(`/api/parish/${id}`, {
     method: 'POST',
     body: values,
   });

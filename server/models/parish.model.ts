@@ -16,8 +16,16 @@ export class ParishModel {
     });
   };
 
-  create = async (data: Parish) => {
-    return await prisma.parish.create({ data });
+  create = async (data: Pick<Parish, 'address' | 'name' | 'archdioceseId'>) => {
+    return await prisma.parish.create({
+      data: {
+        name: data.name,
+        address: data.address,
+        archdioceseId: data.archdioceseId,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    });
   };
 
   update = async (
@@ -32,5 +40,16 @@ export class ParishModel {
 
   delete = async (id: string) => {
     return await prisma.parish.delete({ where: { id } });
+  };
+
+  searchByName = async (name: string) => {
+    return await prisma.parish.findMany({
+      where: {
+        name: {
+          contains: name,
+          mode: 'insensitive',
+        },
+      },
+    });
   };
 }

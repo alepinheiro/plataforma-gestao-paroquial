@@ -28,12 +28,32 @@
         </NuxtLink>
       </Button>
     </div>
+
     {{ data }}
+
+    <Card
+      v-for="item of data"
+      :key="item.id"
+    >
+      <CardHeader>
+        {{ item.coupleName }}
+      </CardHeader>
+      <CardFooter>
+        <Button as-child>
+          <NuxtLink
+            :to="`/cadastro/${item.token}`"
+            target="_blank"
+          >
+            Abrir link
+          </NuxtLink>
+        </Button>
+      </CardFooter>
+    </Card>
   </div>
 </template>
 
 <script lang='ts' setup>
-import type { Profile } from '~~/shared/types/generated/prisma';
+import type { Invitation } from '~~/shared/types/generated/prisma';
 
 definePageMeta({
   title: 'Convites',
@@ -43,7 +63,7 @@ definePageMeta({
 const { user } = useUserSession();
 if (!user.value) throw new Error('User not found');
 
-const { data, error, pending } = await useFetch<Array<Profile>>('/api/invite/', {
+const { data, error, pending } = await useFetch<Array<Invitation>>('/api/invite/', {
   method: 'GET',
   query: {
     userId: user.value.id,
