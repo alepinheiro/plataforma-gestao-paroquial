@@ -11,8 +11,22 @@ export class ProfileModel {
     return await prisma.profile.findUnique({ where: { id } });
   };
 
-  create = async (data: Omit<Profile, 'id'>) => {
-    return await prisma.profile.create({ data });
+  create = async (data: Omit<Profile, 'id' | 'createdAt' | 'updatedAt'>) => {
+    return await prisma.profile.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        photo: data.photo,
+        gender: data.gender,
+        address: data.address,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        facebook: data.facebook,
+        birthDate: data.birthDate,
+        instagram: data.instagram,
+      },
+    });
   };
 
   update = async (

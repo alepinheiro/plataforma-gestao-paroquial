@@ -45,54 +45,6 @@
             </FormItem>
           </FormField>
 
-          <FormField
-            v-slot="{ componentField }"
-            name="birthDate"
-          >
-            <FormItem class="w-full md:w-1/5 grow">
-              <FormLabel> Data de nascimento </FormLabel>
-              <FormControl>
-                <Input
-                  v-maska="'##/##/####'"
-                  placeholder="DD/MM/AAAA"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField
-            v-slot="{ componentField }"
-            name="gender"
-          >
-            <FormItem class="w-full md:w-1/5 grow">
-              <FormLabel> Gênero </FormLabel>
-              <Select
-                v-bind="componentField"
-              >
-                <FormControl>
-                  <SelectTrigger class="w-full">
-                    <SelectValue placeholder="Selecione uma opção" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectItem value="MALE">
-                      Masculino
-                    </SelectItem>
-                    <SelectItem value="FEMALE">
-                      Feminino
-                    </SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
           <FormAddressFields
             @set-values="(address) => setValues({
               address,
@@ -116,6 +68,7 @@
                   <ComboboxAnchor class="w-full">
                     <div class="relative w-full items-center">
                       <ComboboxInput
+                        :disabled="pending || !!error"
                         class="w-full"
                         :display-value="(val) => val?.name ?? ''"
                         placeholder="Digite para pesquisar"
@@ -129,7 +82,7 @@
 
                 <ComboboxList>
                   <ComboboxEmpty>
-                    Nothing found.
+                    Nenhum resultado.
                   </ComboboxEmpty>
 
                   <ComboboxGroup
@@ -177,7 +130,6 @@
 
 <script lang='ts' setup>
 import { Check, ChevronsUpDown } from 'lucide-vue-next';
-import { vMaska } from 'maska/vue';
 import { toast } from 'vue-sonner';
 import z from 'zod';
 import { cn } from '~/lib/utils';

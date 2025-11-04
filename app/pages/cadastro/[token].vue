@@ -1,15 +1,15 @@
 <template>
-  <div v-if="pending">
+  <div v-if="status === 'pending'">
     carregando
   </div>
 
   <div
-    v-else-if="error"
+    v-else-if="status === 'error'"
     class="p-4"
   >
     <Card>
       <CardContent class="text-red-600">
-        Erro ao carregar os dados: {{ error.message }}
+        Erro ao carregar os dados
       </CardContent>
     </Card>
   </div>
@@ -18,8 +18,11 @@
     v-else
     class="flex flex-col gap-2 w-full items-center"
   >
-    <!-- {{ data }} -->
-    <div class="max-w-3xl max-auto pt-12 flex flex-col gap-4">
+    {{ data }}
+    <form
+      class="max-w-3xl max-auto py-12 flex flex-col gap-4"
+      @submit="onSubmit"
+    >
       <div class="flex flex-col gap-2">
         <h1>Cadastro dela</h1>
         <FormProfileFields
@@ -34,12 +37,15 @@
           :use-form="formData"
         />
       </div>
-    </div>
+      <Button type="submit">
+        Cadastrar
+      </button>
+    </form>
   </div>
 </template>
 
 <script lang='ts' setup>
-import z from 'zod';
+import { z } from 'zod';
 import { profileSchema } from '~~/shared/schemas/profile/index.schema';
 
 definePageMeta({
@@ -49,11 +55,12 @@ definePageMeta({
 });
 
 const route = useRoute();
+const token = route.params.token;
 
-const { data, error, pending } = await useFetch('/api/invite/', {
+const { data, status } = await useFetch('/api/invite/', {
   method: 'GET',
   query: {
-    token: route.params.token,
+    token,
   },
 });
 
@@ -70,6 +77,12 @@ const formData = useForm({
       id: 'new',
     },
   },
+});
 
+const onSubmit = formData.handleSubmit(async (values) => {
+  await useFetch(`/api/couple/register/${token}`, {
+    method: 'POST',
+    body: values,
+  });
 });
 </script>

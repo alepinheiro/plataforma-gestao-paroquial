@@ -100,7 +100,7 @@ model Parish {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([name, archdioceseId])
+  @@unique([archdioceseId])
 }
 
 /// Representa um casal do movimento

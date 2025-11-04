@@ -11091,20 +11091,19 @@ export namespace Prisma {
 
   export type ParishWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    name_archdioceseId?: ParishNameArchdioceseIdCompoundUniqueInput
+    archdioceseId?: string
     AND?: ParishWhereInput | ParishWhereInput[]
     OR?: ParishWhereInput[]
     NOT?: ParishWhereInput | ParishWhereInput[]
     name?: StringFilter<"Parish"> | string
     address?: XOR<AddressCompositeFilter, AddressObjectEqualityInput>
-    archdioceseId?: StringFilter<"Parish"> | string
     createdAt?: DateTimeFilter<"Parish"> | Date | string
     updatedAt?: DateTimeFilter<"Parish"> | Date | string
     archdiocese?: XOR<ArchdioceseScalarRelationFilter, ArchdioceseWhereInput>
     couples?: CoupleListRelationFilter
     roles?: RoleAssignmentListRelationFilter
     permissions?: PermissionListRelationFilter
-  }, "id" | "name_archdioceseId">
+  }, "id" | "archdioceseId">
 
   export type ParishOrderByWithAggregationInput = {
     id?: SortOrder
@@ -12476,11 +12475,6 @@ export namespace Prisma {
 
   export type CoupleOrderByRelationAggregateInput = {
     _count?: SortOrder
-  }
-
-  export type ParishNameArchdioceseIdCompoundUniqueInput = {
-    name: string
-    archdioceseId: string
   }
 
   export type ParishCountOrderByAggregateInput = {

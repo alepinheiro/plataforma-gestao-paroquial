@@ -9,4 +9,5 @@ export const inviteFormSchema = z.object({
   userId: z.string(),
   hisName: z.string(),
   herName: z.string(),
+  coupleId: z.string(),
 });

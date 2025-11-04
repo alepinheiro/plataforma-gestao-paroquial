@@ -16,8 +16,32 @@ export class CoupleModel {
     });
   };
 
-  create = async (data: Couple) => {
-    return await prisma.couple.create({ data });
+  create = async (data: Pick<Couple, 'godparent1Id' | 'godparent2Id' | 'marriageDate' | 'member1Id' | 'member2Id' | 'parishId'>) => {
+    return await prisma.couple.create({
+      data: {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        parishId: data.parishId,
+        approvalStatus: 'PENDING',
+        member1Id: data.member1Id,
+        member2Id: data.member2Id,
+        marriageDate: data.marriageDate,
+        godparent1Id: data.godparent1Id,
+        godparent2Id: data.godparent2Id,
+      },
+    });
+  };
+
+  getByProfileId = async (profileId: string) => {
+    return await prisma.couple.findFirst({
+      where: {
+        OR: [
+          { member1Id: profileId },
+          { member2Id: profileId },
+        ],
+      },
+      include: { member1: true, member2: true, parish: true, roles: true },
+    });
   };
 
   update = async (

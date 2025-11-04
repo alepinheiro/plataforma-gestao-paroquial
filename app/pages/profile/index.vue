@@ -1,33 +1,63 @@
 <template>
-  <div v-if="pending">
+  <div v-if="status ==='pending'">
     carregando
   </div>
 
   <div
-    v-else-if="error"
+    v-else-if="status ==='error'"
     class="p-4"
   >
     <Card>
       <CardContent class="text-red-600">
-        Erro ao carregar os dados: {{ error.message }}
+        Erro ao carregar os dados
       </CardContent>
     </Card>
   </div>
 
-  <div v-else>
-    {{ data }}
+  <div
+    v-else
+    class="flex flex-col gap-2"
+  >
+    <div class="w-full flex">
+      <Button
+        class="ml-auto"
+        as-child
+      >
+        <NuxtLink to="/profile/new">
+          Cadastrar novo perfil
+        </NuxtLink>
+      </Button>
+    </div>
+
+    <Card
+      v-for="profile in data"
+      :key="profile.id"
+      :class="user?.profile.id === profile.id ? 'border-2' : ''"
+    >
+      <CardHeader>
+        <CardTitle>
+          {{ profile.name }}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p><strong>ID:</strong> {{ profile.id }}</p>
+        <p><strong>Nome:</strong> {{ profile.name }}</p>
+      </CardContent>
+    </Card>
   </div>
 </template>
 
 <script lang='ts' setup>
 import type { Profile } from '~~/shared/types/generated/prisma';
 
+const { user } = useUserSession();
+
 definePageMeta({
-  title: 'Irmãos',
-  description: 'Listagem de todos os irmãos cadastrados',
+  title: 'Perfis',
+  description: 'Listagem de todos os perfis cadastrados',
 });
 
-const { data, error, pending } = await useFetch<Array<Profile>>('/api/profile/', {
+const { data, status } = await useFetch<Array<Profile>>('/api/profile/', {
   method: 'GET',
 });
 </script>

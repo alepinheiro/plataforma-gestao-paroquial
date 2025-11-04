@@ -13,7 +13,7 @@
 
           <FormField
             v-slot="{ componentField }"
-            name="id"
+            name="coupleId"
           >
             <FormItem class="w-full">
               <FormLabel> id </FormLabel>
@@ -28,19 +28,29 @@
             </FormItem>
           </FormField>
 
-          <FormField name="language">
-            <FormItem class="flex flex-col">
-              <FormLabel>Language</FormLabel>
+          <FormField
+            name="parishId"
+            class="w-full"
+          >
+            <FormItem class="flex flex-col w-full">
+              <FormLabel>
+                Paróquia
+              </FormLabel>
 
-              <Combobox by="label">
+              <Combobox
+                by="label"
+                class="w-full"
+              >
                 <FormControl>
-                  <ComboboxAnchor>
-                    <div class="relative w-full max-w-sm items-center">
+                  <ComboboxAnchor class="w-full">
+                    <div class="relative w-full items-center">
                       <ComboboxInput
-                        :display-value="(val) => val?.label ?? ''"
-                        placeholder="Select language..."
+                        :disabled="parishesStatus === 'pending' || parishesStatus === 'error'"
+                        class="w-full"
+                        :display-value="(val) => val?.name ?? ''"
+                        placeholder="Digite para pesquisar"
                       />
-                      <ComboboxTrigger class="absolute end-0 inset-y-0 flex items-center justify-center px-3">
+                      <ComboboxTrigger class="absolute end-0 inset-y-0 flex items-center justify-center px-3 right-0">
                         <ChevronsUpDown class="size-4 text-muted-foreground" />
                       </ComboboxTrigger>
                     </div>
@@ -49,19 +59,21 @@
 
                 <ComboboxList>
                   <ComboboxEmpty>
-                    Nothing found.
+                    Nenhum resultado.
                   </ComboboxEmpty>
 
-                  <ComboboxGroup>
+                  <ComboboxGroup
+                    v-if="parishes?.length"
+                  >
                     <ComboboxItem
-                      v-for="language in languages"
-                      :key="language.value"
-                      :value="language"
+                      v-for="item in parishes"
+                      :key="item.id"
+                      :value="item"
                       @select="() => {
-                        setFieldValue('language', language.value)
+                        setFieldValue('parishId', item.id)
                       }"
                     >
-                      {{ language.label }}
+                      {{ item.name }}
 
                       <ComboboxItemIndicator>
                         <Check :class="cn('ml-auto h-4 w-4')" />
@@ -71,22 +83,141 @@
                 </ComboboxList>
               </Combobox>
 
-              <FormDescription>
-                This is the language that will be used in the dashboard.
-              </FormDescription>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          </FormField>
+
+          <FormField
+            name="member1Id"
+            class="w-full"
+          >
+            <FormItem class="flex flex-col w-full">
+              <FormLabel>
+                Nome dela
+              </FormLabel>
+
+              <Combobox
+                by="label"
+                class="w-full"
+              >
+                <FormControl>
+                  <ComboboxAnchor class="w-full">
+                    <div class="relative w-full items-center">
+                      <ComboboxInput
+                        :disabled="profilesStatus === 'pending' || profilesStatus === 'error'"
+                        class="w-full"
+                        :display-value="(val) => val?.name ?? ''"
+                        placeholder="Digite para pesquisar"
+                      />
+                      <ComboboxTrigger class="absolute end-0 inset-y-0 flex items-center justify-center px-3 right-0">
+                        <ChevronsUpDown class="size-4 text-muted-foreground" />
+                      </ComboboxTrigger>
+                    </div>
+                  </ComboboxAnchor>
+                </FormControl>
+
+                <ComboboxList>
+                  <ComboboxEmpty>
+                    Nenhum resultado.
+                  </ComboboxEmpty>
+
+                  <ComboboxGroup
+                    v-if="profiles?.length"
+                  >
+                    <ComboboxItem
+                      v-for="item in profiles"
+                      :key="item.id"
+                      :value="item"
+                      @select="() => {
+                        setFieldValue('member1Id', item.id)
+                      }"
+                    >
+                      {{ item.name }}
+
+                      <ComboboxItemIndicator>
+                        <Check :class="cn('ml-auto h-4 w-4')" />
+                      </ComboboxItemIndicator>
+                    </ComboboxItem>
+                  </ComboboxGroup>
+                </ComboboxList>
+              </Combobox>
+
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          </FormField>
+
+          <FormField
+            name="member2Id"
+            class="w-full"
+          >
+            <FormItem class="flex flex-col w-full">
+              <FormLabel>
+                Nome dele
+              </FormLabel>
+
+              <Combobox
+                by="label"
+                class="w-full"
+              >
+                <FormControl>
+                  <ComboboxAnchor class="w-full">
+                    <div class="relative w-full items-center">
+                      <ComboboxInput
+                        :disabled="profilesStatus === 'pending' || profilesStatus === 'error'"
+                        class="w-full"
+                        :display-value="(val) => val?.name ?? ''"
+                        placeholder="Digite para pesquisar"
+                      />
+                      <ComboboxTrigger class="absolute end-0 inset-y-0 flex items-center justify-center px-3 right-0">
+                        <ChevronsUpDown class="size-4 text-muted-foreground" />
+                      </ComboboxTrigger>
+                    </div>
+                  </ComboboxAnchor>
+                </FormControl>
+
+                <ComboboxList>
+                  <ComboboxEmpty>
+                    Nenhum resultado.
+                  </ComboboxEmpty>
+
+                  <ComboboxGroup
+                    v-if="profiles?.length"
+                  >
+                    <ComboboxItem
+                      v-for="item in profiles"
+                      :key="item.id"
+                      :value="item"
+                      @select="() => {
+                        setFieldValue('member2Id', item.id)
+                      }"
+                    >
+                      {{ item.name }}
+
+                      <ComboboxItemIndicator>
+                        <Check :class="cn('ml-auto h-4 w-4')" />
+                      </ComboboxItemIndicator>
+                    </ComboboxItem>
+                  </ComboboxGroup>
+                </ComboboxList>
+              </Combobox>
+
+              <FormDescription />
               <FormMessage />
             </FormItem>
           </FormField>
 
           <FormField
             v-slot="{ componentField }"
-            name="name"
+            name="marriageDate"
           >
-            <FormItem class="w-full md:w-1/3 grow">
-              <FormLabel> Nome completo </FormLabel>
+            <FormItem class="w-full md:w-1/5 grow">
+              <FormLabel> Data do casamento </FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Digite o nome completo"
+                  v-maska="'##/##/####'"
+                  placeholder="DD/MM/AAAA"
                   v-bind="componentField"
                 />
               </FormControl>
@@ -96,15 +227,134 @@
           </FormField>
 
           <FormField
-            v-slot="{ componentField }"
-            name="birthDate"
+            name="godparent1Id"
+            class="w-full"
           >
-            <FormItem class="w-full md:w-1/5 grow">
-              <FormLabel> Data de nascimento </FormLabel>
+            <FormItem class="flex flex-col w-full">
+              <FormLabel>
+                Madrinha
+              </FormLabel>
+
+              <Combobox
+                by="label"
+                class="w-full"
+              >
+                <FormControl>
+                  <ComboboxAnchor class="w-full">
+                    <div class="relative w-full items-center">
+                      <ComboboxInput
+                        :disabled="profilesStatus === 'pending' || profilesStatus === 'error'"
+                        class="w-full"
+                        :display-value="(val) => val?.name ?? ''"
+                        placeholder="Digite para pesquisar"
+                      />
+                      <ComboboxTrigger class="absolute end-0 inset-y-0 flex items-center justify-center px-3 right-0">
+                        <ChevronsUpDown class="size-4 text-muted-foreground" />
+                      </ComboboxTrigger>
+                    </div>
+                  </ComboboxAnchor>
+                </FormControl>
+
+                <ComboboxList>
+                  <ComboboxEmpty>
+                    Nenhum resultado.
+                  </ComboboxEmpty>
+
+                  <ComboboxGroup
+                    v-if="profiles?.length"
+                  >
+                    <ComboboxItem
+                      v-for="item in profiles"
+                      :key="item.id"
+                      :value="item"
+                      @select="() => {
+                        setFieldValue('godparent1Id', item.id)
+                      }"
+                    >
+                      {{ item.name }}
+
+                      <ComboboxItemIndicator>
+                        <Check :class="cn('ml-auto h-4 w-4')" />
+                      </ComboboxItemIndicator>
+                    </ComboboxItem>
+                  </ComboboxGroup>
+                </ComboboxList>
+              </Combobox>
+
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          </FormField>
+
+          <FormField
+            name="godparent2Id"
+            class="w-full"
+          >
+            <FormItem class="flex flex-col w-full">
+              <FormLabel>
+                Padrinho
+              </FormLabel>
+
+              <Combobox
+                by="label"
+                class="w-full"
+              >
+                <FormControl>
+                  <ComboboxAnchor class="w-full">
+                    <div class="relative w-full items-center">
+                      <ComboboxInput
+                        :disabled="profilesStatus === 'pending' || profilesStatus === 'error'"
+                        class="w-full"
+                        :display-value="(val) => val?.name ?? ''"
+                        placeholder="Digite para pesquisar"
+                      />
+                      <ComboboxTrigger class="absolute end-0 inset-y-0 flex items-center justify-center px-3 right-0">
+                        <ChevronsUpDown class="size-4 text-muted-foreground" />
+                      </ComboboxTrigger>
+                    </div>
+                  </ComboboxAnchor>
+                </FormControl>
+
+                <ComboboxList>
+                  <ComboboxEmpty>
+                    Nenhum resultado.
+                  </ComboboxEmpty>
+
+                  <ComboboxGroup
+                    v-if="profiles?.length"
+                  >
+                    <ComboboxItem
+                      v-for="item in profiles"
+                      :key="item.id"
+                      :value="item"
+                      @select="() => {
+                        setFieldValue('godparent2Id', item.id)
+                      }"
+                    >
+                      {{ item.name }}
+
+                      <ComboboxItemIndicator>
+                        <Check :class="cn('ml-auto h-4 w-4')" />
+                      </ComboboxItemIndicator>
+                    </ComboboxItem>
+                  </ComboboxGroup>
+                </ComboboxList>
+              </Combobox>
+
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          </FormField>
+
+          <!-- <FormField
+            v-slot="{ componentField }"
+            name="name"
+          >
+            <FormItem class="w-full md:w-1/3 grow">
+              <FormLabel> Nome completo </FormLabel>
               <FormControl>
                 <Input
-                  v-maska="'##/##/####'"
-                  placeholder="DD/MM/AAAA"
+                  placeholder="Digite o nome completo"
                   v-bind="componentField"
                 />
               </FormControl>
@@ -141,15 +391,15 @@
               <FormDescription />
               <FormMessage />
             </FormItem>
-          </FormField>
-
+          </FormField> -->
+          <!--
           <FormAddressFields
             @set-values="(address) => setValues({
               address,
             }, false)"
-          />
+          /> -->
 
-          <FormTitleTemplate
+          <!-- <FormTitleTemplate
             description="Insira como poderemos nos conectar"
             title="Contatos"
             class="w-full"
@@ -283,7 +533,7 @@
               <FormDescription />
               <FormMessage />
             </FormItem>
-          </FormField>
+          </FormField> -->
         </CardContent>
 
         <CardFooter class="w-full flex justify-between items-center gap-2">
@@ -303,11 +553,13 @@
 </template>
 
 <script lang='ts' setup>
+import { Check, ChevronsUpDown } from 'lucide-vue-next';
 import { vMaska } from 'maska/vue';
 import { toast } from 'vue-sonner';
 import z from 'zod';
-import { profileSchema } from '~~/shared/schemas/profile/index.schema';
-import type { Profile, User } from '~~/shared/types/generated/prisma';
+import { cn } from '~/lib/utils';
+import { createCoupleSchema } from '~~/shared/schemas/couple/index.schema';
+import type { Parish, Profile, User } from '~~/shared/types/generated/prisma';
 
 definePageMeta({
   title: 'Cadastrar casal',
@@ -317,16 +569,25 @@ definePageMeta({
 const route = useRoute();
 
 const { handleSubmit, setValues, setFieldValue } = useForm({
-  validationSchema: toTypedSchema(profileSchema),
+  validationSchema: toTypedSchema(createCoupleSchema.extend({
+    coupleId: z.string(),
+  })),
   initialValues: {
-    id: `${route.params.id}`,
+    coupleId: `${route.params.id}`,
   },
+});
+
+const { data: profiles, status: profilesStatus } = await useFetch<Array<Profile>>('/api/profile/', {
+  method: 'GET',
+});
+const { data: parishes, status: parishesStatus } = await useFetch<Array<Parish>>('/api/parish/', {
+  method: 'GET',
 });
 
 const onSubmit = handleSubmit(async (values) => {
   const id = z.string().parse(route.params.id);
 
-  const response = await $fetch<{ profile: Profile; user: User }>(`/api/profile/${id}`, {
+  const response = await $fetch<{ profile: Profile; user: User }>(`/api/couple/${id}`, {
     method: 'POST',
     body: values,
   });
@@ -335,6 +596,6 @@ const onSubmit = handleSubmit(async (values) => {
 
   toast.success(firstName + 'Foi cadastrado com sucesso!');
 
-  await navigateTo('/profile');
-});
+  await navigateTo('/couple');
+}, error => console.error(error));
 </script>

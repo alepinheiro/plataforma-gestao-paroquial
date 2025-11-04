@@ -125,7 +125,7 @@ definePageMeta({
   description: 'Crie um convite',
 });
 
-const { user } = useUserSession();
+const { user, session } = useUserSession();
 if (!user.value) throw new Error('User not found');
 const route = useRoute();
 
@@ -133,7 +133,8 @@ const { handleSubmit } = useForm({
   validationSchema: toTypedSchema(inviteFormSchema),
   initialValues: {
     id: `${route.params.id}`,
-    userId: user.value.id,
+    userId: user.value.profile.id,
+    coupleId: session.value?.couple.id,
   },
 });
 
@@ -147,8 +148,12 @@ const onSubmit = handleSubmit(async (values) => {
 
   // const [firstName] = response.profile.name.split(' ');
 
-  toast.success(response?.invitation.coupleName + 'Foi cadastrado com sucesso!');
+  toast.success(response?.invitation.coupleName + ' Foi cadastrado com sucesso!');
 
   await navigateTo('/invite');
-});
+},
+error =>
+  // eslint-disable-next-line no-console
+  console.error(error),
+);
 </script>

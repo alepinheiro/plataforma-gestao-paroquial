@@ -9,6 +9,8 @@ declare module '#auth-utils' {
         profile: true;
       };
     }> {
+
+    couple: Prisma.CoupleGetPayload;
     id: string;
   }
 
@@ -18,6 +20,7 @@ declare module '#auth-utils' {
         profile: true;
       };
     }>;
+    couple: Prisma.CoupleGetPayload;
   }
 
   // interface SecureSessionData

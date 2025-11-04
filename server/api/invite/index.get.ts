@@ -38,7 +38,7 @@ export default eventHandler(async (event) => {
     });
   }
 
-  const invites = await service.listInvitationsByInviter(data.userId);
+  const invites = await service.listInvitationsByInviter(user.profile.id);
 
   return invites;
 });

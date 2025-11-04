@@ -230,6 +230,8 @@
 </template>
 
 <script lang='ts' setup>
+import { vMaska } from 'maska/vue';
+
 type UseForm = ReturnType<typeof useForm>;
 const props = defineProps<{
   useForm: UseForm;

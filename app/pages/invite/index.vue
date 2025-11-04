@@ -1,10 +1,10 @@
 <template>
-  <div v-if="pending">
+  <div v-if="status === 'pending'">
     carregando
   </div>
 
   <div
-    v-else-if="error"
+    v-else-if="status === 'error'"
     class="p-4"
   >
     <Card>
@@ -38,7 +38,13 @@
       <CardHeader>
         {{ item.coupleName }}
       </CardHeader>
-      <CardFooter>
+      <CardFooter class="flex gap-2">
+        <Button
+          variant="destructive"
+          @click="onRemoveInvite(item.id)"
+        >
+          Excluir convite
+        </Button>
         <Button as-child>
           <NuxtLink
             :to="`/cadastro/${item.token}`"
@@ -63,10 +69,17 @@ definePageMeta({
 const { user } = useUserSession();
 if (!user.value) throw new Error('User not found');
 
-const { data, error, pending } = await useFetch<Array<Invitation>>('/api/invite/', {
+const { data, status, refresh } = await useFetch<Array<Invitation>>('/api/invite/', {
   method: 'GET',
   query: {
     userId: user.value.id,
   },
 });
+
+const onRemoveInvite = async (id: string) => {
+  await useFetch(`/api/invite/${id}`, {
+    method: 'DELETE',
+  });
+  await refresh();
+};
 </script>

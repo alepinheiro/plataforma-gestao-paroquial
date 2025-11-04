@@ -23,7 +23,7 @@ export default eventHandler(async (event) => {
       inviteeId: data.userId,
       inviterId: data.userId,
       inviteeEmail: data.email,
-      coupleName: data.herName + data.hisName,
+      coupleName: data.herName + ' do ' + data.hisName,
     });
 
     return result;
