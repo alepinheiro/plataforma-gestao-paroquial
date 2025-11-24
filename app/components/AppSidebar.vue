@@ -13,6 +13,7 @@
                 <NuxtLink
                   v-if="item.component === 'NuxtLink'"
                   :to="item.url"
+                  active-class="border border-primary/30 font-semibold"
                 >
                   <component :is="item.icon" />
                   <span>
@@ -65,7 +66,7 @@ const items = reactive([
     component: 'NuxtLink',
   },
   {
-    title: 'Irmãos',
+    title: 'Perfis',
     url: '/profile',
     icon: Inbox,
     component: 'NuxtLink',
@@ -93,7 +94,7 @@ const items = reactive([
 
 items.push({
   title: 'Sair',
-  url: '/',
+  url: '/login',
   icon: DoorOpen,
   component: 'NuxtLink',
 });

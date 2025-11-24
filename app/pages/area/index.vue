@@ -1,10 +1,10 @@
 <template>
-  <div v-if="pending">
+  <div v-if="status === 'pending'">
     carregando
   </div>
 
   <div
-    v-else-if="error"
+    v-else-if="status === 'error'"
     class="p-4"
   >
     <Card>
@@ -26,7 +26,50 @@
       </Button>
     </div>
 
-    {{ data }}
+    <div class="flex flex-col w-full gap-4 mt-4">
+      <Card
+        v-for="area in data"
+        :key="area.id"
+      >
+        <CardContent>
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="text-lg font-semibold">
+                {{ area.name }}
+              </h3>
+              <p class="text-sm text-muted-foreground mt-1">
+                Paróquias: {{ area.parishes?.length ?? 0 }}
+              </p>
+              <p class="text-sm text-muted-foreground">
+                Criado: {{ area.createdAt ? new Date(area.createdAt).toLocaleDateString() : '-' }}
+              </p>
+            </div>
+
+            <div class="ml-4 flex flex-col items-end gap-2">
+              <Button as-child>
+                <NuxtLink
+                  :to="`/area/${area.id}`"
+                  class="text-sm text-blue-600 hover:underline"
+                >
+                  Ver
+                </NuxtLink>
+              </Button>
+              <Button
+                as-child
+                variant="secondary"
+              >
+                <NuxtLink
+                  :to="`/area/${area.id}/edit`"
+                  class="text-sm text-gray-600 hover:underline"
+                >
+                  Editar
+                </NuxtLink>
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   </div>
 </template>
 
@@ -38,7 +81,7 @@ definePageMeta({
   description: 'Listagem da área',
 });
 
-const { data, error, pending } = await useFetch<Array<Archdiocese>>('/api/archdiocese/', {
+const { data, status } = await useFetch<Array<Archdiocese>>('/api/archdiocese/', {
   method: 'GET',
 });
 </script>

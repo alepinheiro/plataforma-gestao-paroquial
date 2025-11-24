@@ -1,15 +1,15 @@
 <template>
-  <div v-if="pending">
+  <div v-if="status === 'pending'">
     carregando
   </div>
 
   <div
-    v-else-if="error"
+    v-else-if="status === 'error'"
     class="p-4"
   >
     <Card>
       <CardContent class="text-red-600">
-        Erro ao carregar os dados: {{ error.message }}
+        Erro ao carregar os dados: {{ status }}
       </CardContent>
     </Card>
   </div>
@@ -26,7 +26,50 @@
       </Button>
     </div>
 
-    {{ data }}
+    <div
+      v-if="!data || data.length === 0"
+      class="mt-4"
+    >
+      <Card>
+        <CardContent>
+          Nenhuma paróquia encontrada.
+        </CardContent>
+      </Card>
+    </div>
+
+    <div
+      v-else
+      class="grid gap-4 mt-4"
+    >
+      <div
+        v-for="parish in data"
+        :key="parish.id"
+      >
+        <Card>
+          <CardContent>
+            <div class="flex items-start justify-between">
+              <div>
+                <h3 class="text-lg font-semibold">
+                  {{ parish.name || '—' }}
+                </h3>
+                <p class="text-sm text-gray-600">
+                  {{ `${parish.address.street}, ${parish.address.number} - ${parish.address.neighborhood} - ${parish.address.city}` || 'Endereço não informado' }}
+                </p>
+              </div>
+
+              <div class="flex items-center gap-2 ml-4">
+                <Button as-child>
+                  <NuxtLink :to="`/parish/${parish.id}`">Detalhes</NuxtLink>
+                </Button>
+                <Button as-child>
+                  <NuxtLink :to="`/parish/${parish.id}/edit`">Editar</NuxtLink>
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -38,7 +81,7 @@ definePageMeta({
   description: 'Listagem das paróquias',
 });
 
-const { data, error, pending } = await useFetch<Array<Parish>>('/api/parish/', {
+const { data, status } = await useFetch<Array<Parish>>('/api/parish/', {
   method: 'GET',
 });
 </script>

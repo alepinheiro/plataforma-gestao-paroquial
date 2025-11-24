@@ -9,7 +9,7 @@
   >
     <Card>
       <CardContent class="text-red-600">
-        Erro ao carregar os dados: {{ error.message }}
+        Erro ao carregar os dados:
       </CardContent>
     </Card>
   </div>
@@ -28,8 +28,6 @@
         </NuxtLink>
       </Button>
     </div>
-
-    {{ data }}
 
     <Card
       v-for="item of data"
