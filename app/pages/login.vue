@@ -32,7 +32,6 @@
           <FormField
             v-slot="{ componentField }"
             name="password"
-            @update:model-value="onSubmit()"
           >
             <FormItem>
               <FormLabel> Senha </FormLabel>
@@ -49,7 +48,7 @@
           </FormField>
         </CardContent>
 
-        <CardFooter class="flex justify-between">
+        <CardFooter class="flex justify-end">
           <Button
             type="submit"
             :disabled="isSubmitting"
