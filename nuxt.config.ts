@@ -1,4 +1,4 @@
-import tailwindcss from '@tailwindcss/vite'
+import tailwindcss from '@tailwindcss/vite';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
@@ -15,6 +15,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/tailwind.css'],
   compatibilityDate: '2025-07-15',
+  nitro: {
+    preset: 'vercel',
+  },
 
   vite: {
     plugins: [tailwindcss()],
@@ -43,4 +46,4 @@ export default defineNuxtConfig({
      */
     componentDir: './app/components/ui',
   },
-})
+});
