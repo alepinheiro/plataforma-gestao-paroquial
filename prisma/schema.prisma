@@ -7,7 +7,7 @@ generator client {
     provider = "prisma-client"
     output   = "../shared/types/generated/prisma"
     runtime  = "bun"
-    // moduleFormat = "esm"
+    moduleFormat = "esm"
 }
 
 enum Gender {
