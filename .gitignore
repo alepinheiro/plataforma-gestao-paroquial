@@ -26,3 +26,5 @@ logs
 
 #vercel]
 .vercel
+
+/shared/types/generated/prisma
