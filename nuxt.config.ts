@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     'nuxt-auth-utils',
   ],
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   css: ['~/assets/css/tailwind.css'],
   compatibilityDate: '2025-07-15',
   nitro: {
