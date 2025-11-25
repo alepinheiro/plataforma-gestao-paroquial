@@ -9,7 +9,7 @@
   >
     <Card>
       <CardContent class="text-red-600">
-        Erro ao carregar os dados: {{ error.message }}
+        Erro ao carregar os dados
       </CardContent>
     </Card>
   </div>
@@ -74,14 +74,18 @@
 </template>
 
 <script lang='ts' setup>
-import type { Archdiocese } from '~~/shared/types/generated/prisma';
+import type { Prisma } from '~~/shared/types/generated/prisma';
 
 definePageMeta({
   title: 'Área',
   description: 'Listagem da área',
 });
 
-const { data, status } = await useFetch<Array<Archdiocese>>('/api/archdiocese/', {
+const { data, status } = await useFetch<Array<Prisma.ArchdioceseGetPayload<{
+  include: {
+    parishes: true;
+  };
+}>>>('/api/archdiocese/', {
   method: 'GET',
 });
 </script>

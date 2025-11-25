@@ -10,6 +10,7 @@ export default eventHandler(async (event) => {
   const query = getQuery(event);
 
   const { success, data, error } = querySchema.safeParse(query);
+
   if (!success) {
     throw createError({
       statusCode: 400,
