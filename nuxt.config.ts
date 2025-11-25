@@ -17,10 +17,29 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   nitro: {
     preset: 'vercel',
+    // externals: {
+    //   external: ['@prisma/client', 'prisma'],
+    // },
+    experimental: {
+      wasm: false,
+    },
+    // esbuild: {
+    //   options: {
+    //     target: 'es2020',
+    //   },
+    // },
   },
 
   vite: {
     plugins: [tailwindcss()],
+    // optimizeDeps: { exclude: ['@prisma/client'] },
+    // resolve: {
+    //   mainFields: ['browser', 'module', 'main'],
+    //   alias: {
+    //     '.prisma/client/index-browser':
+    //       './node_modules/.prisma/client/index-browser.js',
+    //   },
+    // },
   },
 
   eslint: {

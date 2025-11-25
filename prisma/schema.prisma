@@ -1,10 +1,12 @@
 datasource db {
     provider = "mongodb"
+    url = env("DATABASE_URL")
 }
 
 generator client {
     provider = "prisma-client-js"
     output   = "../shared/types/generated/prisma"
+    runtime  = "bun"
 }
 
 enum Gender {
