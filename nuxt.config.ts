@@ -14,6 +14,9 @@ export default defineNuxtConfig({
   ],
   devtools: { enabled: false },
   css: ['~/assets/css/tailwind.css'],
+  build: {
+    transpile: ['~/prisma/client'],
+  },
   compatibilityDate: '2025-07-15',
   nitro: {
     preset: 'vercel',
