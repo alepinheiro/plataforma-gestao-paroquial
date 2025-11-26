@@ -32,6 +32,9 @@ export default defineNuxtConfig({
     //     target: 'es2020',
     //   },
     // },
+    replace: {
+      'import * as process': 'import * as processUnused',
+    },
   },
 
   vite: {
