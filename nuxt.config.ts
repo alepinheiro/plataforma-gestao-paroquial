@@ -14,6 +14,7 @@ export default defineNuxtConfig({
   ],
   devtools: { enabled: false },
   css: ['~/assets/css/tailwind.css'],
+
   // build: {
   //   transpile: ['~/prisma/client'],
   // },

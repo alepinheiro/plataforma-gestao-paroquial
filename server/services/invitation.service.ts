@@ -1,6 +1,6 @@
 // server/services/invitation.service.ts
 
-import { InvitationStatus } from '@@/shared/types/generated/prisma';
+import { InvitationStatus } from '#shared/types/generated/prisma';
 import type { CreateInvitationDTO, UpdateInvitationDTO } from '~~/server/models/invitation.model';
 import { InvitationModel } from '~~/server/models/invitation.model';
 
