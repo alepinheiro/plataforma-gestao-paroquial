@@ -5,13 +5,15 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output/  = "../shared/types/generated/prisma"
+    provider = "prisma-client-js"
+    // output removed for Prisma v7 compatibility — client will be available via @prisma/client
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATA
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
 enum Gender {
     MALE
     FEMALE
@@ -233,15 +235,6 @@ model Invitation {
 
     status InvitationStatus @default(PENDING)
     token  String           @unique
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    Profile   Profile? @relation(fields: [profileId], references: [id])
-    profileId String?  @db.ObjectId
-
-    @@unique([inviterId, inviteeEmail, coupleId])
-}
-BASE_URL")
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
