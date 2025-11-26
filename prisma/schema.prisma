@@ -5,8 +5,10 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-    provider = "prisma-client-js"
-    // output removed for Prisma v7 compatibility — client will be available via @prisma/client
+    provider      = "prisma-client"
+    output        = "../shared/types/generated/prisma"
+    binaryTargets = ["native", "rhel-openssl-3.0.x"]
+    engineType    = "client"
 }
 
 datasource db {
