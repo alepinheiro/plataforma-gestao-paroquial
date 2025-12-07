@@ -1,34 +1,19 @@
 // auth.d.ts
 
-import type { Prisma } from '~~/shared/types/generated/prisma';
+import type { Couple } from '~~/shared/schemas/models/couple.schema';
+import type { Profile } from '~~/shared/schemas/models/profile.schema';
+import type { User as UserType } from '~~/shared/schemas/models/user.schema';
 
 declare module '#auth-utils' {
-  interface User
-    extends Prisma.UserGetPayload<{
-      include: {
-        profile: true;
-      };
-    }> {
-
-    couple: Prisma.CoupleGetPayload;
-    id: string;
+  interface User extends UserType {
+    profile: Profile;
+    couple: Couple;
   }
 
   interface UserSession {
-    user: Prisma.UserGetPayload<{
-      include: {
-        profile: true;
-      };
-    }>;
-    couple: Prisma.CoupleGetPayload;
+    user: User;
+    couple: Couple;
   }
-
-  // interface SecureSessionData
-  //   extends Prisma.UserGetPayload<{
-  //     include: {
-  //       profile: true;
-  //     };
-  //   }> {}
 }
 
 export { };

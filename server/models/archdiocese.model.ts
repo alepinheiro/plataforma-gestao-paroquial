@@ -1,48 +1,20 @@
-import { prisma } from '~~/server/db';
-import type { Archdiocese } from '~~/shared/types/generated/prisma';
+import { BaseModel } from '~~/server/models/base.model';
+import type { Archdiocese } from '~~/shared/schemas/models/archdiocese.schema';
 
-export class ArchdioceseModel {
-  getAll = async () => {
-    return await prisma.archdiocese.findMany({
-      include: { parishes: true, roles: true },
-    });
-  };
+const COLLECTION = 'Archdiocese';
 
-  getById = async (id: string) => {
-    return await prisma.archdiocese.findUnique({
-      where: { id },
-      include: { parishes: true, roles: true },
-    });
-  };
+export class ArchdioceseModel extends BaseModel<Archdiocese> {
+  constructor() {
+    super(COLLECTION);
+  }
 
-  create = async (data: Pick<Archdiocese, 'name'>) => {
-    return await prisma.archdiocese.create({
-      data: {
-        name: data.name,
-        createdAt: new Date(),
-      },
-    });
-  };
-
-  update = async (id: string, data: Partial<{ name: string }>) => {
-    return await prisma.archdiocese.update({
-      where: { id },
-      data,
-    });
-  };
-
-  delete = async (id: string) => {
-    return await prisma.archdiocese.delete({ where: { id } });
-  };
-
-  searchByName = async (name: string) => {
-    return await prisma.archdiocese.findMany({
-      where: {
-        name: {
-          contains: name,
-          mode: 'insensitive',
-        },
-      },
-    });
-  };
+  /**
+   * Busca arquidioceses pelo nome (case-insensitive).
+   */
+  async searchByName(name: string): Promise<Archdiocese[]> {
+    const db = await this.getDb();
+    const docs = await db.collection<Archdiocese>(this.collectionName).find({ name: { $regex: name, $options: 'i' } }).toArray();
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
+    return mongoIdToId(docs);
+  }
 }

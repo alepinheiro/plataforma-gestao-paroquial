@@ -2,7 +2,7 @@
 
 import type { CreateInvitationDTO, UpdateInvitationDTO } from '~~/server/models/invitation.model';
 import { InvitationModel } from '~~/server/models/invitation.model';
-import { InvitationStatus } from '~~/shared/types/generated/prisma';
+import { InvitationStatusEnum, type InvitationStatus } from '~~/shared/schemas/enums/invitationStatus.schema';
 
 export class InvitationService {
   private model = new InvitationModel();
@@ -59,18 +59,18 @@ export class InvitationService {
    */
   async acceptInvitation(id: string) {
     const invitation = await this.getById(id);
-    if (invitation.status !== InvitationStatus.PENDING) {
+    if (invitation.status !== InvitationStatusEnum.enum.PENDING) {
       throw new Error('Somente convites PENDING podem ser aceitos.');
     }
-    return this.model.update(id, { status: InvitationStatus.ACCEPTED });
+    return this.model.update(id, { status: InvitationStatusEnum.enum.ACCEPTED });
   }
 
   async declineInvitation(id: string) {
     const invitation = await this.getById(id);
-    if (invitation.status !== InvitationStatus.PENDING) {
+    if (invitation.status !== InvitationStatusEnum.enum.PENDING) {
       throw new Error('Somente convites PENDING podem ser recusados.');
     }
-    return this.model.update(id, { status: InvitationStatus.DECLINED });
+    return this.model.update(id, { status: InvitationStatusEnum.enum.DECLINED });
   }
 
   async expireOldInvitations(daysThreshold = 7) {

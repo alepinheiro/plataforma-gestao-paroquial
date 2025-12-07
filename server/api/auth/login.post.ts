@@ -1,11 +1,11 @@
-import { UserService } from '~~/server/services/user.service';
+import { validateCredentials } from '~~/server/services/user.service';
 
 export default defineEventHandler(async (event) => {
   try {
     const { email, password } = await readBody(event);
 
-    const user = await UserService.validateCredentials(email, password);
-
+    const user = await validateCredentials(email, password);
+    delete user?.password;
     if (!user) {
       throw createError({
         statusCode: 401,
@@ -13,12 +13,9 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    // Aqui você criaria um JWT ou session
-    return {
-      success: true,
-      data: user,
-      message: 'Login realizado com sucesso',
-    };
+    // TODO: criar um JWT ou session
+    await setUserSession(event, { user });
+    return { user };
   }
   catch (error) {
     throw createError({

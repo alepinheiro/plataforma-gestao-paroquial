@@ -1,56 +1,25 @@
 // src/models/profile.model.ts
-import { prisma } from '~~/server/db';
-import type { Profile } from '~~/shared/types/generated/prisma';
 
-export class ProfileModel {
-  getAll = async () => {
-    return await prisma.profile.findMany();
-  };
+import { BaseModel } from '~~/server/models/base.model';
+import type { Profile } from '~~/shared/schemas/models/profile.schema';
 
-  getById = async (id: Profile['id']) => {
-    return await prisma.profile.findUnique({ where: { id } });
-  };
+const COLLECTION = 'Profile';
 
-  create = async (data: Omit<Profile, 'id' | 'createdAt' | 'updatedAt'>) => {
-    return await prisma.profile.create({
-      data: {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        photo: data.photo,
-        gender: data.gender,
-        address: data.address,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        facebook: data.facebook,
-        birthDate: data.birthDate,
-        instagram: data.instagram,
-      },
-    });
-  };
+/**
+ * Model para operações de Profile usando BaseModel.
+ */
+export class ProfileModel extends BaseModel<Profile> {
+  constructor() {
+    super(COLLECTION);
+  }
 
-  update = async (
-    id: Profile['id'],
-    data: Partial<Profile>,
-  ) => {
-    return await prisma.profile.update({
-      where: { id },
-      data,
-    });
-  };
-
-  delete = async (id: Profile['id']) => {
-    return await prisma.profile.delete({ where: { id } });
-  };
-
-  searchByName = async (name: string) => {
-    return await prisma.profile.findMany({
-      where: {
-        name: {
-          contains: name,
-          mode: 'insensitive',
-        },
-      },
-    });
-  };
+  /**
+   * Busca perfis pelo nome (case-insensitive).
+   */
+  async searchByName(name: string): Promise<Profile[]> {
+    const db = await this.getDb();
+    const docs = await db.collection<Profile>(this.collectionName).find({ name: { $regex: name, $options: 'i' } }).toArray();
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
+    return mongoIdToId(docs);
+  }
 }

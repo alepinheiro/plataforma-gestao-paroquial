@@ -559,7 +559,9 @@ import { toast } from 'vue-sonner';
 import z from 'zod';
 import { cn } from '~/lib/utils';
 import { createCoupleSchema } from '~~/shared/schemas/couple/index.schema';
-import type { Parish, Profile, User } from '~~/shared/types/generated/prisma';
+import type { Parish } from '~~/shared/schemas/models/parish.schema';
+import type { Profile } from '~~/shared/schemas/models/profile.schema';
+import type { User } from '~~/shared/schemas/models/user.schema';
 
 definePageMeta({
   title: 'Cadastrar casal',
@@ -568,7 +570,7 @@ definePageMeta({
 
 const route = useRoute();
 
-const { handleSubmit, setValues, setFieldValue } = useForm({
+const { handleSubmit, setFieldValue } = useForm({
   validationSchema: toTypedSchema(createCoupleSchema.extend({
     coupleId: z.string(),
   })),

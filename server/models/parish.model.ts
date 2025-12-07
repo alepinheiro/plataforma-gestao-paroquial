@@ -1,55 +1,22 @@
 // src/models/parish.model.ts
-import { prisma } from '~~/server/db';
-import type { Parish } from '~~/shared/types/generated/prisma';
 
-export class ParishModel {
-  getAll = async () => {
-    return await prisma.parish.findMany({
-      include: { archdiocese: true, couples: true, roles: true },
-    });
-  };
+import { BaseModel } from '~~/server/models/base.model';
+import type { Parish } from '~~/shared/schemas/models/parish.schema';
 
-  getById = async (id: string) => {
-    return await prisma.parish.findUnique({
-      where: { id },
-      include: { archdiocese: true, couples: true, roles: true },
-    });
-  };
+const COLLECTION = 'Parish';
 
-  create = async (data: Pick<Parish, 'address' | 'name' | 'archdioceseId'>) => {
-    return await prisma.parish.create({
-      data: {
-        name: data.name,
-        address: data.address,
-        archdioceseId: data.archdioceseId,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    });
-  };
+export class ParishModel extends BaseModel<Parish> {
+  constructor() {
+    super(COLLECTION);
+  }
 
-  update = async (
-    id: string,
-    data: Partial<Parish>,
-  ) => {
-    return await prisma.parish.update({
-      where: { id },
-      data,
-    });
-  };
-
-  delete = async (id: string) => {
-    return await prisma.parish.delete({ where: { id } });
-  };
-
-  searchByName = async (name: string) => {
-    return await prisma.parish.findMany({
-      where: {
-        name: {
-          contains: name,
-          mode: 'insensitive',
-        },
-      },
-    });
-  };
+  /**
+   * Busca paróquias pelo nome (case-insensitive).
+   */
+  async searchByName(name: string): Promise<Parish[]> {
+    const db = await this.getDb();
+    const docs = await db.collection<Parish>(this.collectionName).find({ name: { $regex: name, $options: 'i' } }).toArray();
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
+    return mongoIdToId(docs);
+  }
 }

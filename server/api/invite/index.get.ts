@@ -39,6 +39,5 @@ export default eventHandler(async (event) => {
   }
 
   const invites = await service.listInvitationsByInviter(user.profile.id);
-
   return invites;
 });

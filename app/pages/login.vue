@@ -66,7 +66,7 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
 import { toast } from 'vue-sonner';
 import { loginSchema } from '~~/shared/schemas/login.schema';
-import type { User } from '~~/shared/types/generated/prisma';
+import type { User } from '~~/shared/schemas/models/user.schema';
 
 definePageMeta({
   auth: false,

@@ -1,60 +1,54 @@
 // src/models/couple.model.ts
-import { prisma } from '~~/server/db';
-import type { Couple } from '~~/shared/types/generated/prisma';
+import { BaseModel } from '~~/server/models/base.model';
+import { ParishModel } from '~~/server/models/parish.model';
+import { ProfileModel } from '~~/server/models/profile.model';
+import { toObjectId } from '~~/server/utils/mongodb-helpers';
+import type { Couple } from '~~/shared/schemas/models/couple.schema';
 
-export class CoupleModel {
-  getAll = async () => {
-    return await prisma.couple.findMany({
-      include: { member1: true, member2: true, parish: true, roles: true },
+const COLLECTION = 'Couple';
+
+export class CoupleModel extends BaseModel<Couple> {
+  private profileModel = new ProfileModel();
+  private parishModel = new ParishModel();
+  constructor() {
+    super(COLLECTION);
+  }
+
+  /**
+   * Busca casal pelo profileId (member1Id ou member2Id).
+   */
+  async getByProfileId(profileId: string): Promise<Couple | null> {
+    const db = await this.getDb();
+    const doc = await db.collection<Couple>(this.collectionName).findOne({
+      $or: [
+        { member1Id: toObjectId(profileId) },
+        { member2Id: toObjectId(profileId) },
+      ],
     });
-  };
+    if (!doc) return null;
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
+    return mongoIdToId(doc);
+  }
 
-  getById = async (id: string) => {
-    return await prisma.couple.findUnique({
-      where: { id },
-      include: { member1: true, member2: true, parish: true, roles: true },
-    });
-  };
+  /**
+   * Retorna todos os casais com dados completos de paróquia e membros.
+   */
+  async getAllWithDetails() {
+    const db = await this.getDb();
+    const couples = await db.collection<Couple>(this.collectionName).find({}).toArray();
+    if (!couples.length) return [];
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
 
-  create = async (data: Pick<Couple, 'godparent1Id' | 'godparent2Id' | 'marriageDate' | 'member1Id' | 'member2Id' | 'parishId'>) => {
-    return await prisma.couple.create({
-      data: {
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        parishId: data.parishId,
-        approvalStatus: 'PENDING',
-        member1Id: data.member1Id,
-        member2Id: data.member2Id,
-        marriageDate: data.marriageDate,
-        godparent1Id: data.godparent1Id,
-        godparent2Id: data.godparent2Id,
-      },
-    });
-  };
-
-  getByProfileId = async (profileId: string) => {
-    return await prisma.couple.findFirst({
-      where: {
-        OR: [
-          { member1Id: profileId },
-          { member2Id: profileId },
-        ],
-      },
-      include: { member1: true, member2: true, parish: true, roles: true },
-    });
-  };
-
-  update = async (
-    id: string,
-    data: Partial<{ marriageDate: Date; parishId: string }>,
-  ) => {
-    return await prisma.couple.update({
-      where: { id },
-      data,
-    });
-  };
-
-  delete = async (id: string) => {
-    return await prisma.couple.delete({ where: { id } });
-  };
+    return Promise.all(couples.map(async (couple) => {
+      const member1 = await this.profileModel.getById(couple.member1Id);
+      const member2 = await this.profileModel.getById(couple.member2Id);
+      const parish = await this.parishModel.getById(couple.parishId);
+      return {
+        ...mongoIdToId(couple),
+        member1,
+        member2,
+        parish,
+      };
+    }));
+  }
 }

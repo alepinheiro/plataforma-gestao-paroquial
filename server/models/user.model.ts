@@ -1,47 +1,83 @@
-// src/models/user.model.ts
-import { ObjectId } from 'mongodb';
-import { z } from 'zod';
+// server/models/user.model.ts
 
-export const UserSchema = z.object({
-  _id: z.instanceof(ObjectId).optional(),
-  email: z.email('Email inválido'),
-  password: z.string().min(6, 'Senha deve ter pelo menos 6 caracteres'),
-  role: z.enum(UserRole).default(UserRole.MEMBER),
-  isActive: z.boolean().default(true),
-  profileId: z.instanceof(ObjectId),
-  approvalStatus: z.enum(ApprovalStatus).default(ApprovalStatus.PENDING),
-  createdAt: z.date().default(() => new Date()),
-  updatedAt: z.date().default(() => new Date()),
-});
+import { BaseModel } from '~~/server/models/base.model';
+import type { User } from '~~/shared/schemas/models/user.schema';
 
-export const CreateUserSchema = UserSchema.omit({
-  _id: true,
-  createdAt: true,
-  updatedAt: true,
-  role: true,
-  isActive: true,
-  approvalStatus: true,
-});
+const COLLECTION = 'User';
 
-export const UpdateUserSchema = UserSchema.omit({
-  _id: true,
-  createdAt: true,
-  updatedAt: true,
-  password: true, // Password tem schema separado
-}).partial();
+/**
+ * Model para operações de usuário usando BaseModel.
+ * Use UserService para regras de negócio e validação.
+ */
+export class UserModel extends BaseModel<User> {
+  constructor() {
+    super(COLLECTION);
+  }
 
-export const ChangePasswordSchema = z.object({
-  currentPassword: z.string().min(6),
-  newPassword: z.string().min(6, 'Nova senha deve ter pelo menos 6 caracteres'),
-  confirmPassword: z.string().min(6),
-}).refine(data => data.newPassword === data.confirmPassword, {
-  message: 'As senhas não coincidem',
-  path: ['confirmPassword'],
-});
+  /**
+   * Busca usuário por email
+   */
+  async findByEmail(email: string): Promise<User | null> {
+    const db = await this.getDb();
+    const doc = await db.collection<User>(this.collectionName).findOne({ email });
+    if (!doc) return null;
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
+    return mongoIdToId(doc);
+  }
 
-export type User = z.infer<typeof UserSchema>;
-export type CreateUser = z.infer<typeof CreateUserSchema>;
-export type UpdateUser = z.infer<typeof UpdateUserSchema>;
-export type ChangePassword = z.infer<typeof ChangePasswordSchema>;
+  /**
+   * Busca usuário por profileId
+   */
+  async findByProfileId(profileId: string): Promise<User | null> {
+    const db = await this.getDb();
+    const doc = await db.collection<User>(this.collectionName).findOne({ profileId: toObjectId(profileId) });
+    if (!doc) return null;
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
+    return mongoIdToId(doc);
+  }
 
-export const USERS_COLLECTION = 'User';
+  /**
+   * Busca usuário por email (incluindo password)
+   */
+  async findByEmailWithPassword(email: string): Promise<User | null> {
+    return this.findByEmail(email);
+  }
+
+  /**
+   * Lista todos os usuários com filtros e paginação
+   */
+  async findAll(limit = 50, skip = 0, filters?: Partial<Pick<User, 'role' | 'isActive' | 'approvalStatus'>>): Promise<User[]> {
+    const db = await this.getDb();
+    const query: any = {};
+    if (filters?.role) query.role = filters.role;
+    if (filters?.isActive !== undefined) query.isActive = filters.isActive;
+    if (filters?.approvalStatus) query.approvalStatus = filters.approvalStatus;
+    const docs = await db.collection<User>(this.collectionName)
+      .find(query)
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .skip(skip)
+      .toArray();
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
+    return mongoIdToId(docs);
+  }
+
+  /**
+   * Conta total de usuários com filtros
+   */
+  async count(filters?: Partial<Pick<User, 'role' | 'isActive' | 'approvalStatus'>>): Promise<number> {
+    const db = await this.getDb();
+    const query: any = {};
+    if (filters?.role) query.role = filters.role;
+    if (filters?.isActive !== undefined) query.isActive = filters.isActive;
+    if (filters?.approvalStatus) query.approvalStatus = filters.approvalStatus;
+    return db.collection<User>(this.collectionName).countDocuments(query);
+  }
+
+  /**
+   * Busca usuários pendentes de aprovação
+   */
+  async findPendingApproval(limit = 50, skip = 0): Promise<User[]> {
+    return this.findAll(limit, skip, { approvalStatus: 'PENDING' });
+  }
+}

@@ -57,15 +57,21 @@
 </template>
 
 <script lang='ts' setup>
-import type { Invitation } from '~~/shared/types/generated/prisma';
+import { toast } from 'vue-sonner';
+import type { Invitation } from '~~/shared/schemas/models/invitation.schema';
 
 definePageMeta({
   title: 'Convites',
   description: 'Listagem dos convites',
 });
 
-const { user } = useUserSession();
-if (!user.value) throw new Error('User not found');
+const { user, fetch } = useUserSession();
+await fetch();
+if (!user.value) {
+  toast.error('Usuário não autenticado');
+  await navigateTo('/login');
+  throw new Error('Usuário não autenticado');
+}
 
 const { data, status, refresh } = await useFetch<Array<Invitation>>('/api/invite/', {
   method: 'GET',

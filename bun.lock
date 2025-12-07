@@ -40,7 +40,6 @@
         "@types/bcrypt": "^6.0.0",
         "@types/node": "^24.10.1",
         "@vee-validate/zod": "^4.15.1",
-        "prisma": "6.19",
         "shadcn-nuxt": "https://pkg.pr.new/shadcn-nuxt@1418",
         "shadcn-vue": "https://pkg.pr.new/shadcn-vue@1417",
         "typescript": "^5.9.3",

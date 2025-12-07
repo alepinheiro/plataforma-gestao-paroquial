@@ -1,12 +1,14 @@
 import { parse } from 'date-fns';
 import z from 'zod';
-import { CoupleModel } from '~~/server/models/couple.model';
 import { ProfileModel } from '~~/server/models/profile.model';
+import { CoupleService } from '~~/server/services/couple.service';
 import { InvitationService } from '~~/server/services/invitation.service';
 import { profileSchema } from '~~/shared/schemas/profile/index.schema';
 
 /**
- * Cria um casal através do token
+ * Cria um casal através do token, usando CoupleService.
+ * @param event Evento HTTP do Nuxt
+ * @returns Sucesso ou erro
  */
 export default eventHandler(async (event) => {
   const token = getRouterParam(event, 'token');
@@ -33,7 +35,7 @@ export default eventHandler(async (event) => {
     });
   }
   const invitationService = new InvitationService();
-  const coupleModel = new CoupleModel();
+  const coupleService = new CoupleService();
   const profileModel = new ProfileModel();
 
   const invite = await invitationService.getByToken(token);
@@ -54,7 +56,7 @@ export default eventHandler(async (event) => {
     birthDate: parse(data.member2.birthDate, 'dd/MM/yyyy', new Date()),
   });
 
-  const inviterCouple = await coupleModel.getByProfileId(invite.inviterId);
+  const inviterCouple = await coupleService.model.getByProfileId(invite.inviterId);
 
   if (!inviterCouple) {
     throw createError({
@@ -63,7 +65,7 @@ export default eventHandler(async (event) => {
     });
   }
 
-  await coupleModel.create({
+  await coupleService.createCouple({
     member1Id: member1.id,
     member2Id: member2.id,
     // marriageDate: parse(data.marriageDate, 'dd/MM/yyyy', new Date()),
@@ -71,6 +73,8 @@ export default eventHandler(async (event) => {
     godparent1Id: inviterCouple.member1Id,
     godparent2Id: inviterCouple.member2Id,
     parishId: inviterCouple.parishId,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   });
 
   return {

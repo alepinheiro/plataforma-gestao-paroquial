@@ -28,29 +28,32 @@
         </NuxtLink>
       </Button>
     </div>
-
-    <Card
-      v-for="profile in data"
-      :key="profile.id"
-      :class="user?.profile.id === profile.id ? 'border-2' : ''"
-    >
-      <CardHeader>
-        <CardTitle>
-          {{ profile.name }}
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p><strong>ID:</strong> {{ profile.id }}</p>
-        <p><strong>Nome:</strong> {{ profile.name }}</p>
-      </CardContent>
-    </Card>
+    <div v-if="user">
+      <Card
+        v-for="profile in data"
+        :key="profile.id"
+        :class="user.profile.id === profile.id ? 'border-2' : ''"
+      >
+        <CardHeader>
+          <CardTitle>
+            {{ profile.name }}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p><strong>ID:</strong> {{ profile.id }}</p>
+          <p><strong>Nome:</strong> {{ profile.name }}</p>
+        </CardContent>
+      </Card>
+    </div>
   </div>
 </template>
 
 <script lang='ts' setup>
-import type { Profile } from '~~/shared/types/generated/prisma';
+import type { Profile } from '~~/shared/schemas/models/profile.schema';
 
 const { user } = useUserSession();
+
+console.log({ user: user.value });
 
 definePageMeta({
   title: 'Perfis',

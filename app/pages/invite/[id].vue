@@ -153,7 +153,7 @@ const onSubmit = handleSubmit(async (values) => {
   await navigateTo('/invite');
 },
 error =>
-  // eslint-disable-next-line no-console
+
   console.error(error),
 );
 </script>

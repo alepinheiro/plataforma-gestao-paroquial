@@ -9,7 +9,7 @@ const querySchema = z.object({
 export default eventHandler(async (event) => {
   const query = getQuery(event);
 
-  const { success, data, error } = querySchema.safeParse(query);
+  const { success, error } = querySchema.safeParse(query);
   if (!success) {
     throw createError({
       statusCode: 400,
@@ -19,9 +19,6 @@ export default eventHandler(async (event) => {
 
   const model = new CoupleModel();
 
-  if (data.name) {
-    return await model.getAll();
-  }
-
-  return await model.getAll();
+  // Sempre retorna casais com dados completos de paróquia e membros
+  return await model.getAllWithDetails();
 });

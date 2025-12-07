@@ -1,21 +1,21 @@
 // server/models/invitation.model.ts
 
 import { randomBytes } from 'crypto';
-import { prisma } from '~~/server/db';
-import type { Invitation } from '~~/shared/types/generated/prisma';
-import { InvitationStatus } from '~~/shared/types/generated/prisma';
+import { BaseModel } from '~~/server/models/base.model';
+import { toObjectId } from '~~/server/utils/mongodb-helpers';
+import type { Invitation } from '~~/shared/schemas/models/invitation.schema';
 
 export type CreateInvitationDTO = {
   inviterId: string;
   inviteeId: string;
-  // coupleId: string;
-  status?: InvitationStatus;
+  coupleId?: string;
+  status?: string;
   coupleName: string;
   inviteeEmail: string;
 };
 
 export type UpdateInvitationDTO = {
-  status?: InvitationStatus;
+  status?: string;
   coupleId?: string | null;
 };
 
@@ -28,90 +28,90 @@ function generateInvitationToken(coupleName: string): string {
   return `${slug}-${hash}`;
 }
 
-/**
- * InvitationModel
- * - Encapsula operações diretas de leitura/escrita no DB para invitations.
- * - Mantenha lógica de negócios no Service; o Model faz operações simples com Prisma.
- */
-export class InvitationModel {
-  private db = prisma;
+const COLLECTION = 'Invitation';
 
-  async create(data: CreateInvitationDTO): Promise<Invitation> {
+export class InvitationModel extends BaseModel<Invitation> {
+  constructor() {
+    super(COLLECTION);
+  }
+
+  async create(data: CreateInvitationDTO) {
+    const db = await this.getDb();
     const token = generateInvitationToken(data.coupleName);
-
-    return this.db.invitation.create({
-      data: {
-        token,
-        inviterId: data.inviterId,
-        coupleName: data.coupleName,
-        inviteeEmail: data.inviteeEmail,
-        // coupleId: data.coupleId ?? undefined,
-        status: data.status ?? InvitationStatus.PENDING,
-      },
-    });
+    const doc: Omit<Invitation, 'id'> = {
+      token,
+      inviterId: toObjectId(data.inviterId),
+      inviteeId: toObjectId(data.inviteeId),
+      coupleId: data.coupleId ? toObjectId(data.coupleId) : undefined,
+      coupleName: data.coupleName,
+      inviteeEmail: data.inviteeEmail,
+      status: data.status ?? 'PENDING',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const result = await db.collection<typeof doc>(this.collectionName).insertOne(doc);
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
+    return mongoIdToId({ ...doc, _id: result.insertedId });
   }
 
   async findById(id: string): Promise<Invitation | null> {
-    return this.db.invitation.findUnique({
-      where: { id },
-    });
+    const db = await this.getDb();
+    const doc = await db.collection<Invitation>(this.collectionName).findOne({ _id: toObjectId(id) });
+    if (!doc) return null;
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
+    return mongoIdToId(doc);
   }
 
   async findByToken(token: string): Promise<Invitation | null> {
-    return prisma.invitation.findUnique({
-      where: { token },
-    });
+    const db = await this.getDb();
+    const doc = await db.collection<Invitation>(this.collectionName).findOne({ token });
+    if (!doc) return null;
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
+    return mongoIdToId(doc);
   }
 
-  async findByInviter(inviterId: string, status?: InvitationStatus) {
-    return this.db.invitation.findMany({
-      where: status ? { inviterId, status } : { inviterId },
-      orderBy: { createdAt: 'desc' },
-    });
+  async findByInviter(inviterId: string, status?: string): Promise<Invitation[]> {
+    const db = await this.getDb();
+    const query: any = { inviterId: toObjectId(inviterId) };
+    if (status) query.status = status;
+    const docs = await db.collection<Invitation>(this.collectionName).find(query).sort({ createdAt: -1 }).toArray();
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
+    return mongoIdToId(docs);
   }
 
-  // async findByInvitee(inviteeId: string, status?: InvitationStatus) {
-  //   return this.db.invitation.findMany({
-  //     where: status ? { inviteeId, status } : { inviteeId },
-  //     orderBy: { createdAt: 'desc' },
-  //   });
-  // }
-
-  // async findPendingByInvitee(inviteeId: string) {
-  //   return this.findByInvitee(inviteeId, InvitationStatus.PENDING);
-  // }
-
-  async update(id: string, data: UpdateInvitationDTO): Promise<Invitation> {
-    return this.db.invitation.update({
-      where: { id },
-      data: {
-        status: data.status,
-        coupleId: data.coupleId === undefined ? undefined : data.coupleId,
-      },
-    });
+  async update(id: string, data: UpdateInvitationDTO): Promise<Invitation | null> {
+    const db = await this.getDb();
+    await db.collection<Invitation>(this.collectionName).updateOne(
+      { _id: toObjectId(id) },
+      { $set: { ...data, updatedAt: new Date() } },
+    );
+    const doc = await db.collection<Invitation>(this.collectionName).findOne({ _id: toObjectId(id) });
+    if (!doc) return null;
+    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
+    return mongoIdToId(doc);
   }
 
-  async delete(id: string): Promise<Invitation> {
-    return this.db.invitation.delete({
-      where: { id },
-    });
+  async delete(id: string): Promise<boolean> {
+    const db = await this.getDb();
+    const result = await db.collection<Invitation>(this.collectionName).deleteOne({ _id: toObjectId(id) });
+    return result.deletedCount > 0;
   }
 
   /**
-   * Marca convites como EXPIRED quando ultrapassarem 'olderThanDays' dias desde createdAt e
-   * ainda estiverem em estado PENDING.
+   * Marca convites como EXPIRED quando ultrapassarem 'olderThanDays' dias desde createdAt e ainda estiverem em estado PENDING.
    */
   async expireOlderThan(olderThanDays = 7) {
+    const db = await this.getDb();
     const cutoff = new Date(Date.now() - olderThanDays * 24 * 60 * 60 * 1000);
-    const result = await this.db.invitation.updateMany({
-      where: {
-        status: InvitationStatus.PENDING,
-        createdAt: { lt: cutoff },
+    const result = await db.collection<Invitation>(this.collectionName).updateMany(
+      {
+        status: 'PENDING',
+        createdAt: { $lt: cutoff },
       },
-      data: {
-        status: InvitationStatus.EXPIRED,
+      {
+        $set: { status: 'EXPIRED', updatedAt: new Date() },
       },
-    });
-    return result; // { count: number }
+    );
+    return result;
   }
 }
