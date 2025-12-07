@@ -1,6 +1,6 @@
 import { parse } from 'date-fns';
 import { ProfileModel } from '~~/server/models/profile.model';
-import { UserModel } from '~~/server/models/user.model';
+// import { UserModel } from '~~/server/models/user.model';
 import { profileSchema } from '~~/shared/schemas/profile/index.schema';
 
 /**
@@ -18,7 +18,7 @@ export default eventHandler(async (event) => {
     });
   }
   const profileModel = new ProfileModel();
-  const userModel = new UserModel();
+  // const userModel = new UserModel();
 
   if (data.id === 'new') {
     const profile = await profileModel.create({
@@ -35,11 +35,11 @@ export default eventHandler(async (event) => {
       address: { ...data.address, complement: data.address.complement ?? null },
     });
 
-    const user = await userModel.create({
-      email: data.email,
-      profileId: profile.id,
-      password: data.password,
-    });
+    // const user = await userModel.create({
+    //   email: data.email,
+    //   profileId: profile.id,
+    //   password: data.password,
+    // });
 
     return { user, profile };
   }
