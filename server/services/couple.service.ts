@@ -1,28 +1,29 @@
+import type { CreateInput, UpdateInput } from '~~/server/models/base.model';
 import { CoupleModel } from '~~/server/models/couple.model';
-import type { Couple } from '~~/shared/schemas/models/couple.schema';
+import { CoupleSchema, type Couple } from '~~/shared/schemas/models/couple.schema';
 
-/**
- * Service para operações de casal.
- * Inclui criação, busca e manipulação de casais.
- */
-export class CoupleService {
-  private model: CoupleModel;
+const coupleModel = new CoupleModel();
 
-  constructor() {
-    this.model = new CoupleModel();
-  }
+export async function createCouple(payload: CreateInput<Couple>) {
+  const { data, error } = CoupleSchema.safeParse(payload);
+  if (error) throw new Error('Invalid couple data: ' + error.message);
+  return await coupleModel.create(data);
+}
 
-  /**
-   * Cria um novo casal na base de dados.
-   * Valida e insere o casal, retornando o registro criado.
-   * @param couple Dados do casal a ser criado
-   * @returns Casal criado
-   * @throws {Error} Se não for possível criar o casal
-   */
-  async createCouple(couple: Couple): Promise<Couple> {
-    // Toda persistência é delegada ao model, que gerencia conexão e conversão.
-    const created = await this.model.create(couple);
-    if (!created) throw new Error('Falha ao criar casal');
-    return created;
-  }
+export async function getCoupleById(id: string) {
+  return await coupleModel.getById(id);
+}
+
+export async function getCouples() {
+  return await coupleModel.getAll();
+}
+
+export async function updateCouple(id: string, payload: UpdateInput<Couple>) {
+  const { data, error } = CoupleSchema.partial().safeParse(payload);
+  if (error) throw new Error('Invalid couple update data: ' + error.message);
+  return await coupleModel.update(id, data);
+}
+
+export async function deleteCouple(id: string) {
+  return await coupleModel.delete(id);
 }

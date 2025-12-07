@@ -1,9 +1,9 @@
 import { parse } from 'date-fns';
 import z from 'zod';
-import { ProfileModel } from '~~/server/models/profile.model';
-import { CoupleService } from '~~/server/services/couple.service';
+import { createCouple, getCoupleById } from '~~/server/services/couple.service';
 import { InvitationService } from '~~/server/services/invitation.service';
-import { profileSchema } from '~~/shared/schemas/profile/index.schema';
+import { createProfile } from '~~/server/services/profile.service';
+import { ProfileSchema } from '~~/shared/schemas/models/profile.schema';
 
 /**
  * Cria um casal através do token, usando CoupleService.
@@ -21,9 +21,9 @@ export default eventHandler(async (event) => {
   }
 
   const { success, data, error } = z.object({
-    member1: profileSchema,
-    member2: profileSchema,
-    // marriageDate: z.string(),
+    member1: ProfileSchema,
+    member2: ProfileSchema,
+    marriageDate: z.string(),
   }).safeParse(
     await readBody(event),
   );
@@ -35,8 +35,6 @@ export default eventHandler(async (event) => {
     });
   }
   const invitationService = new InvitationService();
-  const coupleService = new CoupleService();
-  const profileModel = new ProfileModel();
 
   const invite = await invitationService.getByToken(token);
 
@@ -47,16 +45,16 @@ export default eventHandler(async (event) => {
     });
   }
 
-  const member1 = await profileModel.create({
+  const member1 = await createProfile({
     ...data.member1,
-    birthDate: parse(data.member1.birthDate, 'dd/MM/yyyy', new Date()),
+    birthDate: parse(data.member1.birthDate, 'dd/MM/yyyy', new Date()).toLocaleString('pt-BR'),
   });
-  const member2 = await profileModel.create({
+  const member2 = await createProfile({
     ...data.member2,
-    birthDate: parse(data.member2.birthDate, 'dd/MM/yyyy', new Date()),
+    birthDate: parse(data.member2.birthDate, 'dd/MM/yyyy', new Date()).toLocaleString('pt-BR'),
   });
 
-  const inviterCouple = await coupleService.model.getByProfileId(invite.inviterId);
+  const inviterCouple = await getCoupleById(invite.inviterId);
 
   if (!inviterCouple) {
     throw createError({
@@ -65,16 +63,14 @@ export default eventHandler(async (event) => {
     });
   }
 
-  await coupleService.createCouple({
+  await createCouple({
+    approvalStatus: '',
     member1Id: member1.id,
     member2Id: member2.id,
-    // marriageDate: parse(data.marriageDate, 'dd/MM/yyyy', new Date()),
-    marriageDate: new Date(),
+    marriageDate: data.marriageDate,
+    parishId: inviterCouple.parishId,
     godparent1Id: inviterCouple.member1Id,
     godparent2Id: inviterCouple.member2Id,
-    parishId: inviterCouple.parishId,
-    createdAt: new Date(),
-    updatedAt: new Date(),
   });
 
   return {

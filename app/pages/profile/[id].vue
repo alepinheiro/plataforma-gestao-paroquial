@@ -256,8 +256,8 @@
 import { vMaska } from 'maska/vue';
 import { toast } from 'vue-sonner';
 import z from 'zod';
-import { profileSchema } from '~~/shared/schemas/profile/index.schema';
-import type { Profile, User } from '~~/shared/types/generated/prisma';
+import { ProfileSchema, type Profile } from '~~/shared/schemas/models/profile.schema';
+import type { User } from '~~/shared/schemas/models/user.schema';
 
 definePageMeta({
   title: 'Cadastrar Perfil',
@@ -267,7 +267,7 @@ definePageMeta({
 const route = useRoute();
 
 const { handleSubmit, setValues } = useForm({
-  validationSchema: toTypedSchema(profileSchema),
+  validationSchema: toTypedSchema(ProfileSchema),
   initialValues: {
     id: `${route.params.id}`,
   },
@@ -276,7 +276,9 @@ const { handleSubmit, setValues } = useForm({
 const onSubmit = handleSubmit(async (values) => {
   const id = z.string().parse(route.params.id);
 
-  const response = await $fetch<{ profile: Profile; user: User }>(`/api/profile/${id}`, {
+  const response = await $fetch<{
+    profile: Profile; user: User;
+  }>(`/api/profile/${id}`, {
     method: 'POST',
     body: values,
   });

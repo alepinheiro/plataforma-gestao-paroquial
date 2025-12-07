@@ -1,3 +1,4 @@
+import { getProfileById } from '~~/server/services/profile.service';
 import { validateCredentials } from '~~/server/services/user.service';
 
 export default defineEventHandler(async (event) => {
@@ -13,9 +14,12 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    // TODO: criar um JWT ou session
-    await setUserSession(event, { user });
-    return { user };
+    const profile = await getProfileById(user.profileId);
+    const userWithProfile = { ...user, profile };
+    await setUserSession(event, { user: userWithProfile });
+    return {
+      user: userWithProfile,
+    };
   }
   catch (error) {
     throw createError({

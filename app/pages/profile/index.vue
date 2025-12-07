@@ -28,11 +28,15 @@
         </NuxtLink>
       </Button>
     </div>
-    <div v-if="user">
+
+    <div
+      v-if="user"
+      class="flex flex-col gap-2"
+    >
       <Card
         v-for="profile in data"
         :key="profile.id"
-        :class="user.profile.id === profile.id ? 'border-2' : ''"
+        :class="user.profile.id === profile.id ? 'border-2 border-primary' : ''"
       >
         <CardHeader>
           <CardTitle>
@@ -51,14 +55,13 @@
 <script lang='ts' setup>
 import type { Profile } from '~~/shared/schemas/models/profile.schema';
 
-const { user } = useUserSession();
-
-console.log({ user: user.value });
-
 definePageMeta({
   title: 'Perfis',
   description: 'Listagem de todos os perfis cadastrados',
+  middleware: ['authenticated'],
 });
+
+const { user } = useUserSession();
 
 const { data, status } = await useFetch<Array<Profile>>('/api/profile/', {
   method: 'GET',
