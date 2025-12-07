@@ -133,8 +133,10 @@ import { Check, ChevronsUpDown } from 'lucide-vue-next';
 import { toast } from 'vue-sonner';
 import z from 'zod';
 import { cn } from '~/lib/utils';
+import type { Archdiocese } from '~~/shared/schemas/models/archdiocese.schema';
+import type { Profile } from '~~/shared/schemas/models/profile.schema';
+import type { User } from '~~/shared/schemas/models/user.schema';
 import { parishSchema } from '~~/shared/schemas/parish/index.schema';
-import type { Archdiocese, Profile, User } from '~~/shared/types/generated/prisma';
 
 definePageMeta({
   title: 'Cadastrar Perfil',

@@ -66,7 +66,7 @@
 import { toast } from 'vue-sonner';
 import z from 'zod';
 import { archdioceseSchema } from '~~/shared/schemas/archdiocese/index.schema';
-import type { Archdiocese } from '~~/shared/types/generated/prisma';
+import type { Archdiocese } from '~~/shared/schemas/models/archdiocese.schema';
 
 definePageMeta({
   title: 'Cadastrar Área',

@@ -46,7 +46,7 @@
 
 <script lang='ts' setup>
 import { z } from 'zod';
-import { profileSchema } from '~~/shared/schemas/profile/index.schema';
+import { ProfileSchema } from '~~/shared/schemas/models/profile.schema';
 
 definePageMeta({
   title: 'Convites',
@@ -66,8 +66,8 @@ const { data, status } = await useFetch('/api/invite/', {
 
 const formData = useForm({
   validationSchema: toTypedSchema(z.object({
-    member1: profileSchema,
-    member2: profileSchema,
+    member1: ProfileSchema,
+    member2: ProfileSchema,
   })),
   initialValues: {
     member1: {

@@ -74,7 +74,7 @@
 </template>
 
 <script lang='ts' setup>
-import type { Parish } from '~~/shared/types/generated/prisma';
+import type { Parish } from '~~/shared/schemas/models/parish.schema';
 
 definePageMeta({
   title: 'Paróquias',

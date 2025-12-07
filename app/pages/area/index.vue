@@ -74,18 +74,14 @@
 </template>
 
 <script lang='ts' setup>
-import type { Prisma } from '~~/shared/types/generated/prisma';
+import type { Archdiocese } from '~~/shared/schemas/models/archdiocese.schema';
 
 definePageMeta({
   title: 'Área',
   description: 'Listagem da área',
 });
 
-const { data, status } = await useFetch<Array<Prisma.ArchdioceseGetPayload<{
-  include: {
-    parishes: true;
-  };
-}>>>('/api/archdiocese/', {
+const { data, status } = await useFetch<Archdiocese[]>('/api/archdiocese/', {
   method: 'GET',
 });
 </script>

@@ -9,7 +9,7 @@
   >
     <Card>
       <CardContent class="text-red-600">
-        Erro ao carregar os dados: {{ error.message }}
+        Erro ao carregar os dados
       </CardContent>
     </Card>
   </div>
@@ -66,16 +66,14 @@
 </template>
 
 <script lang='ts' setup>
-import type { Prisma } from '~~/shared/types/generated/prisma';
+import type { CoupleWithDetails } from '~~/shared/schemas/models/couple-details.schema';
 
 definePageMeta({
   title: 'Casais',
   description: 'Listagem de todos os casais',
 });
 
-const { data, status } = await useFetch<Array<Prisma.CoupleGetPayload<{
-  include: { parish: true; member1: true; member2: true };
-}>>>('/api/couple/', {
+const { data, status } = await useFetch<CoupleWithDetails[]>('/api/couple/', {
   method: 'GET',
 });
 </script>
