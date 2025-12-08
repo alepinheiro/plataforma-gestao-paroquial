@@ -14,6 +14,7 @@
                   v-if="item.component === 'NuxtLink'"
                   :to="item.url"
                   active-class="border border-primary/30 font-semibold"
+                  @click="onCLick()"
                 >
                   <component :is="item.icon" />
                   <span>
@@ -49,7 +50,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '@/components/ui/sidebar';
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import {
   Calendar,
   DoorOpen,
@@ -57,6 +60,8 @@ import {
   Inbox,
   Search,
 } from 'lucide-vue-next';
+
+const { toggleSidebar } = useSidebar();
 
 const items = reactive([
   {
@@ -98,4 +103,12 @@ items.push({
   icon: DoorOpen,
   component: 'NuxtLink',
 });
+
+const onCLick = () => {
+  const breakpoints = useBreakpoints(breakpointsTailwind);
+  const mdAndSmaller = breakpoints.smallerOrEqual('md');
+  if (mdAndSmaller.value) {
+    toggleSidebar();
+  }
+};
 </script>
