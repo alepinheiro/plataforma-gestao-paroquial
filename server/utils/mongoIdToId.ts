@@ -15,6 +15,6 @@ export function mongoIdToId<T extends { _id?: ObjectId }>(input: T | T[]): any {
   const { _id, ...rest } = input;
   return {
     ...rest,
-    id: _id?.toString?.() ?? '',
+    id: _id,
   };
 }

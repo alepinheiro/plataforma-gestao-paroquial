@@ -7,7 +7,7 @@ import { ObjectIdSchema } from '~~/shared/schemas/ObjectId.schema';
  * Schema de casal do movimento.
  */
 export const CoupleSchema = z.object({
-  id: z.string().describe('ID do casal'),
+  id: ObjectIdSchema.describe('ID do casal'),
   parishId: ObjectIdSchema.describe('ID da paróquia'),
   member1Id: ObjectIdSchema.describe('ID do membro 1'),
   member2Id: ObjectIdSchema.describe('ID do membro 2'),
@@ -18,7 +18,7 @@ export const CoupleSchema = z.object({
   godparent1Id: ObjectIdSchema.optional().describe('ID do padrinho 1'),
   godparent2Id: ObjectIdSchema.optional().describe('ID do padrinho 2'),
   permissions: z.array(PermissionSchema).optional().describe('Permissões'),
-  invitations: z.array(z.string()).optional().describe('IDs dos convites'),
+  invitations: z.array(ObjectIdSchema).optional().describe('IDs dos convites'),
   roles: z.array(RoleAssignmentSchema).optional().describe('Papéis atribuídos'),
 }).describe('Casal do movimento');
 
