@@ -68,19 +68,12 @@ import { toast } from 'vue-sonner';
 import { loginSchema } from '~~/shared/schemas/login.schema';
 import type { User } from '~~/shared/schemas/models/user.schema';
 
+const title = 'Login';
+
 definePageMeta({
+  title,
   auth: false,
   layout: 'no-sidebar',
-});
-
-const title = 'Login';
-const description = 'Acesse seu painel do jailsinho';
-
-useSeoMeta({
-  title: title,
-  ogTitle: title,
-  description: description,
-  ogDescription: description,
 });
 
 const { loggedIn, fetch: refreshSession, clear } = useUserSession();

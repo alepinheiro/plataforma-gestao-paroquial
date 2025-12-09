@@ -14,6 +14,11 @@ export default defineNuxtConfig({
   ],
   devtools: { enabled: true },
   css: ['~/assets/css/tailwind.css'],
+  runtimeConfig: {
+    public: {
+      appName: 'Plataforma de Gestão Paroquial',
+    },
+  },
 
   compatibilityDate: '2025-07-15',
   nitro: {
