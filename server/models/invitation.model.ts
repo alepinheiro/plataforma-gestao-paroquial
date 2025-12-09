@@ -1,14 +1,15 @@
 // server/models/invitation.model.ts
 
-import { randomBytes } from 'crypto';
+import bcrypt from 'bcrypt';
+import type { ObjectId } from 'mongodb';
 import { BaseModel } from '~~/server/models/base.model';
 import { toObjectId } from '~~/server/utils/mongodb-helpers';
 import type { Invitation } from '~~/shared/schemas/models/invitation.schema';
 
 export type CreateInvitationDTO = {
-  inviterId: string;
-  inviteeId: string;
-  coupleId?: string;
+  inviterId: ObjectId;
+  inviteeId: ObjectId;
+  coupleId?: ObjectId;
   status?: string;
   coupleName: string;
   inviteeEmail: string;
@@ -16,15 +17,19 @@ export type CreateInvitationDTO = {
 
 export type UpdateInvitationDTO = {
   status?: string;
-  coupleId?: string | null;
+  coupleId?: ObjectId | null;
 };
 
 /**
- * Gera um token de convite único baseado no nome do casal + hash aleatório
+ * Gera um token de convite único baseado no nome do casal + hash bcrypt
  */
 function generateInvitationToken(coupleName: string): string {
   const slug = coupleName.trim().toLowerCase().replace(/\s+/g, '-');
-  const hash = randomBytes(4).toString('hex');
+  // Gera um salt e um hash bcrypt, pega só parte do hash para o token
+  const salt = bcrypt.genSaltSync(6);
+  const hash = bcrypt.hashSync(Date.now().toString() + Math.random(), salt)
+    .replace(/[^a-zA-Z0-9]/g, '') // remove caracteres especiais
+    .slice(0, 8); // reduz o tamanho do hash para o token
   return `${slug}-${hash}`;
 }
 
@@ -38,11 +43,12 @@ export class InvitationModel extends BaseModel<Invitation> {
   async create(data: CreateInvitationDTO) {
     const db = await this.getDb();
     const token = generateInvitationToken(data.coupleName);
+    if (!data.coupleId) throw new Error('Couple ID is required');
     const doc: Omit<Invitation, 'id'> = {
       token,
-      inviterId: toObjectId(data.inviterId),
-      inviteeId: toObjectId(data.inviteeId),
-      coupleId: data.coupleId ? toObjectId(data.coupleId) : undefined,
+      inviterId: data.inviterId,
+      // inviteeId: data.inviteeId,
+      coupleId: data.coupleId,
       coupleName: data.coupleName,
       inviteeEmail: data.inviteeEmail,
       status: data.status ?? 'PENDING',
@@ -50,7 +56,6 @@ export class InvitationModel extends BaseModel<Invitation> {
       updatedAt: new Date(),
     };
     const result = await db.collection<typeof doc>(this.collectionName).insertOne(doc);
-    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
     return mongoIdToId({ ...doc, _id: result.insertedId });
   }
 
@@ -72,7 +77,7 @@ export class InvitationModel extends BaseModel<Invitation> {
 
   async findByInviter(inviterId: string, status?: string): Promise<Invitation[]> {
     const db = await this.getDb();
-    const query: any = { inviterId: toObjectId(inviterId) };
+    const query = { inviterId: toObjectId(inviterId), status: undefined as string | undefined };
     if (status) query.status = status;
     const docs = await db.collection<Invitation>(this.collectionName).find(query).sort({ createdAt: -1 }).toArray();
     const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
