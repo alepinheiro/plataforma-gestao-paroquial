@@ -1,4 +1,4 @@
-import type { Db, Document, OptionalUnlessRequiredId, WithId } from 'mongodb';
+import type { Db, Document, OptionalUnlessRequiredId } from 'mongodb';
 import { connectToDatabase } from '~~/server/utils/mongo-singleton';
 import { toObjectId } from '~~/server/utils/mongodb-helpers';
 import { mongoIdToId } from '~~/server/utils/mongoIdToId';
@@ -54,7 +54,9 @@ export class BaseModel<T extends Document & BaseDocument> {
    */
   async getById(id: string): Promise<T | null> {
     const db = await this.getDb();
-    const doc = await db.collection<T>(this.collectionName).findOne({ _id: toObjectId(id) }) as WithId<T> | null;
+    const doc = await db
+      .collection<T>(this.collectionName)
+      .findOne({ _id: toObjectId(id) });
     if (!doc) return null;
     return mongoIdToId(doc);
   }
