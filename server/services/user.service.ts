@@ -126,10 +126,7 @@ export async function deleteUser(id: string): Promise<boolean> {
 export async function validateCredentials(email: string, password: string) {
   const user = await userModel.findByEmailWithPassword(email);
   if (!user) return null;
-  // TODO: Usar bcrypt para comparar senhas
-  // if (!compareSync(password, user.password)) return null;
-  // console.log({ password, userPassword: user.password });
-  if (password !== user.password) return null;
+  if (!compareSync(password, user.password)) return null;
 
   return {
     ...user,
