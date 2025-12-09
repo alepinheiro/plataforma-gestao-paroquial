@@ -41,9 +41,9 @@ export default eventHandler(async (event) => {
       role: 'USER',
       isActive: true,
       email: data.email,
-      profileId: profile.id,
       password: data.password,
       approvalStatus: 'PENDING',
+      profileId: toObjectId(profile.id),
     });
     ;
     return { profile };

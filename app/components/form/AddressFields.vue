@@ -227,14 +227,12 @@ const onPostalCodeBlur = async (value: string) => {
     loading.value = true;
     const response = await $fetch<ViaCepResponse>(`https://viacep.com.br/ws/${cep}/json/`);
     emit('setValues', {
-      city: response.localidade,
-      complement: undefined,
       country: 'Brasil',
-      neighborhood: response.bairro,
-      number: undefined,
-      postalCode: response.cep,
       state: response.uf,
+      postalCode: response.cep,
+      city: response.localidade,
       street: response.logradouro,
+      neighborhood: response.bairro,
     });
   }
   catch (error) {
