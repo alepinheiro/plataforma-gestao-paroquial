@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ObjectIdSchema } from '~~/shared/schemas/ObjectId.schema';
+import { ObjectIdSchema } from '~~/server/utils/ObjectId.schema';
 
 /**
  * Schema de convite feito por padrinhos.

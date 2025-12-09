@@ -1,7 +1,7 @@
 import { z } from 'zod';
+import { ObjectIdSchema } from '~~/server/utils/ObjectId.schema';
 import { GenderEnum } from '~~/shared/schemas/enums/gender.schema';
 import { AddressSchema } from '~~/shared/schemas/models/address.schema';
-import { ObjectIdSchema } from '~~/shared/schemas/ObjectId.schema';
 
 /**
  * Schema de perfil de pessoa (membro do casal).

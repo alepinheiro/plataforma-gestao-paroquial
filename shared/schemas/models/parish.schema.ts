@@ -1,8 +1,8 @@
 import { z } from 'zod';
+import { ObjectIdSchema } from '~~/server/utils/ObjectId.schema';
 import { AddressSchema } from '~~/shared/schemas/models/address.schema';
 import { PermissionSchema } from '~~/shared/schemas/models/permission.schema';
 import { RoleAssignmentSchema } from '~~/shared/schemas/models/roleAssignment.schema';
-import { ObjectIdSchema } from '~~/shared/schemas/ObjectId.schema';
 
 /**
  * Schema de paróquia.

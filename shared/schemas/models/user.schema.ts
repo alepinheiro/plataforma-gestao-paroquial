@@ -1,8 +1,8 @@
 import { z } from 'zod';
+import { ObjectIdSchema } from '~~/server/utils/ObjectId.schema';
 import { ApprovalStatusEnum } from '~~/shared/schemas/enums/approvalStatus.schema';
 import { UserRoleEnum } from '~~/shared/schemas/enums/userRole.schema';
 import { PermissionSchema } from '~~/shared/schemas/models/permission.schema';
-import { ObjectIdSchema } from '~~/shared/schemas/ObjectId.schema';
 
 /**
  * Schema de usuário do sistema.
