@@ -43,7 +43,13 @@ Este é um sistema web para **gestão de casais, perfis e paróquias** em um con
 - **Commits:**
   - Sempre escreva as mensagens de commit em **inglês**.
   - Use o padrão **Conventional Commits** com **emoji** no início da mensagem. Exemplo: `✨ feat: add new login page` ou `🐛 fix: correct address validation`.
-  - Se houver muitos arquivos alterados, **agrupem os commits por contexto das alterações** (ex: um commit para alterações de UI, outro para modelos, outro para validações, etc.), facilitando o entendimento e revisão do histórico.
+  - Se os arquivos alterados não pertencerem ao mesmo contexto, **divida as alterações em múltiplos commits** para manter o histórico claro e organizado.
+  - Se for necessário escrever 'AND' na mensagem do commit, deve-ser utilizar 2 commits para separar as
+    modificações. Exemplo:
+    - Commit Original: `✨ feat: add login and registration pages`
+    - Commits Corrigidos:
+      - `✨ feat: add login page`
+      - `✨ feat: add registration page`
 
 - **Importação de Componentes:**
   - Sempre importe primitivos de UI via seus `index.ts` (ex: `import { Button } from '@/components/ui/button'`).
