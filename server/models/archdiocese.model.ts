@@ -13,8 +13,10 @@ export class ArchdioceseModel extends BaseModel<Archdiocese> {
    */
   async searchByName(name: string): Promise<Archdiocese[]> {
     const db = await this.getDb();
-    const docs = await db.collection<Archdiocese>(this.collectionName).find({ name: { $regex: name, $options: 'i' } }).toArray();
-    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
-    return mongoIdToId(docs);
+    const docs = await db
+      .collection<Archdiocese>(this.collectionName)
+      .find({ name: { $regex: name, $options: 'i' } })
+      .toArray();
+    return docs;
   }
 }

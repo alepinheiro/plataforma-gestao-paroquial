@@ -32,7 +32,7 @@
     <div class="flex flex-col gap-4">
       <Card
         v-for="couple in data"
-        :key="couple.id"
+        :key="couple._id"
         class=""
       >
         <CardHeader>
@@ -55,7 +55,7 @@
             variant="outline"
             as-child
           >
-            <NuxtLink :to="`/couple/${couple.id}`">
+            <NuxtLink :to="`/couple/${couple._id}`">
               Ver detalhes
             </NuxtLink>
           </Button>

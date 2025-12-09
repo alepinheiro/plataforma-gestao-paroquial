@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { ObjectIdSchema } from '~~/server/utils/ObjectId.schema';
 import { PermissionSchema } from '~~/shared/schemas/models/permission.schema';
 import { RoleAssignmentSchema } from '~~/shared/schemas/models/roleAssignment.schema';
 
@@ -7,18 +6,18 @@ import { RoleAssignmentSchema } from '~~/shared/schemas/models/roleAssignment.sc
  * Schema de casal do movimento.
  */
 export const CoupleSchema = z.object({
-  id: ObjectIdSchema.describe('ID do casal'),
-  parishId: ObjectIdSchema.describe('ID da paróquia'),
-  member1Id: ObjectIdSchema.describe('ID do membro 1'),
-  member2Id: ObjectIdSchema.describe('ID do membro 2'),
+  _id: z.string().describe('ID do casal'),
+  parishId: z.string().describe('ID da paróquia'),
+  member1Id: z.string().describe('ID do membro 1'),
+  member2Id: z.string().describe('ID do membro 2'),
   createdAt: z.coerce.date().describe('Data de criação'),
   approvalStatus: z.string().describe('Status de aprovação'),
   updatedAt: z.coerce.date().describe('Data de atualização'),
   marriageDate: z.coerce.date().describe('Data do matrimônio'),
-  godparent1Id: ObjectIdSchema.optional().describe('ID do padrinho 1'),
-  godparent2Id: ObjectIdSchema.optional().describe('ID do padrinho 2'),
+  godparent1Id: z.string().optional().describe('ID do padrinho 1'),
+  godparent2Id: z.string().optional().describe('ID do padrinho 2'),
   permissions: z.array(PermissionSchema).optional().describe('Permissões'),
-  invitations: z.array(ObjectIdSchema).optional().describe('IDs dos convites'),
+  invitations: z.array(z.string()).optional().describe('IDs dos convites'),
   roles: z.array(RoleAssignmentSchema).optional().describe('Papéis atribuídos'),
 }).describe('Casal do movimento');
 

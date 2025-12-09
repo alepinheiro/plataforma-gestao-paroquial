@@ -90,10 +90,10 @@
                   >
                     <ComboboxItem
                       v-for="item in archdioceses"
-                      :key="item.id"
+                      :key="item._id"
                       :value="item"
                       @select="() => {
-                        setFieldValue('archdioceseId', item.id)
+                        setFieldValue('archdioceseId', item._id)
                       }"
                     >
                       {{ item.name }}
@@ -148,7 +148,7 @@ const route = useRoute();
 const { handleSubmit, setValues, setFieldValue, isSubmitting } = useForm({
   validationSchema: toTypedSchema(parishSchema),
   initialValues: {
-    id: `${route.params.id}`,
+    _id: `${route.params.id}`,
   },
 });
 

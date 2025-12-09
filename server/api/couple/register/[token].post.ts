@@ -65,8 +65,8 @@ export default eventHandler(async (event) => {
 
   await createCouple({
     approvalStatus: '',
-    member1Id: member1.id,
-    member2Id: member2.id,
+    member1Id: member1._id,
+    member2Id: member2._id,
     marriageDate: data.marriageDate,
     parishId: inviterCouple.parishId,
     godparent1Id: inviterCouple.member1Id,

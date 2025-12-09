@@ -6,7 +6,7 @@ import { RoleAssignmentSchema } from '~~/shared/schemas/models/roleAssignment.sc
  * Schema de arquidiocese/área.
  */
 export const ArchdioceseSchema = z.object({
-  id: z.string().describe('ID da arquidiocese'),
+  _id: z.string().describe('ID da arquidiocese'),
   name: z.string().describe('Nome da arquidiocese'),
   createdAt: z.coerce.date().describe('Data de criação'),
   updatedAt: z.coerce.date().describe('Data de atualização'),

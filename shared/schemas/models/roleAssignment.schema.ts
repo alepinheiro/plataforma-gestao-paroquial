@@ -4,7 +4,7 @@ import { z } from 'zod';
  * Schema de atribuição de papel para casal em arquidiocese ou paróquia.
  */
 export const RoleAssignmentSchema = z.object({
-  id: z.string().describe('ID da atribuição'),
+  _id: z.string().describe('ID da atribuição'),
   role: z.string().describe('Papel do casal'),
   coupleId: z.string().describe('ID do casal'),
   archdioceseId: z.string().optional().describe('ID da arquidiocese'),

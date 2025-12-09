@@ -1,7 +1,6 @@
-import type { Db, Document, OptionalUnlessRequiredId } from 'mongodb';
+import type { Db, Document, Filter, OptionalUnlessRequiredId } from 'mongodb';
 import { connectToDatabase } from '~~/server/utils/mongo-singleton';
 import { toObjectId } from '~~/server/utils/mongodb-helpers';
-import { mongoIdToId } from '~~/server/utils/mongoIdToId';
 
 /**
  * Tipo base para documentos do MongoDB com timestamps
@@ -43,28 +42,36 @@ export class BaseModel<T extends Document & BaseDocument> {
   /**
    * Retorna todos os documentos da coleção.
    */
-  async getAll(): Promise<T[]> {
+  async getAll() {
     const db = await this.getDb();
-    const docs = await db.collection<T>(this.collectionName).find({}).toArray();
-    return mongoIdToId(docs);
+    const docs = await db
+      .collection<T>(this.collectionName)
+      .find()
+      .map(doc => ({
+        ...doc,
+        _id: doc._id.toString(),
+      }))
+      .toArray();
+    return docs;
   }
 
   /**
    * Busca um documento pelo ID.
    */
-  async getById(id: string): Promise<T | null> {
+  async getById(id: string) {
     const db = await this.getDb();
+    const filter: Filter<T> = { _id: toObjectId(id) } as Filter<T>;
     const doc = await db
       .collection<T>(this.collectionName)
-      .findOne({ _id: toObjectId(id) });
+      .findOne(filter);
     if (!doc) return null;
-    return mongoIdToId(doc);
+    return { ...doc, _id: doc._id.toString() };
   }
 
   /**
    * Cria um novo documento.
    */
-  async create(data: CreateInput<T>): Promise<T> {
+  async create(data: CreateInput<T>) {
     const db = await this.getDb();
     const doc: OptionalUnlessRequiredId<T> = {
       ...data,
@@ -73,31 +80,35 @@ export class BaseModel<T extends Document & BaseDocument> {
     } as OptionalUnlessRequiredId<T>;
 
     const result = await db.collection<T>(this.collectionName).insertOne(doc);
-    return mongoIdToId({ ...doc, _id: result.insertedId });
+    return { ...doc, _id: result.insertedId.toString() };
   }
 
   /**
    * Atualiza um documento pelo ID.
    */
-  async update(id: string, data: UpdateInput<T>): Promise<any | null> {
+  async update(id: string, data: UpdateInput<T>) {
     const db = await this.getDb();
+    const filter: Filter<T> = { _id: toObjectId(id) } as Filter<T>;
 
     await db.collection<T>(this.collectionName).updateOne(
-      { _id: toObjectId(id) },
-      { $set: { ...data, updatedAt: new Date() } },
+      filter,
+      { $set: { ...data, updatedAt: new Date() } as Partial<T> },
     );
 
-    const doc = await db.collection<T>(this.collectionName).findOne({ _id: toObjectId(id) });
+    const doc = await db.collection<T>(this.collectionName).findOne(filter);
     if (!doc) return null;
-    return mongoIdToId(doc);
+    return { ...doc, _id: doc._id.toString() };
   }
 
   /**
    * Remove um documento pelo ID.
    */
-  async delete(id: string): Promise<boolean> {
+  async delete(id: string) {
     const db = await this.getDb();
-    const result = await db.collection<T>(this.collectionName).deleteOne({ _id: toObjectId(id) });
+    const filter: Filter<T> = { _id: toObjectId(id) } as Filter<T>;
+    const result = await db
+      .collection<T>(this.collectionName)
+      .deleteOne(filter);
     return result.deletedCount > 0;
   }
 }

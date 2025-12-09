@@ -1,15 +1,13 @@
 // server/models/invitation.model.ts
 
 import bcrypt from 'bcrypt';
-import type { ObjectId } from 'mongodb';
 import { BaseModel } from '~~/server/models/base.model';
-import { toObjectId } from '~~/server/utils/mongodb-helpers';
 import type { Invitation } from '~~/shared/schemas/models/invitation.schema';
 
 export type CreateInvitationDTO = {
-  inviterId: ObjectId;
-  inviteeId: ObjectId;
-  coupleId?: ObjectId;
+  inviterId: string;
+  inviteeId: string;
+  coupleId?: string;
   status?: string;
   coupleName: string;
   inviteeEmail: string;
@@ -17,7 +15,7 @@ export type CreateInvitationDTO = {
 
 export type UpdateInvitationDTO = {
   status?: string;
-  coupleId?: ObjectId | null;
+  coupleId?: string | null;
 };
 
 /**
@@ -44,7 +42,7 @@ export class InvitationModel extends BaseModel<Invitation> {
     const db = await this.getDb();
     const token = generateInvitationToken(data.coupleName);
     if (!data.coupleId) throw new Error('Couple ID is required');
-    const doc: Omit<Invitation, 'id'> = {
+    const doc: Omit<Invitation, '_id'> = {
       token,
       inviterId: data.inviterId,
       // inviteeId: data.inviteeId,
@@ -63,16 +61,14 @@ export class InvitationModel extends BaseModel<Invitation> {
     const db = await this.getDb();
     const doc = await db.collection<Invitation>(this.collectionName).findOne({ _id: toObjectId(id) });
     if (!doc) return null;
-    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
-    return mongoIdToId(doc);
+    return doc;
   }
 
   async findByToken(token: string): Promise<Invitation | null> {
     const db = await this.getDb();
     const doc = await db.collection<Invitation>(this.collectionName).findOne({ token });
     if (!doc) return null;
-    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
-    return mongoIdToId(doc);
+    return doc;
   }
 
   async findByInviter(inviterId: string, status?: string): Promise<Invitation[]> {
@@ -80,25 +76,29 @@ export class InvitationModel extends BaseModel<Invitation> {
     const query = { inviterId: toObjectId(inviterId), status: undefined as string | undefined };
     if (status) query.status = status;
     const docs = await db.collection<Invitation>(this.collectionName).find(query).sort({ createdAt: -1 }).toArray();
-    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
-    return mongoIdToId(docs);
+    return docs;
   }
 
   async update(id: string, data: UpdateInvitationDTO): Promise<Invitation | null> {
     const db = await this.getDb();
-    await db.collection<Invitation>(this.collectionName).updateOne(
-      { _id: toObjectId(id) },
-      { $set: { ...data, updatedAt: new Date() } },
-    );
-    const doc = await db.collection<Invitation>(this.collectionName).findOne({ _id: toObjectId(id) });
+    await db
+      .collection<Invitation>(this.collectionName)
+      .updateOne(
+        { _id: toObjectId(id) },
+        { $set: { ...data, updatedAt: new Date() } },
+      );
+    const doc = await db
+      .collection<Invitation>(this.collectionName)
+      .findOne({ _id: toObjectId(id) });
     if (!doc) return null;
-    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
-    return mongoIdToId(doc);
+    return doc;
   }
 
   async delete(id: string): Promise<boolean> {
     const db = await this.getDb();
-    const result = await db.collection<Invitation>(this.collectionName).deleteOne({ _id: toObjectId(id) });
+    const result = await db
+      .collection<Invitation>(this.collectionName)
+      .deleteOne({ _id: toObjectId(id) });
     return result.deletedCount > 0;
   }
 

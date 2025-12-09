@@ -35,8 +35,8 @@
     >
       <Card
         v-for="profile in data"
-        :key="profile.id"
-        :class="user.profile.id === profile.id ? 'border-2 border-primary' : ''"
+        :key="profile._id"
+        :class="user.profile._id === profile._id ? 'border-2 border-primary' : ''"
       >
         <CardHeader>
           <CardTitle>
@@ -44,7 +44,7 @@
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p><strong>ID:</strong> {{ profile.id }}</p>
+          <p><strong>ID:</strong> {{ profile._id }}</p>
           <p><strong>Nome:</strong> {{ profile.name }}</p>
         </CardContent>
       </Card>

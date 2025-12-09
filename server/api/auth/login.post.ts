@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    const profile = await getProfileById(user.profileId.toString());
+    const profile = await getProfileById(user.profileId);
     const userWithProfile = { ...user, profile };
     await setUserSession(event, { user: userWithProfile });
     return {

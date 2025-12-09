@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { ObjectIdSchema } from '~~/server/utils/ObjectId.schema';
 import { GenderEnum } from '~~/shared/schemas/enums/gender.schema';
 import { AddressSchema } from '~~/shared/schemas/models/address.schema';
 
@@ -9,7 +8,7 @@ import { AddressSchema } from '~~/shared/schemas/models/address.schema';
 export const ProfileSchema = z.object({
   gender: GenderEnum,
   address: AddressSchema,
-  id: ObjectIdSchema.describe('ID do perfil'),
+  _id: z.string().describe('ID do perfil'),
   email: z.email({ error: 'E-mail inválido.' }).describe('E-mail').toLowerCase(),
   createdAt: z.coerce.date({ error: 'Data de criação inválida.' }).describe('Data de criação'),
   updatedAt: z.coerce.date({ error: 'Data de atualização inválida.' }).describe('Data de atualização'),

@@ -3,7 +3,6 @@ import { BaseModel } from '~~/server/models/base.model';
 import { ParishModel } from '~~/server/models/parish.model';
 import { ProfileModel } from '~~/server/models/profile.model';
 import { toObjectId } from '~~/server/utils/mongodb-helpers';
-import type { CoupleListQuery } from '~~/shared/schemas/couple/list-query.schema';
 import type { Couple } from '~~/shared/schemas/models/couple.schema';
 
 const COLLECTION = 'Couple';
@@ -20,15 +19,16 @@ export class CoupleModel extends BaseModel<Couple> {
    */
   async getByProfileId(profileId: string): Promise<Couple | null> {
     const db = await this.getDb();
-    const doc = await db.collection<Couple>(this.collectionName).findOne({
-      $or: [
-        { member1Id: `${toObjectId(profileId)}` },
-        { member2Id: `${toObjectId(profileId)}` },
-      ],
-    });
+    const doc = await db
+      .collection<Couple>(this.collectionName)
+      .findOne({
+        $or: [
+          { member1Id: `${toObjectId(profileId)}` },
+          { member2Id: `${toObjectId(profileId)}` },
+        ],
+      });
     if (!doc) return null;
-    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
-    return mongoIdToId(doc);
+    return doc;
   }
 
   /**
@@ -41,21 +41,23 @@ export class CoupleModel extends BaseModel<Couple> {
    */
   async getAllWithDetails(filter: { parishId?: string; name?: string } = {}) {
     const db = await this.getDb();
-    // Importa o type do schema de filtro
-    const mongoFilter: Partial<CoupleListQuery> = {};
-    if (filter.parishId) {
-      mongoFilter.parishId = `${toObjectId(filter.parishId)}`;
-    }
+
     // Futuro: implementar filtro por nome
-    const couples = await db.collection<Couple>(this.collectionName).find(mongoFilter).toArray();
+    const couples = await db
+      .collection<Couple>(this.collectionName)
+      .find(filter)
+      .toArray();
     if (!couples.length) return [];
 
     return Promise.all(couples.map(async (couple) => {
-      const member1 = await this.profileModel.getById(couple.member1Id);
-      const member2 = await this.profileModel.getById(couple.member2Id);
-      const parish = await this.parishModel.getById(couple.parishId);
+      const member1 = await this
+        .profileModel.getById(couple.member1Id);
+      const member2 = await this
+        .profileModel.getById(couple.member2Id);
+      const parish = await this
+        .parishModel.getById(couple.parishId);
       return {
-        ...mongoIdToId(couple),
+        ...couple,
         member1,
         member2,
         parish,

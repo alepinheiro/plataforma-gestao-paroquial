@@ -91,7 +91,7 @@ const onSubmit = handleSubmit(async (values) => {
       body: values,
     });
     await refreshSession();
-    if (loggedIn && user.id) {
+    if (loggedIn && user._id) {
       await navigateTo('/profile');
     }
   }

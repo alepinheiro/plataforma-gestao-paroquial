@@ -29,7 +29,7 @@
     <div class="flex flex-col w-full gap-4 mt-4">
       <Card
         v-for="area in data"
-        :key="area.id"
+        :key="area._id"
       >
         <CardContent>
           <div class="flex items-start justify-between">
@@ -48,7 +48,7 @@
             <div class="ml-4 flex flex-col items-end gap-2">
               <Button as-child>
                 <NuxtLink
-                  :to="`/area/${area.id}`"
+                  :to="`/area/${area._id}`"
                   class="text-sm text-blue-600 hover:underline"
                 >
                   Ver
@@ -59,7 +59,7 @@
                 variant="secondary"
               >
                 <NuxtLink
-                  :to="`/area/${area.id}/edit`"
+                  :to="`/area/${area._id}/edit`"
                   class="text-sm text-gray-600 hover:underline"
                 >
                   Editar

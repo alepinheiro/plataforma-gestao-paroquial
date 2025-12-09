@@ -67,10 +67,10 @@
                   >
                     <ComboboxItem
                       v-for="item in parishes"
-                      :key="item.id"
+                      :key="item._id"
                       :value="item"
                       @select="() => {
-                        setFieldValue('parishId', item.id)
+                        setFieldValue('parishId', item._id)
                       }"
                     >
                       {{ item.name }}
@@ -127,10 +127,10 @@
                   >
                     <ComboboxItem
                       v-for="item in profiles"
-                      :key="item.id"
+                      :key="item._id"
                       :value="item"
                       @select="() => {
-                        setFieldValue('member1Id', item.id)
+                        setFieldValue('member1Id', item._id)
                       }"
                     >
                       {{ item.name }}
@@ -187,10 +187,10 @@
                   >
                     <ComboboxItem
                       v-for="item in profiles"
-                      :key="item.id"
+                      :key="item._id"
                       :value="item"
                       @select="() => {
-                        setFieldValue('member2Id', item.id)
+                        setFieldValue('member2Id', item._id)
                       }"
                     >
                       {{ item.name }}
@@ -265,10 +265,10 @@
                   >
                     <ComboboxItem
                       v-for="item in profiles"
-                      :key="item.id"
+                      :key="item._id"
                       :value="item"
                       @select="() => {
-                        setFieldValue('godparent1Id', item.id)
+                        setFieldValue('godparent1Id', item._id)
                       }"
                     >
                       {{ item.name }}
@@ -325,10 +325,10 @@
                   >
                     <ComboboxItem
                       v-for="item in profiles"
-                      :key="item.id"
+                      :key="item._id"
                       :value="item"
                       @select="() => {
-                        setFieldValue('godparent2Id', item.id)
+                        setFieldValue('godparent2Id', item._id)
                       }"
                     >
                       {{ item.name }}

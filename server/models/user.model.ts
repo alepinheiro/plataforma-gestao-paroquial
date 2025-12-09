@@ -21,8 +21,7 @@ export class UserModel extends BaseModel<User> {
     const db = await this.getDb();
     const doc = await db.collection<User>(this.collectionName).findOne({ email });
     if (!doc) return null;
-    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
-    return mongoIdToId(doc);
+    return doc;
   }
 
   /**
@@ -32,8 +31,7 @@ export class UserModel extends BaseModel<User> {
     const db = await this.getDb();
     const doc = await db.collection<User>(this.collectionName).findOne({ profileId: toObjectId(profileId) });
     if (!doc) return null;
-    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
-    return mongoIdToId(doc);
+    return doc;
   }
 
   /**
@@ -58,8 +56,7 @@ export class UserModel extends BaseModel<User> {
       .limit(limit)
       .skip(skip)
       .toArray();
-    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
-    return mongoIdToId(docs);
+    return docs;
   }
 
   /**

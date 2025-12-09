@@ -31,13 +31,13 @@ export default eventHandler(async (event) => {
   }
 
   const { user } = await requireUserSession(event);
-  if (user.id !== data.userId) {
+  if (user._id !== data.userId) {
     throw createError({
       statusCode: 400,
       message: 'UserId não corresponde',
     });
   }
 
-  const invites = await service.listInvitationsByInviter(user.profile.id);
+  const invites = await service.listInvitationsByInviter(user.profile._id);
   return invites;
 });

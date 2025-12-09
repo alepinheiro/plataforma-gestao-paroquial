@@ -43,7 +43,7 @@
     >
       <div
         v-for="parish in data"
-        :key="parish.id"
+        :key="parish._id"
       >
         <Card>
           <CardContent>
@@ -59,10 +59,10 @@
 
               <div class="flex items-center gap-2 ml-4">
                 <Button as-child>
-                  <NuxtLink :to="`/parish/${parish.id}`">Detalhes</NuxtLink>
+                  <NuxtLink :to="`/parish/${parish._id}`">Detalhes</NuxtLink>
                 </Button>
                 <Button as-child>
-                  <NuxtLink :to="`/parish/${parish.id}/edit`">Editar</NuxtLink>
+                  <NuxtLink :to="`/parish/${parish._id}/edit`">Editar</NuxtLink>
                 </Button>
               </div>
             </div>

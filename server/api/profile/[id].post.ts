@@ -33,7 +33,7 @@ export default eventHandler(async (event) => {
     });
   }
 
-  if (data.id === 'new') {
+  if (data._id === 'new') {
     const profile = await createProfile({
       ...data,
     });
@@ -43,7 +43,7 @@ export default eventHandler(async (event) => {
       email: data.email,
       password: data.password,
       approvalStatus: 'PENDING',
-      profileId: toObjectId(profile.id),
+      profileId: toObjectId(profile._id),
     });
     ;
     return { profile };

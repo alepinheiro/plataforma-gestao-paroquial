@@ -133,8 +133,8 @@ const { handleSubmit, isSubmitting } = useForm({
   validationSchema: toTypedSchema(inviteFormSchema),
   initialValues: {
     id: `${route.params.id}`,
-    userId: user.value.profile.id,
-    coupleId: session.value?.couple.id,
+    userId: user.value.profile._id,
+    coupleId: session.value?.couple._id,
   },
 });
 

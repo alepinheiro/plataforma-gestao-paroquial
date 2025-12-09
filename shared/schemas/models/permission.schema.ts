@@ -4,7 +4,7 @@ import { z } from 'zod';
  * Schema de permissão de usuário em contexto específico.
  */
 export const PermissionSchema = z.object({
-  id: z.string().describe('ID da permissão'),
+  _id: z.string().describe('ID da permissão'),
   userId: z.string().describe('ID do usuário'),
   entity: z.string().describe('Entidade de acesso'),
   action: z.string().describe('Ação de acesso'),

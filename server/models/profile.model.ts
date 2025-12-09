@@ -19,7 +19,6 @@ export class ProfileModel extends BaseModel<Profile> {
   async searchByName(name: string): Promise<Profile[]> {
     const db = await this.getDb();
     const docs = await db.collection<Profile>(this.collectionName).find({ name: { $regex: name, $options: 'i' } }).toArray();
-    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
-    return mongoIdToId(docs);
+    return docs;
   }
 }

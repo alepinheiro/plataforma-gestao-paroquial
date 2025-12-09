@@ -31,7 +31,7 @@
 
     <Card
       v-for="item of data"
-      :key="item.id"
+      :key="item._id"
     >
       <CardHeader>
         {{ item.coupleName }}
@@ -39,7 +39,7 @@
       <CardFooter class="flex gap-2">
         <Button
           variant="destructive"
-          @click="onRemoveInvite(item.id)"
+          @click="onRemoveInvite(item._id)"
         >
           Excluir convite
         </Button>
@@ -76,7 +76,7 @@ if (!user.value) {
 const { data, status, refresh } = await useFetch<Array<Invitation>>('/api/invite/', {
   method: 'GET',
   query: {
-    userId: user.value.id,
+    userId: user.value._id,
   },
 });
 

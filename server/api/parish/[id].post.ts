@@ -17,7 +17,7 @@ export default eventHandler(async (event) => {
   }
   const model = new ParishModel();
 
-  if (data.id === 'new') {
+  if (data._id === 'new') {
     const result = await model.create({
       name: data.name,
       archdioceseId: data.archdioceseId,

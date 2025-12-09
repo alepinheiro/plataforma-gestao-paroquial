@@ -71,10 +71,10 @@ const formData = useForm({
   })),
   initialValues: {
     member1: {
-      id: 'new',
+      _id: 'new',
     },
     member2: {
-      id: 'new',
+      _id: 'new',
     },
   },
 });

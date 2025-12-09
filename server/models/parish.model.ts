@@ -16,7 +16,6 @@ export class ParishModel extends BaseModel<Parish> {
   async searchByName(name: string): Promise<Parish[]> {
     const db = await this.getDb();
     const docs = await db.collection<Parish>(this.collectionName).find({ name: { $regex: name, $options: 'i' } }).toArray();
-    const { mongoIdToId } = await import('~~/server/utils/mongoIdToId');
-    return mongoIdToId(docs);
+    return docs;
   }
 }
