@@ -6,7 +6,7 @@
  *   - name: string (opcional) — reservado para futuras buscas por nome
  */
 
-import { CoupleModel } from '~~/server/models/couple.model';
+import { getCouples } from '~~/server/services/couple.service';
 import { coupleListQuerySchema } from '~~/shared/schemas/couple/list-query.schema';
 
 /**
@@ -14,15 +14,23 @@ import { coupleListQuerySchema } from '~~/shared/schemas/couple/list-query.schem
  * Retorna casais, filtrando por paróquia se parishId for informado.
  */
 export default eventHandler(async (event) => {
-  const query = getQuery(event);
-  const result = coupleListQuerySchema.safeParse(query);
-  if (!result.success) {
+  try {
+    const query = getQuery(event);
+    const result = coupleListQuerySchema.safeParse(query);
+    if (!result.success) {
+      throw createError({
+        statusCode: 400,
+        message: result.error.message,
+      });
+    }
+    // Passa objeto validado para o service
+    return await getCouples();
+  }
+  catch (error) {
+    console.error('Error in GET /api/couple:', error);
     throw createError({
       statusCode: 400,
-      message: result.error.message,
+      message: error instanceof Error ? error.message : String(error),
     });
   }
-  const model = new CoupleModel();
-  // Passa objeto validado para o model
-  return await model.getAllWithDetails(result.data);
 });
