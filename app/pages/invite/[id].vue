@@ -106,7 +106,7 @@
           >
             Cancelar
           </Button>
-          <Button>
+          <Button :disabled="isSubmitting">
             Enviar
           </Button>
         </CardFooter>
@@ -129,7 +129,7 @@ const { user, session } = useUserSession();
 if (!user.value) throw new Error('User not found');
 const route = useRoute();
 
-const { handleSubmit } = useForm({
+const { handleSubmit, isSubmitting } = useForm({
   validationSchema: toTypedSchema(inviteFormSchema),
   initialValues: {
     id: `${route.params.id}`,
@@ -152,8 +152,9 @@ const onSubmit = handleSubmit(async (values) => {
 
   await navigateTo('/invite');
 },
-error =>
-
-  console.error(error),
-);
+({ errors }) => {
+  console.error('Erro ao cadastrar:', errors);
+  for (const error of Object.values(errors).splice(0, 3))
+    toast.error('Erro ao cadastrar: ' + error);
+}); ;
 </script>

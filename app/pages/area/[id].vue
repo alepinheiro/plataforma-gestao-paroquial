@@ -53,7 +53,7 @@
           >
             Cancelar
           </Button>
-          <Button>
+          <Button :disabled="isSubmitting">
             Enviar
           </Button>
         </CardFooter>
@@ -75,7 +75,7 @@ definePageMeta({
 
 const route = useRoute();
 
-const { handleSubmit } = useForm({
+const { handleSubmit, isSubmitting } = useForm({
   validationSchema: toTypedSchema(archdioceseSchema),
   initialValues: {
     id: `${route.params.id}`,
@@ -93,5 +93,10 @@ const onSubmit = handleSubmit(async (values) => {
   toast.success(response.name + ' Foi cadastrado com sucesso!');
 
   await navigateTo('/area');
+},
+({ errors }) => {
+  console.error('Erro ao cadastrar:', errors);
+  for (const error of Object.values(errors).splice(0, 3))
+    toast.error('Erro ao cadastrar: ' + error);
 });
 </script>

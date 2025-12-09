@@ -243,7 +243,7 @@
           >
             Cancelar
           </Button>
-          <Button>
+          <Button :disabled="isSubmitting">
             Enviar
           </Button>
         </CardFooter>
@@ -266,7 +266,7 @@ definePageMeta({
 
 const route = useRoute();
 
-const { handleSubmit, setFieldValue, setValues } = useForm({
+const { handleSubmit, setFieldValue, setValues, isSubmitting } = useForm({
   validationSchema: toTypedSchema(ProfileSchema
     .omit({
       createdAt: true,
@@ -301,15 +301,15 @@ const onSubmit = handleSubmit(async (values) => {
 
   toast.success(
     firstName
-    + ' foi cadastrad' + (values.gender === 'FEMALE' ? 'a' : 'o')
+    + ` foi cadastrad${values.gender === 'FEMALE' ? 'a' : 'o'}`
     + ' com sucesso!',
   );
 
   await navigateTo('/profile');
 },
 ({ errors }) => {
-  console.error('Erro ao cadastrar o perfil:', errors);
+  console.error('Erro ao cadastrar:', errors);
   for (const error of Object.values(errors).splice(0, 3))
-    toast.error('Erro ao cadastrar o perfil: ' + error);
+    toast.error('Erro ao cadastrar: ' + error);
 });
 </script>
