@@ -40,6 +40,11 @@ Este é um sistema web para **gestão de casais, perfis e paróquias** em um con
 
 ## Convenções do Projeto
 
+- **Commits:**
+  - Sempre escreva as mensagens de commit em **inglês**.
+  - Use o padrão **Conventional Commits** com **emoji** no início da mensagem. Exemplo: `✨ feat: add new login page` ou `🐛 fix: correct address validation`.
+  - Se houver muitos arquivos alterados, **agrupem os commits por contexto das alterações** (ex: um commit para alterações de UI, outro para modelos, outro para validações, etc.), facilitando o entendimento e revisão do histórico.
+
 - **Importação de Componentes:**
   - Sempre importe primitivos de UI via seus `index.ts` (ex: `import { Button } from '@/components/ui/button'`).
   - **Nunca coloque imports no meio do arquivo.** Todos os imports devem estar sempre no topo do arquivo, antes de qualquer código, declaração ou exportação. Isso vale para componentes, tipos, helpers, etc.
