@@ -15,7 +15,7 @@
             v-slot="{ componentField }"
             name="id"
           >
-            <FormItem class="w-full">
+            <FormItem class="w-full hidden">
               <FormLabel> id </FormLabel>
               <FormControl>
                 <Input
@@ -266,12 +266,26 @@ definePageMeta({
 
 const route = useRoute();
 
-const { handleSubmit, setValues } = useForm({
-  validationSchema: toTypedSchema(ProfileSchema),
+const { handleSubmit, setFieldValue, setValues } = useForm({
+  validationSchema: toTypedSchema(ProfileSchema
+    .omit({
+      createdAt: true,
+      updatedAt: true,
+    })
+    .extend({
+      birthDate: z.string({ error: 'Data de nascimento é obrigatória.' }),
+      password: z.string('Informe uma senha').min(6, { message: 'A senha deve ter no mínimo 6 caracteres.' }).describe('Senha de acesso'),
+      confirmPassword: z.string('Confirme a senha').min(6, { message: 'A confirmação de senha deve ter no mínimo 6 caracteres.' }).describe('Confirmação da senha de acesso'),
+    })
+    .refine(data => data.password === data.confirmPassword, {
+      message: 'As senhas não coincidem.',
+    })),
   initialValues: {
     id: `${route.params.id}`,
   },
 });
+
+setFieldValue('id', `${route.params.id}`);
 
 const onSubmit = handleSubmit(async (values) => {
   const id = z.string().parse(route.params.id);
@@ -285,8 +299,17 @@ const onSubmit = handleSubmit(async (values) => {
 
   const [firstName] = response.profile.name.split(' ');
 
-  toast.success(firstName + 'Foi cadastrado com sucesso!');
+  toast.success(
+    firstName
+    + ' foi cadastrad' + (values.gender === 'FEMALE' ? 'a' : 'o')
+    + ' com sucesso!',
+  );
 
   await navigateTo('/profile');
+},
+({ errors }) => {
+  console.error('Erro ao cadastrar o perfil:', errors);
+  for (const error of Object.values(errors).splice(0, 3))
+    toast.error('Erro ao cadastrar o perfil: ' + error);
 });
 </script>

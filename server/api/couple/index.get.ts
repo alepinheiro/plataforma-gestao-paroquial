@@ -1,24 +1,28 @@
-// server/api/profile.get.ts
-import { z } from 'zod';
+/**
+ * API: GET /api/couple
+ * Retorna casais, podendo filtrar por paróquia.
+ * Query params:
+ *   - parishId: string (opcional) — filtra casais pela paróquia
+ *   - name: string (opcional) — reservado para futuras buscas por nome
+ */
+
 import { CoupleModel } from '~~/server/models/couple.model';
+import { coupleListQuerySchema } from '~~/shared/schemas/couple/list-query.schema';
 
-const querySchema = z.object({
-  name: z.string().optional(),
-});
-
+/**
+ * Handler do endpoint GET /api/couple
+ * Retorna casais, filtrando por paróquia se parishId for informado.
+ */
 export default eventHandler(async (event) => {
   const query = getQuery(event);
-
-  const { success, error } = querySchema.safeParse(query);
-  if (!success) {
+  const result = coupleListQuerySchema.safeParse(query);
+  if (!result.success) {
     throw createError({
       statusCode: 400,
-      message: error.message,
+      message: result.error.message,
     });
   }
-
   const model = new CoupleModel();
-
-  // Sempre retorna casais com dados completos de paróquia e membros
-  return await model.getAllWithDetails();
+  // Passa objeto validado para o model
+  return await model.getAllWithDetails(result.data);
 });

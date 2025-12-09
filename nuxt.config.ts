@@ -12,26 +12,17 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     'nuxt-auth-utils',
   ],
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   css: ['~/assets/css/tailwind.css'],
 
-  // build: {
-  //   transpile: ['~/prisma/client'],
-  // },
   compatibilityDate: '2025-07-15',
   nitro: {
     preset: 'vercel',
-    // externals: {
-    //   external: ['@prisma/client', 'prisma'],
-    // },
+
     experimental: {
       wasm: false,
     },
-    // esbuild: {
-    //   options: {
-    //     target: 'es2020',
-    //   },
-    // },
+
     replace: {
       'import * as process': 'import * as processUnused',
     },
@@ -39,14 +30,6 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
-    // optimizeDeps: { exclude: ['@prisma/client'] },
-    // resolve: {
-    //   mainFields: ['browser', 'module', 'main'],
-    //   alias: {
-    //     '.prisma/client/index-browser':
-    //       './node_modules/.prisma/client/index-browser.js',
-    //   },
-    // },
   },
 
   eslint: {

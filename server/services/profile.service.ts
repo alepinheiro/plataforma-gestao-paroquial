@@ -5,11 +5,23 @@ import { ProfileSchema, type Profile } from '~~/shared/schemas/models/profile.sc
 const profileModel = new ProfileModel();
 
 export async function createProfile(payload: CreateInput<Profile>) {
-  const { data, error } = ProfileSchema.safeParse(payload);
+  const { data, error } = ProfileSchema
+    .omit({
+      id: true,
+    }).transform(data => ({
+      ...data,
+      photo: data.photo || null,
+      facebook: data.facebook || null,
+      instagram: data.instagram || null,
+    }))
+    .safeParse({
+      ...payload,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
 
   if (error)
     throw new Error('Invalid profile data: ' + error.message);
-  // Remove confirmPassword do objeto antes de salvar
   return await profileModel.create(data);
 }
 

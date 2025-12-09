@@ -42,6 +42,7 @@ Este é um sistema web para **gestão de casais, perfis e paróquias** em um con
 
 - **Importação de Componentes:**
   - Sempre importe primitivos de UI via seus `index.ts` (ex: `import { Button } from '@/components/ui/button'`).
+  - **Nunca coloque imports no meio do arquivo.** Todos os imports devem estar sempre no topo do arquivo, antes de qualquer código, declaração ou exportação. Isso vale para componentes, tipos, helpers, etc.
 - **TypeScript:**
   - Todos os componentes, modelos e helpers usam TypeScript. Tipos em `shared/types/`.
 - **Aliases:**
