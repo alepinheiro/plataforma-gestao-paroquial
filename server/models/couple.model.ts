@@ -15,6 +15,30 @@ export class CoupleModel extends BaseModel<Couple> {
   }
 
   /**
+   * Retorna todos os casais com apenas o _id, member1Id e member2Id.
+   */
+  async getCoupleMembers() {
+    const db = await this.getDb();
+    const couples = await db
+      .collection<Couple>(this.collectionName)
+      .find({}, { projection: { _id: 1, member1Id: 1, member2Id: 1 } })
+      .toArray();
+    return couples.map(({
+      _id,
+      member1Id,
+      member2Id,
+      godparent1Id,
+      godparent2Id,
+    }) => ({
+      _id,
+      member1Id,
+      member2Id,
+      godparent1Id,
+      godparent2Id,
+    }));
+  }
+
+  /**
    * Busca casal pelo profileId (member1Id ou member2Id).
    */
   async getByProfileId(profileId: string): Promise<Couple | null> {
@@ -31,9 +55,6 @@ export class CoupleModel extends BaseModel<Couple> {
     return doc;
   }
 
-  /**
-   * Retorna todos os casais com dados completos de paróquia e membros.
-   */
   /**
    * Retorna todos os casais com dados completos de paróquia e membros.
    * Aceita objeto de filtro validado pelo schema compartilhado.

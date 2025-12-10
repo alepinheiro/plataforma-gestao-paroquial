@@ -1,4 +1,5 @@
 import type { CreateInput, UpdateInput } from '~~/server/models/base.model';
+import { CoupleModel } from '~~/server/models/couple.model';
 import { ProfileModel } from '~~/server/models/profile.model';
 import { ProfileSchema, type Profile } from '~~/shared/schemas/models/profile.schema';
 
@@ -7,7 +8,7 @@ const profileModel = new ProfileModel();
 export async function createProfile(payload: CreateInput<Profile>) {
   const { data, error } = ProfileSchema
     .omit({
-      id: true,
+      _id: true,
     }).transform(data => ({
       ...data,
       photo: data.photo || null,
@@ -44,4 +45,32 @@ export async function updateProfile(id: string, payload: UpdateInput<Profile>) {
 
 export async function deleteProfile(id: string) {
   return await profileModel.delete(id);
+}
+
+export async function getProfilesNotInCouple() {
+  const coupleModel = new CoupleModel();
+  const couples = await coupleModel.getCoupleMembers();
+  const referencedIds = new Set<string>();
+  for (const couple of couples) {
+    if (couple.member1Id) referencedIds.add(couple.member1Id.toString());
+    if (couple.member2Id) referencedIds.add(couple.member2Id.toString());
+    if (couple.godparent1Id) referencedIds.add(couple.godparent1Id.toString());
+    if (couple.godparent2Id) referencedIds.add(couple.godparent2Id.toString());
+  }
+  const profiles = await profileModel.getAll();
+  return profiles.filter(profile => !referencedIds.has(profile._id.toString()));
+}
+
+export async function getProfilesInCouple() {
+  const coupleModel = new CoupleModel();
+  const couples = await coupleModel.getCoupleMembers();
+  const referencedIds = new Set<string>();
+  for (const couple of couples) {
+    if (couple.member1Id) referencedIds.add(couple.member1Id.toString());
+    if (couple.member2Id) referencedIds.add(couple.member2Id.toString());
+    if (couple.godparent1Id) referencedIds.add(couple.godparent1Id.toString());
+    if (couple.godparent2Id) referencedIds.add(couple.godparent2Id.toString());
+  }
+  const profiles = await profileModel.getAll();
+  return profiles.filter(profile => referencedIds.has(profile._id.toString()));
 }
