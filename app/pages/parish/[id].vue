@@ -134,9 +134,9 @@ import { toast } from 'vue-sonner';
 import z from 'zod';
 import { cn } from '~/lib/utils';
 import type { Archdiocese } from '~~/shared/schemas/models/archdiocese.schema';
+import { ParishSchema } from '~~/shared/schemas/models/parish.schema';
 import type { Profile } from '~~/shared/schemas/models/profile.schema';
 import type { User } from '~~/shared/schemas/models/user.schema';
-import { parishSchema } from '~~/shared/schemas/parish/index.schema';
 
 definePageMeta({
   title: 'Cadastrar Perfil',
@@ -146,7 +146,7 @@ definePageMeta({
 const route = useRoute();
 
 const { handleSubmit, setValues, setFieldValue, isSubmitting } = useForm({
-  validationSchema: toTypedSchema(parishSchema),
+  validationSchema: toTypedSchema(ParishSchema),
   initialValues: {
     _id: `${route.params.id}`,
   },

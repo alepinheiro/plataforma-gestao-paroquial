@@ -65,8 +65,7 @@
 <script lang='ts' setup>
 import { toast } from 'vue-sonner';
 import z from 'zod';
-import { archdioceseSchema } from '~~/shared/schemas/archdiocese/index.schema';
-import type { Archdiocese } from '~~/shared/schemas/models/archdiocese.schema';
+import { ArchdioceseSchema, type Archdiocese } from '~~/shared/schemas/models/archdiocese.schema';
 
 definePageMeta({
   title: 'Cadastrar Área',
@@ -76,9 +75,9 @@ definePageMeta({
 const route = useRoute();
 
 const { handleSubmit, isSubmitting } = useForm({
-  validationSchema: toTypedSchema(archdioceseSchema),
+  validationSchema: toTypedSchema(ArchdioceseSchema),
   initialValues: {
-    id: `${route.params.id}`,
+    _id: `${route.params.id}`,
   },
 });
 

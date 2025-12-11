@@ -118,7 +118,7 @@
 <script lang='ts' setup>
 import { toast } from 'vue-sonner';
 import { z } from 'zod';
-import { inviteFormSchema } from '~~/shared/schemas/invite/index.schema';
+import { InvitationSchema } from '~~/shared/schemas/models/invitation.schema';
 
 definePageMeta({
   title: 'Criar Convite',
@@ -130,10 +130,10 @@ if (!user.value) throw new Error('User not found');
 const route = useRoute();
 
 const { handleSubmit, isSubmitting } = useForm({
-  validationSchema: toTypedSchema(inviteFormSchema),
+  validationSchema: toTypedSchema(InvitationSchema),
   initialValues: {
-    id: `${route.params.id}`,
-    userId: user.value.profile._id,
+    _id: `${route.params.id}`,
+    // userId: user.value.profile._id,
     coupleId: session.value?.couple._id,
   },
 });
