@@ -1,7 +1,7 @@
 import type { z } from 'zod';
-import { CoupleSchema } from './couple.schema';
-import { ParishSchema } from './parish.schema';
-import { ProfileSchema } from './profile.schema';
+import { CoupleSchema } from '~~/shared/schemas/models/couple.schema';
+import { ParishSchema } from '~~/shared/schemas/models/parish.schema';
+import { ProfileSchema } from '~~/shared/schemas/models/profile.schema';
 
 /**
  * Schema para casal com detalhes (paróquia e membros populados)

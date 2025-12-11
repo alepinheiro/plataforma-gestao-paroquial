@@ -1,11 +1,11 @@
 import { ArchdioceseModel } from '~~/server/models/archdiocese.model';
-import { archdioceseSchema } from '~~/shared/schemas/archdiocese/index.schema';
+import { ArchdioceseSchema } from '~~/shared/schemas/models/archdiocese.schema';
 
 /**
  * Cria um perfil no sistema
  */
 export default eventHandler(async (event) => {
-  const { success, data, error } = archdioceseSchema.safeParse(
+  const { success, data, error } = ArchdioceseSchema.safeParse(
     await readBody(event),
   );
 
@@ -17,7 +17,7 @@ export default eventHandler(async (event) => {
   }
   const model = new ArchdioceseModel();
 
-  if (data.id === 'new') {
+  if (data._id === 'new') {
     const result = await model.create({
       name: data.name,
     });

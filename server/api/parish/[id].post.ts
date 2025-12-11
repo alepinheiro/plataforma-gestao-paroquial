@@ -1,11 +1,11 @@
 import { ParishModel } from '~~/server/models/parish.model';
-import { parishSchema } from '~~/shared/schemas/parish/index.schema';
+import { ParishSchema } from '~~/shared/schemas/models/parish.schema';
 
 /**
  * Cria um perfil no sistema
  */
 export default eventHandler(async (event) => {
-  const { success, data, error } = parishSchema.safeParse(
+  const { success, data, error } = ParishSchema.safeParse(
     await readBody(event),
   );
 

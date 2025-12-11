@@ -1,9 +1,5 @@
-import { parse } from 'date-fns';
-import { CoupleModel } from '~~/server/models/couple.model';
-// import { ProfileModel } from '~~/server/models/profile.model';
-// import { InvitationService } from '~~/server/services/invitation.service';
-// import { profileSchema } from '~~/shared/schemas/profile/index.schema';
-import { createCoupleSchema } from '~~/shared/schemas/couple/index.schema';
+import { createCouple } from '~~/server/services/couple.service';
+import { CoupleSchema } from '~~/shared/schemas/models/couple.schema';
 
 /**
  * Cria um casal através do token
@@ -17,10 +13,18 @@ export default eventHandler(async (event) => {
       message: 'ID not defined',
     });
   }
+  const body = await readBody(event);
 
-  const { success, data, error } = createCoupleSchema.safeParse(
-    await readBody(event),
-  );
+  const { success, data, error } = CoupleSchema
+    .omit({
+      createdAt: true,
+      updatedAt: true,
+      approvalStatus: true,
+    })
+    .safeParse({
+      ...body,
+      marriageDate: new Date(body.marriageDate),
+    });
 
   if (!success) {
     throw createError({
@@ -29,7 +33,6 @@ export default eventHandler(async (event) => {
     });
   }
   // const invitationService = new InvitationService();
-  const coupleModel = new CoupleModel();
   // const profileModel = new ProfileModel();
 
   // const invite = await invitationService.getByToken(id);
@@ -50,10 +53,7 @@ export default eventHandler(async (event) => {
   //   birthDate: parse(data.member2.birthDate, 'dd/MM/yyy', new Date()),
   // });
 
-  const couple = await coupleModel.create({
-    ...data,
-    marriageDate: parse(data.marriageDate, 'dd/MM/yyyy', new Date()),
-  });
+  const couple = await createCouple(data);
 
   return couple;
 });

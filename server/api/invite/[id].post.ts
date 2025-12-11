@@ -1,11 +1,11 @@
 import { InvitationService } from '~~/server/services/invitation.service';
-import { inviteFormSchema } from '~~/shared/schemas/invite/index.schema';
+import { InvitationSchema } from '~~/shared/schemas/models/invitation.schema';
 
 /**
  * Cria um convite no sistema
  */
 export default eventHandler(async (event) => {
-  const { success, data, error } = inviteFormSchema.safeParse(
+  const { success, data, error } = InvitationSchema.safeParse(
     await readBody(event),
   );
 
@@ -17,13 +17,13 @@ export default eventHandler(async (event) => {
   }
   const service = new InvitationService();
 
-  if (data.id === 'new') {
+  if (data._id === 'new') {
     const result = await service.create({
       status: 'PENDING',
-      inviteeId: data.userId,
-      inviterId: data.userId,
-      inviteeEmail: data.email,
-      coupleName: data.herName + ' do ' + data.hisName,
+      inviteeId: data.inviterId,
+      inviterId: data.inviterId,
+      inviteeEmail: 'email@example.com',
+      coupleName: data.coupleName,
     });
 
     return result;

@@ -14,11 +14,10 @@ export const CoupleSchema = z.object({
   approvalStatus: z.string().describe('Status de aprovação'),
   updatedAt: z.coerce.date().describe('Data de atualização'),
   marriageDate: z.coerce.date().describe('Data do matrimônio'),
-  godparent1Id: z.string().optional().describe('ID do padrinho 1'),
-  godparent2Id: z.string().optional().describe('ID do padrinho 2'),
   permissions: z.array(PermissionSchema).optional().describe('Permissões'),
   invitations: z.array(z.string()).optional().describe('IDs dos convites'),
   roles: z.array(RoleAssignmentSchema).optional().describe('Papéis atribuídos'),
+  coupleReferId: z.string().nullable().optional().describe('ID de referência do casal, se aplicável'),
 }).describe('Casal do movimento');
 
 export type Couple = z.infer<typeof CoupleSchema>;

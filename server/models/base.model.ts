@@ -13,7 +13,7 @@ export interface BaseDocument {
 /**
  * Tipo para criação de documentos (sem _id, createdAt, updatedAt)
  */
-export type CreateInput<T> = Omit<T, '_id' | 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateInput<T> = Omit<T, '_id' | 'approvalStatus' | 'createdAt' | 'updatedAt'>;
 
 /**
  * Tipo para atualização de documentos (campos parciais, sem _id, createdAt, updatedAt)

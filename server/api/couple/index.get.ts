@@ -7,7 +7,6 @@
  */
 
 import { getCouples } from '~~/server/services/couple.service';
-import { coupleListQuerySchema } from '~~/shared/schemas/couple/list-query.schema';
 
 /**
  * Handler do endpoint GET /api/couple
@@ -15,14 +14,14 @@ import { coupleListQuerySchema } from '~~/shared/schemas/couple/list-query.schem
  */
 export default eventHandler(async (event) => {
   try {
-    const query = getQuery(event);
-    const result = coupleListQuerySchema.safeParse(query);
-    if (!result.success) {
-      throw createError({
-        statusCode: 400,
-        message: result.error.message,
-      });
-    }
+    // const query = getQuery(event);
+    // const result = couplede.safeParse(query);
+    // if (!result.success) {
+    //   throw createError({
+    //     statusCode: 400,
+    //     message: result.error.message,
+    //   });
+    // }
     // Passa objeto validado para o service
     return await getCouples();
   }

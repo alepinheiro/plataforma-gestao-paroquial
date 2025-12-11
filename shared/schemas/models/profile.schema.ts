@@ -10,6 +10,7 @@ export const ProfileSchema = z.object({
   address: AddressSchema,
   _id: z.string().describe('ID do perfil'),
   email: z.email({ error: 'E-mail inválido.' }).describe('E-mail').toLowerCase(),
+  coupleId: z.string().nullable().optional().describe('ID do casal, se aplicável'),
   createdAt: z.coerce.date({ error: 'Data de criação inválida.' }).describe('Data de criação'),
   updatedAt: z.coerce.date({ error: 'Data de atualização inválida.' }).describe('Data de atualização'),
   birthDate: z.coerce.date({ error: 'Data de nascimento é obrigatória.' }).describe('Data de nascimento'),
